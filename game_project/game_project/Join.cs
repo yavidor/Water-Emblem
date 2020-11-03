@@ -17,16 +17,17 @@ namespace game_project
         {
             this.port = port;
             this.ip = ip;
+            startCommunication();
 
         }
         public override void sockt()
         {
             client = new TcpClient();
-            client.Connect(IPAddress.Any, port);
+            client.Connect(ip,port);
             Game1.msg = "connecting to server";
             while (true)
             {
-
+                Thread.Sleep(100);
             }
         }
     }

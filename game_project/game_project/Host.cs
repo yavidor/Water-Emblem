@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
+
 namespace game_project
 {
     class Host : Online
@@ -25,11 +26,13 @@ namespace game_project
             TcpListener listener = new TcpListener(IPAddress.Any, port);
             listener.Start();
             client = listener.AcceptTcpClient();
-            int stam = 5;
-            stam++;
-            Game1.msg = stam.ToString();
+           
+            
             while (true)
             {
+                Thread.Sleep(100);
+                stam++;
+                Game1.msg = stam.ToString();
             }
 
         }

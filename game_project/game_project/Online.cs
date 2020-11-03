@@ -14,8 +14,9 @@ namespace game_project
         abstract class Online
         {
             protected int port;
-            protected String ip;
+            protected string ip;
             protected Thread thread;
+            protected int stam = 5;
             protected TcpClient client;
             #region private_func
             protected void startCommunication()

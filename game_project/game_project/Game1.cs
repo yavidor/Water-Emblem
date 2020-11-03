@@ -45,16 +45,20 @@ namespace game_project
                 case State.ask:
                     if (Keyboard.GetState().IsKeyDown(Keys.H))
                     {
+                        msg = "H";
                         Window.Title = msg;
+                        state = State.connecting;
                         online = new Host(666);
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.J))
                     {
+                        state = State.connecting;
+                        Window.Title = "fuck";
                         online = new Join(666, "127.0.0.1");
                     }
                     break;
                 case State.connecting:
-
+                    Window.Title = msg;
                     break;
                 case State.playing:
                     break;
