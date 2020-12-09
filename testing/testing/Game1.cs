@@ -13,13 +13,18 @@ namespace testing
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        TmxMap map;
-        Texture2D tileset;
-
-        int tileWidth;
-        int tileHeight;
-        int tilesetTilesWide;
-        int tilesetTilesHigh;
+        public static TmxMap map { get; set; }
+        Texture2D tileset, highlight, cursor;
+        bool flag = false;
+        double timer = 0;
+        Spot[,] grid;
+        Spot chosen;
+        KeyboardState lastkey;
+        public static int tileWidth;
+        public static int tileHeight;
+        public static int tilesetTilesWide;
+        public static int tilesetTilesHigh;
+        SpriteFont font;
 
         public Game1()
         {
@@ -28,21 +33,33 @@ namespace testing
         }
 
         protected override void Initialize()
-        { 
+        {
+            this.IsMouseVisible = true;
             base.Initialize();
         }
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            font = Content.Load<SpriteFont>("font");
+            cursor = Content.Load<Texture2D>("chosen");
+            highlight = Content.Load<Texture2D>("blue");
             map = new TmxMap("Content/balanced.tmx");
             tileset = Content.Load<Texture2D>(map.Tilesets[0].Name.ToString());
-
+            Console.WriteLine(tileset);
+            grid = new Spot[map.Width, map.Height];
             tileWidth = map.Tilesets[0].TileWidth;
             tileHeight = map.Tilesets[0].TileHeight;
-
+            graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
+            graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
+            graphics.ApplyChanges();
             tilesetTilesWide = tileset.Width / tileWidth;
             tilesetTilesHigh = tileset.Height / tileHeight;
+            for (var i = 0; i < map.Layers[0].Tiles.Count; i++)
+            {
+                Spot spot = new Spot(map.Layers[0].Tiles[i].Gid - 1, i);
+                grid[(int)spot.x / map.TileWidth, (int)spot.y / map.TileHeight] = spot;
+            }
+            chosen = grid[0, 0];
             // TODO: use this.Content to load your game content here
         }
 
@@ -60,9 +77,17 @@ namespace testing
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
-
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && lastkey.IsKeyUp(Keys.Space))
+                flag = !flag;
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) && ((int)chosen.x / map.TileWidth) < map.Width-1)
+                chosen = grid[((int)chosen.x / map.TileWidth)+1, ((int)chosen.y / map.TileHeight)];
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) && lastkey.IsKeyUp(Keys.Left) && ((int)chosen.x / map.TileWidth) >0)
+                chosen = grid[((int)chosen.x / map.TileWidth) - 1, ((int)chosen.y / map.TileHeight)];
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastkey.IsKeyUp(Keys.Up) && ((int)chosen.y / map.TileHeight) > 0)
+                chosen = grid[((int)chosen.x / map.TileWidth) , ((int)chosen.y / map.TileHeight) - 1];
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) && lastkey.IsKeyUp(Keys.Down) && ((int)chosen.y / map.TileHeight) < map.Height-1)
+                chosen = grid[((int)chosen.x / map.TileWidth), ((int)chosen.y / map.TileHeight) + 1];
+            lastkey = Keyboard.GetState();
             base.Update(gameTime);
         }
 
@@ -74,33 +99,29 @@ namespace testing
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-
-            for (var i = 0; i < map.Layers[0].Tiles.Count; i++)
+            timer += 0.1;
+            for (int i = 0; i < grid.GetLength(0); i++)
             {
-                int gid = map.Layers[0].Tiles[i].Gid;
-
-                // Empty tile, do nothing
-                if (gid == 0)
+                for (int j = 0; j < grid.GetLength(1); j++)
                 {
 
-                }
-                else
-                {
-                    int tileFrame = gid - 1;
-                    int column = tileFrame % tilesetTilesWide;
-                    int row = (int)Math.Floor((double)tileFrame / (double)tilesetTilesWide);
+                    if (grid[i, j].frame == 1)
+                    {
 
-                    float x = (i % map.Width) * map.TileWidth;
-                    float y = (float)Math.Floor(i / (double)map.Width) * map.TileHeight;
-
-                    Rectangle tilesetRec = new Rectangle(tileWidth * column, tileHeight * row, tileWidth, tileHeight);
-
-                    spriteBatch.Draw(tileset, new Rectangle((int)x, (int)y, tileWidth, tileHeight), tilesetRec, Color.White);
+                        Console.WriteLine("Oh oh");
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(tileset, new Rectangle((int)grid[i, j].x, (int)grid[i, j].y, tileWidth, tileHeight), grid[i, j].rec, Color.White);
+                        if (grid[i, j].walkable && flag)
+                            //spriteBatch.Draw(high, new Vector2(spot.x, spot.y), Color.White * 0.2f);
+                            spriteBatch.Draw(highlight, new Rectangle((int)grid[i, j].x, (int)grid[i, j].y, tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth, 0, tileWidth, tileHeight), Color.White * 0.75f);
+                    }
                 }
             }
-
+            spriteBatch.Draw(cursor, new Vector2((int)chosen.x, (int)chosen.y), Color.White * 0.75f);
             spriteBatch.End();
-            base.Draw(gameTime);
+                base.Draw(gameTime);
+            }
         }
     }
-}

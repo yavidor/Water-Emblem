@@ -53,7 +53,7 @@ namespace game_project
                     if (Keyboard.GetState().IsKeyDown(Keys.J))
                     {
                         state = State.connecting;
-                        Window.Title = "fuck";
+                        Window.Title = "mitchaber";
                         online = new Join(666, "127.0.0.1");
                     }
                     break;
