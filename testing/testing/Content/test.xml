@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:testing="testing">
+  <Asset Type="testing:Unit">
+    <str>hello</str>
+    <a>
+      <num>
+        <Item>h</Item>
+        <Item>o</Item>
+        <Item>w</Item>
+        <Item>d</Item>
+        <Item>y</Item>
+      </num>
+      <str>hello</str>
+      <boo>xD</boo>
+    </a>
+  </Asset>
+</XnaContent>

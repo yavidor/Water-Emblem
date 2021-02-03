@@ -22,14 +22,14 @@ namespace testing
             col = gid % Game1.tilesetTilesWide;
             this.row = (int)Math.Floor((double)gid / (double)Game1.tilesetTilesWide);
 
-             this.x = (tileCount % Game1.map.Width) * Game1.map.TileWidth;
-             this.y = (float)Math.Floor(tileCount / (double)Game1.map.Width) * Game1.map.TileHeight;
+             this.x = (tileCount % Game1.map.Width);
+             this.y = (float)Math.Floor(tileCount / (double)Game1.map.Width);
 
             this.rec = new Rectangle(Game1.tileWidth * col, Game1.tileHeight * row, Game1.tileWidth, Game1.tileHeight);
         }
         public String toString()
         {
-            return frame.ToString();
+            return "col: " + col + " row: " + row + " x:" + x + " y:" + y;
         }
     }
 }

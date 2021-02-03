@@ -1,7 +1,7 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/$(Platform)
+/outputDir:..\bin\Windows\x86\Debug\Content
 /intermediateDir:obj/$(Platform)
 /platform:Windows
 /config:
@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\XMLData\bin\Debug\XMLData.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -55,4 +56,26 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Overworld Bern Tower.png
+
+#begin spritt.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spritt.jpg
+
+#begin typess.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:typess.xml
+
+#begin Unit.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Unit.xml
 

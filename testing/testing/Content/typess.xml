@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+  <Asset Type="XMLData.Dtyoe">
+  <num>
+<Item>h</Item>
+<Item>e</Item>
+<Item>l</Item>
+<Item>l</Item>
+<Item>o</Item>
+</num>
+<str>hello</str> 
+<boo>lol</boo>
+</Asset>
+</XnaContent>

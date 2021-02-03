@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+  <Asset Type="XMLData.Unit">
+  
+  <sprite>spritt</sprite>
+  <!--
+<str>rts</str>
+<a>
+     <num>
+        <Item>h</Item>
+        <Item>o</Item>
+        <Item>w</Item>
+        <Item>d</Item>
+        <Item>y</Item>
+      </num>
+	  <str></str>	
+<boo>hello</boo>
+</a> -->
+</Asset>
+</XnaContent>

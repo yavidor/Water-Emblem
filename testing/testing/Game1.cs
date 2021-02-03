@@ -2,7 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Reflection;
+using System.Xml;
 using TiledSharp;
+using XMLData;
 
 namespace testing
 {
@@ -11,6 +14,9 @@ namespace testing
     /// </summary>
     public class Game1 : Game
     {
+        Unit typo;
+        Texture2D t2;
+        public enum GameStates {SELECT,MOVE,ACTION,TARGET};
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static TmxMap map { get; set; }
@@ -57,7 +63,7 @@ namespace testing
             for (var i = 0; i < map.Layers[0].Tiles.Count; i++)
             {
                 Spot spot = new Spot(map.Layers[0].Tiles[i].Gid - 1, i);
-                grid[(int)spot.x / map.TileWidth, (int)spot.y / map.TileHeight] = spot;
+                grid[(int)spot.x, (int)spot.y] = spot;
             }
             chosen = grid[0, 0];
             // TODO: use this.Content to load your game content here
@@ -79,14 +85,19 @@ namespace testing
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && lastkey.IsKeyUp(Keys.Space))
                 flag = !flag;
-            if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) && ((int)chosen.x / map.TileWidth) < map.Width-1)
-                chosen = grid[((int)chosen.x / map.TileWidth)+1, ((int)chosen.y / map.TileHeight)];
-            if (Keyboard.GetState().IsKeyDown(Keys.Left) && lastkey.IsKeyUp(Keys.Left) && ((int)chosen.x / map.TileWidth) >0)
-                chosen = grid[((int)chosen.x / map.TileWidth) - 1, ((int)chosen.y / map.TileHeight)];
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastkey.IsKeyUp(Keys.Up) && ((int)chosen.y / map.TileHeight) > 0)
-                chosen = grid[((int)chosen.x / map.TileWidth) , ((int)chosen.y / map.TileHeight) - 1];
-            if (Keyboard.GetState().IsKeyDown(Keys.Down) && lastkey.IsKeyUp(Keys.Down) && ((int)chosen.y / map.TileHeight) < map.Height-1)
-                chosen = grid[((int)chosen.x / map.TileWidth), ((int)chosen.y / map.TileHeight) + 1];
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) && ((int)chosen.x) < map.Width-1)
+                chosen = grid[((int)chosen.x)+1, ((int)chosen.y)];
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) && lastkey.IsKeyUp(Keys.Left) && ((int)chosen.x) >0)
+                chosen = grid[((int)chosen.x) - 1, ((int)chosen.y)];
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastkey.IsKeyUp(Keys.Up) && ((int)chosen.y) > 0)
+                chosen = grid[((int)chosen.x) , ((int)chosen.y) - 1];
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) && lastkey.IsKeyUp(Keys.Down) && ((int)chosen.y) < map.Height - 1)
+            {
+                chosen = grid[((int)chosen.x), ((int)chosen.y) + 1];
+                Console.WriteLine(grid[(int)chosen.x, (int)chosen.y].toString());
+
+              
+            }
             lastkey = Keyboard.GetState();
             base.Update(gameTime);
         }
@@ -100,11 +111,11 @@ namespace testing
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             timer += 0.1;
+           
             for (int i = 0; i < grid.GetLength(0); i++)
             {
                 for (int j = 0; j < grid.GetLength(1); j++)
-                {
-
+                { 
                     if (grid[i, j].frame == 1)
                     {
 
@@ -112,14 +123,17 @@ namespace testing
                     }
                     else
                     {
-                        spriteBatch.Draw(tileset, new Rectangle((int)grid[i, j].x, (int)grid[i, j].y, tileWidth, tileHeight), grid[i, j].rec, Color.White);
+                        
+                        spriteBatch.Draw(tileset, new Rectangle((int)grid[i, j].x*map.TileWidth, (int)grid[i, j].y*map.TileHeight, tileWidth, tileHeight), grid[i, j].rec, Color.White);
                         if (grid[i, j].walkable && flag)
-                            //spriteBatch.Draw(high, new Vector2(spot.x, spot.y), Color.White * 0.2f);
-                            spriteBatch.Draw(highlight, new Rectangle((int)grid[i, j].x, (int)grid[i, j].y, tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth, 0, tileWidth, tileHeight), Color.White * 0.75f);
+                          // spriteBatch.Draw(high, new Vector2(spot.x, spot.y), Color.White * 0.2f);
+                            spriteBatch.Draw(highlight, new Rectangle((int)grid[i, j].x*map.TileWidth, (int)grid[i, j].y*map.TileHeight, tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth, 0, tileWidth, tileHeight), Color.White * 0.75f);
                     }
                 }
             }
-            spriteBatch.Draw(cursor, new Vector2((int)chosen.x, (int)chosen.y), Color.White * 0.75f);
+            spriteBatch.Draw(t2, new Vector2((int)chosen.x * map.TileWidth, (int)chosen.y * map.TileHeight), Color.White);
+            spriteBatch.Draw(cursor, new Vector2((int)chosen.x*map.TileWidth, (int)chosen.y*map.TileHeight), Color.White * 0.75f);
+            
             spriteBatch.End();
                 base.Draw(gameTime);
             }

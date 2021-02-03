@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+  <Asset Type="Object">
+  	<Unit>
+		<Name>Ike</Name>
+		<Class>Ranger</Class>
+		<Stats>
+		19,5,1,6,7,6,5,0,9,6
+		</Stats>
+		<!-- <Items> -->
+			<Weapon>Ragnell</Weapon>
+			<!--
+			<Potion>Normal-Potion</Potion>
+		</Items>
+		<Sprites>
+			<Portrait>Sprites/Protraits/Ike.png</Portrait>
+			<Attack>Sprites/Animations/Attacks/Ike.png</Attack>
+		</Sprites>
+		-->
+	</Unit>
+
+  </Asset>
+</XnaContent>
