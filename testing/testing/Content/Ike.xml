@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+  <Asset Type="XMLData.UnitData">
+  
+	<Name>Ike</Name>
+	<Class>Lord</Class>
+	
+	<Stats>
+		<Item>
+			<Key>HP</Key>
+			<Value>2</Value>
+		</Item>
+		<Item>
+			<Key>STR</Key>
+			<Value>5</Value>
+		</Item>
+		<Item>
+			<Key>MAG</Key>
+			<Value>1</Value>
+		</Item>
+		<Item>
+			<Key>SKL</Key>
+			<Value>6</Value>
+		</Item>
+		<Item>
+			<Key>SPD</Key>
+			<Value>7</Value>
+		</Item>
+		<Item>
+			<Key>LCK</Key>
+			<Value>6</Value>
+		</Item>
+		<Item>
+			<Key>DEF</Key>
+			<Value>5</Value>
+		</Item>
+		<Item>
+			<Key>RES</Key>
+			<Value>0</Value>
+		</Item>
+		<Item>
+			<Key>CON</Key>
+			<Value>9</Value>
+		</Item>
+		<Item>
+			<Key>WT</Key>
+			<Value>9</Value>
+		</Item>
+		<Item>
+			<Key>MOV</Key>
+			<Value>3</Value>
+		</Item>
+	</Stats>
+	
+	<Items>
+		<Item>
+			<Key>Potion</Key>
+			<Value>
+				<Name>Normal Potion</Name>
+			</Value>
+		</Item>
+	</Items>
+	<Sprites>
+		<Item>
+			<Key>Protrait</Key>
+			<Value>Sprites/Portraits/IkePortrait</Value>
+		</Item>
+	</Sprites>
+		
+		
+		
+		<!--
+		
+		
+  
+<str>rts</str>
+<a>
+     <num>
+        <Item>h</Item>
+        <Item>o</Item>
+        <Item>w</Item>
+        <Item>d</Item>
+        <Item>y</Item>
+      </num>
+	  <str></str>	
+<boo>hello</boo>
+</a> -->
+</Asset>
+</XnaContent>

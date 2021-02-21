@@ -37,9 +37,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dtyoe.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Unit.cs" />
+    <Compile Include="ItemData.cs" />
+    <Compile Include="UnitData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

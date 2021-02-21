@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace XMLData
 {
-   public class Item
+   public class ItemData
     {
+        public string Name;
+        public string toString()
+        {
+            return Name;
+        }
     }
 }

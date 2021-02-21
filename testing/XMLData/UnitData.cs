@@ -7,18 +7,14 @@ using System.Text;
 
 namespace XMLData
 {
-    public class Unit
+    public class UnitData
     
         {
         public string Name;
         public string Class;
         public Dictionary<string,int> Stats;
-        public Dictionary<string,Item> Items;
+        public Dictionary<string,ItemData> Items;
         public Dictionary<string, string> Sprites;
    
-        public String ToString()
-        {
-            return "Name: " + Name;
-        }
         }
     }
