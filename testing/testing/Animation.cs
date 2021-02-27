@@ -11,6 +11,7 @@ namespace testing
 {
     class Animation
     {
+        #region Data
         /// <summary>
         /// The source of the animation
         /// </summary>
@@ -50,6 +51,8 @@ namespace testing
             get { return frameWidth; }
         }
         int frameWidth;
+        #endregion
+        #region CTOR
         public Animation(Texture2D texture, bool repeating, float timePerFrame, int frameWidth)
         {
             this.texture = texture;
@@ -66,5 +69,6 @@ namespace testing
 
 
         }
+        #endregion
     }
 }

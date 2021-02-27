@@ -8,7 +8,13 @@ namespace testing
 {
     class Weapon
     {
-        int mt, rng, wt;
-        float jot, crt;
+        /// <summary>
+        /// Dictionary containing the stats of the unit
+        /// MT: Might - Affects the amount of damage the weapon inflicts
+        /// RNG: Range - How far the weapon can attack
+        /// WT: Weight - How heavy the weapon is
+        /// MOV: Movement - Determines the number of adjacent tiles the unit can move in one turn
+        /// </summary>
+        public Dictionary<String, int> Stats;
     }
 }

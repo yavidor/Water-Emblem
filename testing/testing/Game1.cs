@@ -50,9 +50,8 @@ namespace testing
         }
         protected override void LoadContent()
         {
-            ud = Content.Load<UnitData>("Ike");
-            IkeTexture = Content.Load<Texture2D>(ud.Sprites["Portrait"][0]);
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            ud = Content.Load<UnitData>("Ike");
             font = Content.Load<SpriteFont>("font");
             cursor = Content.Load<Texture2D>("chosen");
             blue = Content.Load<Texture2D>("blue");
@@ -79,10 +78,10 @@ namespace testing
                     Grid[i, j].AddNeighbors();
                 }
             }
-            chosen = Grid[0, 0];
+            chosen = Grid[10, 19];
             Ike = new Unit(ud, Content)
             {
-                spot = Grid[10, 20]
+                Spot = Grid[10, 20]
             };
             Grid[10, 20].unit = Ike;
             Ike.manager.Play(Ike.Sprites["Portrait"]);
@@ -123,24 +122,31 @@ namespace testing
             {
                 chosen = Grid[((int)chosen.x), ((int)chosen.y) + 1];              
             }
-            if(Keyboard.GetState().IsKeyDown(Keys.Z) && lastkey.IsKeyUp(Keys.Z) && State == GameStates.SELECT)
+            if (Keyboard.GetState().IsKeyDown(Keys.Z) && lastkey.IsKeyUp(Keys.Z))
             {
-                Console.WriteLine("Well oh");
-                if (chosen.unit != null)
+                switch (State)
                 {
-                    State = GameStates.MOVE;
-                    ActiveUnit = chosen.unit;
-                }
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Z) && lastkey.IsKeyUp(Keys.Z) && State == GameStates.MOVE)
-            {
-                Console.WriteLine("oh well");
-                if (chosen.unit == null && ActiveUnit.ReachableSpots(Grid).Contains(chosen))
-                {
-                    State = GameStates.SELECT;
-                    ActiveUnit.spot.unit = null;
-                    ActiveUnit.spot = chosen;
-                    chosen.unit = ActiveUnit;
+                    case GameStates.SELECT:
+                        if (chosen.unit != null)
+                        {
+                            State = GameStates.MOVE;
+                            ActiveUnit = chosen.unit;
+                            ActiveUnit.manager.Play(ActiveUnit.Sprites["Running"]);
+                        }
+                        break;
+                    case GameStates.MOVE:
+                        if (chosen.unit == null && ActiveUnit.ReachableSpots(Grid).Contains(chosen))
+                        {
+                            State = GameStates.SELECT;
+                            ActiveUnit.Spot.unit = null;
+                            ActiveUnit.Spot = chosen;
+                            chosen.unit = ActiveUnit;
+                            ActiveUnit.manager.Play(ActiveUnit.Sprites["Portrait"]);
+                        }
+                        break;
+                    default:
+                        break;
+
                 }
             }
             lastkey = Keyboard.GetState();
@@ -184,9 +190,7 @@ namespace testing
                     }
                 }
             }
-            //spriteBatch.Draw(t2, new Vector2((int)chosen.x * map.TileWidth, (int)chosen.y * map.TileHeight), Color.White);
             spriteBatch.Draw(cursor, new Vector2((int)chosen.x*map.TileWidth, (int)chosen.y*map.TileHeight), Color.White * 0.75f);
-            //spriteBatch.Draw(IkeTexture, new Vector2((int)Ike.x * map.TileWidth, (int)Ike.y * map.TileHeight), Color.White * 0.75f);
             Ike.manager.Draw(gameTime, spriteBatch, new Vector2(Ike.x * map.TileWidth, Ike.y * map.TileHeight));
             spriteBatch.End();
                 base.Draw(gameTime);
