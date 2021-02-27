@@ -48,7 +48,7 @@
 		</Item>
 		<Item>
 			<Key>MOV</Key>
-			<Value>3</Value>
+			<Value>4</Value>
 		</Item>
 	</Stats>
 	
@@ -62,8 +62,22 @@
 	</Items>
 	<Sprites>
 		<Item>
-			<Key>Protrait</Key>
-			<Value>Sprites/Portraits/IkePortrait</Value>
+			<Key>Portrait</Key>
+			<Value>
+				<Item>Sprites/Portraits/IkeMoves</Item>
+				<Item>True</Item>
+				<Item>100</Item>
+				<Item>32</Item>
+			</Value>
+		</Item>
+		<Item>
+			<Key>Running</Key>
+			<Value>
+				<Item>Sprites/running</Item>
+				<Item>True</Item>
+				<Item>100</Item>
+				<Item>32</Item>
+			</Value>
 		</Item>
 	</Sprites>
 		

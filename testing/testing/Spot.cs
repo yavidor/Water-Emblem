@@ -14,7 +14,7 @@ namespace testing
         public Rectangle rec;
         public List<Spot> neighbors = new List<Spot>();
         public bool walkable = false;
-
+        public Unit unit;
         public Spot(int gid, int tileCount)
         {
             frame = gid;
@@ -32,7 +32,7 @@ namespace testing
         {
             return "col: " + col + " row: " + row + " x:" + x + " y:" + y;
         }
-        public void addNeighbors()
+        public void AddNeighbors()
         {
             if (this.x < Game1.map.Width - 1)
             {

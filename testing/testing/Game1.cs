@@ -15,17 +15,17 @@ namespace testing
     /// </summary>
     public class Game1 : Game
     {
-        UnitData ud;
-        Texture2D Ike;
-        Unit typo;
-        Texture2D t2;
         public enum GameStates {SELECT,MOVE,ACTION,TARGET};
+        UnitData ud;
+        Texture2D IkeTexture;
+        Unit Ike, ActiveUnit;
+        GameStates State = GameStates.SELECT;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static TmxMap map { get; set; }
         internal static Spot[,] Grid { get => grid; set => grid = value; }
 
-        Texture2D tileset, highlight, cursor;
+        Texture2D tileset, blue, cursor,red;
         bool flag = false;
         double timer = 0;
         private static Spot[,] grid;
@@ -51,14 +51,14 @@ namespace testing
         protected override void LoadContent()
         {
             ud = Content.Load<UnitData>("Ike");
-            Ike = Content.Load<Texture2D>(ud.Sprites["Protrait"]);
+            IkeTexture = Content.Load<Texture2D>(ud.Sprites["Portrait"][0]);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
             cursor = Content.Load<Texture2D>("chosen");
-            highlight = Content.Load<Texture2D>("blue");
+            blue = Content.Load<Texture2D>("blue");
+            red = Content.Load<Texture2D>("red");
             map = new TmxMap("Content/balanced.tmx");
             tileset = Content.Load<Texture2D>(map.Tilesets[0].Name.ToString());
-            Console.WriteLine(tileset);
             Grid = new Spot[map.Width, map.Height];
             tileWidth = map.Tilesets[0].TileWidth;
             tileHeight = map.Tilesets[0].TileHeight;
@@ -76,12 +76,16 @@ namespace testing
             {
                 for (int j = 0; j < Grid.GetLength(1); j++)
                 {
-                    Grid[i, j].addNeighbors();
+                    Grid[i, j].AddNeighbors();
                 }
             }
             chosen = Grid[0, 0];
-            typo = new Unit(ud);
-            typo.spot = chosen;
+            Ike = new Unit(ud, Content)
+            {
+                spot = Grid[10, 20]
+            };
+            Grid[10, 20].unit = Ike;
+            Ike.manager.Play(Ike.Sprites["Portrait"]);
             // TODO: use this.Content to load your game content here
         }
 
@@ -106,25 +110,38 @@ namespace testing
             if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) && ((int)chosen.x) < map.Width - 1)
             {
                 chosen = Grid[((int)chosen.x) + 1, ((int)chosen.y)];
-                typo.spot = chosen;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Left) && lastkey.IsKeyUp(Keys.Left) && ((int)chosen.x) > 0)
             {
                 chosen = Grid[((int)chosen.x) - 1, ((int)chosen.y)];
-                typo.spot = chosen;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastkey.IsKeyUp(Keys.Up) && ((int)chosen.y) > 0)
             {
                 chosen = Grid[((int)chosen.x), ((int)chosen.y) - 1];
-                typo.spot = chosen;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Down) && lastkey.IsKeyUp(Keys.Down) && ((int)chosen.y) < map.Height - 1)  
             {
-                chosen = Grid[((int)chosen.x), ((int)chosen.y) + 1];
-                typo.spot = chosen;
-                Console.WriteLine(typo.ToString());
-                Console.WriteLine(tileHeight);
-              
+                chosen = Grid[((int)chosen.x), ((int)chosen.y) + 1];              
+            }
+            if(Keyboard.GetState().IsKeyDown(Keys.Z) && lastkey.IsKeyUp(Keys.Z) && State == GameStates.SELECT)
+            {
+                Console.WriteLine("Well oh");
+                if (chosen.unit != null)
+                {
+                    State = GameStates.MOVE;
+                    ActiveUnit = chosen.unit;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Z) && lastkey.IsKeyUp(Keys.Z) && State == GameStates.MOVE)
+            {
+                Console.WriteLine("oh well");
+                if (chosen.unit == null && ActiveUnit.ReachableSpots(Grid).Contains(chosen))
+                {
+                    State = GameStates.SELECT;
+                    ActiveUnit.spot.unit = null;
+                    ActiveUnit.spot = chosen;
+                    chosen.unit = ActiveUnit;
+                }
             }
             lastkey = Keyboard.GetState();
             base.Update(gameTime);
@@ -139,7 +156,6 @@ namespace testing
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             timer += 0.1;
-           
             for (int i = 0; i < Grid.GetLength(0); i++)
             {
                 for (int j = 0; j < Grid.GetLength(1); j++)
@@ -153,11 +169,15 @@ namespace testing
                     {
 
                         spriteBatch.Draw(tileset, new Rectangle((int)Grid[i, j].x * map.TileWidth, (int)Grid[i, j].y * map.TileHeight, tileWidth, tileHeight), Grid[i, j].rec, Color.White);
-                        List<Spot> ls = typo.ReachableSpots(Grid);
-                        if (Grid[i, j].walkable && flag && ls.Contains(Grid[i, j]))
+                        List<Spot> ls = Ike.ReachableSpots(Grid);
+                        if (flag && ls.Contains(Grid[i, j]))
                         {
-                            // spriteBatch.Draw(high, new Vector2(spot.x, spot.y), Color.White * 0.2f);
-                            spriteBatch.Draw(highlight, new Rectangle((int)Grid[i, j].x * map.TileWidth, (int)Grid[i, j].y * map.TileHeight,
+                            if (State == GameStates.SELECT)
+                                spriteBatch.Draw(blue, new Rectangle((int)Grid[i, j].x * map.TileWidth, (int)Grid[i, j].y * map.TileHeight,
+                                    tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth, 0, tileWidth, tileHeight),
+                                    Color.White * 0.75f);
+                            else
+                            spriteBatch.Draw(red, new Rectangle((int)Grid[i, j].x * map.TileWidth, (int)Grid[i, j].y * map.TileHeight,
                                 tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth, 0, tileWidth, tileHeight),
                                 Color.White * 0.75f);
                         }
@@ -166,7 +186,8 @@ namespace testing
             }
             //spriteBatch.Draw(t2, new Vector2((int)chosen.x * map.TileWidth, (int)chosen.y * map.TileHeight), Color.White);
             spriteBatch.Draw(cursor, new Vector2((int)chosen.x*map.TileWidth, (int)chosen.y*map.TileHeight), Color.White * 0.75f);
-            spriteBatch.Draw(Ike, new Vector2((int)chosen.x * map.TileWidth, (int)chosen.y * map.TileHeight), Color.White * 0.75f);
+            //spriteBatch.Draw(IkeTexture, new Vector2((int)Ike.x * map.TileWidth, (int)Ike.y * map.TileHeight), Color.White * 0.75f);
+            Ike.manager.Draw(gameTime, spriteBatch, new Vector2(Ike.x * map.TileWidth, Ike.y * map.TileHeight));
             spriteBatch.End();
                 base.Draw(gameTime);
             }

@@ -14,7 +14,7 @@ namespace XMLData
         public string Class;
         public Dictionary<string,int> Stats;
         public Dictionary<string,ItemData> Items;
-        public Dictionary<string, string> Sprites;
+        public Dictionary<string, string[]> Sprites;
    
         }
     }

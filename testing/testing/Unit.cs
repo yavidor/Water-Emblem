@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XMLData;
 using TiledSharp;
+using Microsoft.Xna.Framework.Content;
 namespace testing
 {
     class Unit
@@ -22,15 +23,21 @@ namespace testing
         public string Class;
         public Dictionary<string, int> Stats;
         public Dictionary<string, ItemData> Items;
-        public Dictionary<string, string> Sprites;
+        public Dictionary<string, Animation> Sprites;
+        public AnimationManager manager;
 
-        public Unit(UnitData ud)
+        public Unit(UnitData ud,ContentManager content)
         {
             this.Name = ud.Name;
             this.Class = ud.Class;
             this.Stats = new Dictionary<string, int>(ud.Stats);
             this.Items = new Dictionary<string, ItemData>(ud.Items);
-            this.Sprites = new Dictionary<string, string>(ud.Sprites);
+            this.Sprites = new Dictionary<string, Animation>();
+            foreach (KeyValuePair<string,string[]> anim in ud.Sprites)
+            {
+                this.Sprites.Add(anim.Key, new Animation(anim.Value[0], anim.Value[1], anim.Value[2], anim.Value[3],content));
+            }
+            
         }
         public string ToString()
         {
@@ -59,7 +66,7 @@ namespace testing
                     if (dist[neighbor.x , neighbor.y] > this.Stats["MOV"])
                     {
                         dist[neighbor.x , neighbor.y] = 1 + dist[temp.x , temp.y];
-                        if (dist[neighbor.x , neighbor.y] <= this.Stats["MOV"])
+                        if (dist[neighbor.x , neighbor.y] <= this.Stats["MOV"] && grid[neighbor.x,neighbor.y].walkable)
                         {
                             queue.Enqueue(neighbor);
                         }
