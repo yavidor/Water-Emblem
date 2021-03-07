@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    struct AnimationManager
+   public struct AnimationManager
     {
         /// <summary>
         /// The animation itself

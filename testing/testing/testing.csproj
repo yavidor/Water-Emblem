@@ -67,6 +67,8 @@
     <Compile Include="Action.cs" />
     <Compile Include="Animation.cs" />
     <Compile Include="AnimationManager.cs" />
+    <Compile Include="Attack.cs" />
+    <Compile Include="G.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Painter.cs" />

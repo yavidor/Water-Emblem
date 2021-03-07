@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XMLData;
 
 namespace testing
 {
-    class Weapon
+    public class Weapon
     {
         /// <summary>
         /// Dictionary containing the stats of the unit
@@ -16,5 +17,9 @@ namespace testing
         /// MOV: Movement - Determines the number of adjacent tiles the unit can move in one turn
         /// </summary>
         public Dictionary<String, int> Stats;
+        public Weapon(WeaponData wd)
+        {
+            this.Stats = new Dictionary<string, int>(wd.Stats);
+        }
     }
 }

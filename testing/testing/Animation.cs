@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace testing
 {
-    class Animation
+    public class Animation
     {
         #region Data
         /// <summary>

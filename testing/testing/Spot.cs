@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    class Spot
+    public class Spot
     {
         #region data
         /// <summary>

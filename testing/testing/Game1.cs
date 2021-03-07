@@ -19,6 +19,7 @@ namespace testing
         UnitData ud;
         Texture2D IkeTexture;
         Unit Ike, ActiveUnit;
+        Attack attack;
         GameStates State = GameStates.SELECT;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -85,6 +86,8 @@ namespace testing
             };
             Grid[10, 20].unit = Ike;
             Ike.manager.Play(Ike.Sprites["Portrait"]);
+            attack = new Attack(Ike, Ike);
+            Console.WriteLine(attack.ToString());
             // TODO: use this.Content to load your game content here
         }
 
@@ -100,25 +103,31 @@ namespace testing
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && lastkey.IsKeyUp(Keys.Space))
             {
                 flag = !flag;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) && ((int)chosen.x) < map.Width - 1)
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) &&
+                ((int)chosen.x) < map.Width - 1)
             {
                 chosen = Grid[((int)chosen.x) + 1, ((int)chosen.y)];
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left) && lastkey.IsKeyUp(Keys.Left) && ((int)chosen.x) > 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) && lastkey.IsKeyUp(Keys.Left) &&
+                ((int)chosen.x) > 0)
             {
                 chosen = Grid[((int)chosen.x) - 1, ((int)chosen.y)];
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastkey.IsKeyUp(Keys.Up) && ((int)chosen.y) > 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastkey.IsKeyUp(Keys.Up) &&
+                ((int)chosen.y) > 0)
             {
                 chosen = Grid[((int)chosen.x), ((int)chosen.y) - 1];
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down) && lastkey.IsKeyUp(Keys.Down) && ((int)chosen.y) < map.Height - 1)  
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) && lastkey.IsKeyUp(Keys.Down) &&
+                ((int)chosen.y) < map.Height - 1)  
             {
                 chosen = Grid[((int)chosen.x), ((int)chosen.y) + 1];              
             }
@@ -141,7 +150,7 @@ namespace testing
                             ActiveUnit.Spot.unit = null;
                             ActiveUnit.Spot = chosen;
                             chosen.unit = ActiveUnit;
-                            ActiveUnit.manager.Play(ActiveUnit.Sprites["Portrait"]);
+                            ActiveUnit.manager.Play(ActiveUnit.Sprites["Link"]);
                         }
                         break;
                     default:
@@ -174,24 +183,32 @@ namespace testing
                     else
                     {
 
-                        spriteBatch.Draw(tileset, new Rectangle((int)Grid[i, j].x * map.TileWidth, (int)Grid[i, j].y * map.TileHeight, tileWidth, tileHeight), Grid[i, j].rec, Color.White);
+                        spriteBatch.Draw(tileset, new Rectangle((int)Grid[i, j].x * map.TileWidth,
+                            (int)Grid[i, j].y * map.TileHeight, tileWidth, tileHeight), Grid[i, j].rec,
+                            Color.White);
                         List<Spot> ls = Ike.ReachableSpots(Grid);
                         if (flag && ls.Contains(Grid[i, j]))
                         {
                             if (State == GameStates.SELECT)
-                                spriteBatch.Draw(blue, new Rectangle((int)Grid[i, j].x * map.TileWidth, (int)Grid[i, j].y * map.TileHeight,
-                                    tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth, 0, tileWidth, tileHeight),
+                                spriteBatch.Draw(blue, new Rectangle((int)Grid[i, j].x * map.TileWidth,
+                                    (int)Grid[i, j].y * map.TileHeight,
+                                    tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth,
+                                    0, tileWidth, tileHeight),
                                     Color.White * 0.75f);
                             else
-                            spriteBatch.Draw(red, new Rectangle((int)Grid[i, j].x * map.TileWidth, (int)Grid[i, j].y * map.TileHeight,
-                                tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth, 0, tileWidth, tileHeight),
+                            spriteBatch.Draw(red, new Rectangle((int)Grid[i, j].x * map.TileWidth,
+                                (int)Grid[i, j].y * map.TileHeight,
+                                tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth,
+                                0, tileWidth, tileHeight),
                                 Color.White * 0.75f);
                         }
                     }
                 }
             }
-            spriteBatch.Draw(cursor, new Vector2((int)chosen.x*map.TileWidth, (int)chosen.y*map.TileHeight), Color.White * 0.75f);
-            Ike.manager.Draw(gameTime, spriteBatch, new Vector2(Ike.x * map.TileWidth, Ike.y * map.TileHeight));
+            spriteBatch.Draw(cursor, new Vector2((int)chosen.x*map.TileWidth,
+                (int)chosen.y*map.TileHeight), Color.White * 0.75f);
+            Ike.manager.Draw(gameTime, spriteBatch, new Vector2(Ike.x * map.TileWidth,
+                Ike.y * map.TileHeight));
             spriteBatch.End();
                 base.Draw(gameTime);
             }

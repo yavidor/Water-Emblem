@@ -8,7 +8,7 @@ using TiledSharp;
 using Microsoft.Xna.Framework.Content;
 namespace testing
 {
-    class Unit
+    public class Unit
     {
         /// <summary>
         /// The spot where this unit is
@@ -52,6 +52,10 @@ namespace testing
         /// </summary>
         public Dictionary<string, int> Stats;
         /// <summary>
+        /// The weapon the unit is carrying
+        /// </summary>
+        public Weapon Weapon;
+        /// <summary>
         /// The items the unit is carrying. Maybe will be deleted
         /// </summary>
         public Dictionary<string, ItemData> Items;
@@ -72,6 +76,7 @@ namespace testing
         {
             this.Name = ud.Name;
             this.Class = ud.Class;
+            this.Weapon = new Weapon(ud.Weapon);
             this.Stats = new Dictionary<string, int>(ud.Stats);
             this.Items = new Dictionary<string, ItemData>(ud.Items);
             this.Sprites = new Dictionary<string, Animation>();
@@ -81,6 +86,10 @@ namespace testing
             }
             
         }
+        /// <summary>
+        /// Standart ToString function
+        /// </summary>
+        /// <returns>A string representing the unit</returns>
         public string ToString()
         {
             return $"Name: {this.Name} \n Class: {this.Class} \n Stats " +
@@ -128,6 +137,14 @@ namespace testing
                 }
             }
             return valid;
+        }
+        /// <summary>
+        /// Reduces the HP of the unit (can heal by inputing a negative numeber)
+        /// </summary>
+        /// <param name="damage">Amount of damage taken</param>
+        public void TakeDamage(int damage)
+        {
+            this.Stats["HP"] -= damage;
         }
     }
 }
