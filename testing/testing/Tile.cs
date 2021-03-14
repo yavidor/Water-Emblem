@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    public class Spot
+    public class Tile
     {
         #region data
         /// <summary>
-        /// the X and Y values in the grid of spots
+        /// the X and Y values in the grid of tiles
         /// </summary>
         public int x, y;
         /// <summary>
@@ -24,15 +24,15 @@ namespace testing
         /// </summary>
         public Rectangle rec;
         /// <summary>
-        /// A list of all neighboring spots. Not including diagonals
+        /// A list of all neighboring tiles. Not including diagonals
         /// </summary>
-        public List<Spot> neighbors = new List<Spot>();
+        public List<Tile> neighbors = new List<Tile>();
         /// <summary>
         /// Can units pass through this tile
         /// </summary>
         public bool walkable = false;
         /// <summary>
-        /// The unit in the spot
+        /// The unit in the tile
         /// </summary>
         public Unit unit;
         #endregion
@@ -40,9 +40,9 @@ namespace testing
         /// Constructor
         /// </summary>
         /// <param name="gid">index of the tile in the tilset</param>
-        /// <param name="tileCount">flat index of the spot in the grid</param>
-        /// <param name="unit">The unit in the spot, sets to null if not provided</param>
-        public Spot(int gid, int tileCount, Unit unit=null)
+        /// <param name="tileCount">flat index of the tile in the grid</param>
+        /// <param name="unit">The unit in the tile, sets to null if not provided</param>
+        public Tile(int gid, int tileCount, Unit unit=null)
         {
             frame = gid;
             this.unit = unit;

@@ -24,13 +24,13 @@ namespace testing
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static TmxMap map { get; set; }
-        internal static Spot[,] Grid { get => grid; set => grid = value; }
-
+        internal static Tile[,] Grid { get => grid; set => grid = value; }
+        Map Map;
         Texture2D tileset, blue, cursor,red;
         bool flag = false;
         double timer = 0;
-        private static Spot[,] grid;
-        Spot chosen;
+        private static Tile[,] grid;
+        Tile chosen;
         KeyboardState lastkey;
         public static int tileWidth;
         public static int tileHeight;
@@ -53,13 +53,14 @@ namespace testing
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ud = Content.Load<UnitData>("Ike");
+            Map = new Map();
             font = Content.Load<SpriteFont>("font");
             cursor = Content.Load<Texture2D>("chosen");
             blue = Content.Load<Texture2D>("blue");
             red = Content.Load<Texture2D>("red");
             map = new TmxMap("Content/balanced.tmx");
             tileset = Content.Load<Texture2D>(map.Tilesets[0].Name.ToString());
-            Grid = new Spot[map.Width, map.Height];
+            Grid = new Tile[map.Width, map.Height];
             tileWidth = map.Tilesets[0].TileWidth;
             tileHeight = map.Tilesets[0].TileHeight;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
@@ -69,8 +70,8 @@ namespace testing
             tilesetTilesHigh = tileset.Height / tileHeight;
             for (int i = 0; i < map.Layers[0].Tiles.Count; i++)
             {
-                Spot spot = new Spot(map.Layers[0].Tiles[i].Gid - 1, i);
-                Grid[spot.x, spot.y] = spot;
+                Tile Tile = new Tile(map.Layers[0].Tiles[i].Gid - 1, i);
+                Grid[Tile.x, Tile.y] = Tile;
             }
             for (int i = 0; i < Grid.GetLength(0); i++)
             {
@@ -82,12 +83,15 @@ namespace testing
             chosen = Grid[10, 19];
             Ike = new Unit(ud, Content)
             {
-                Spot = Grid[10, 20]
+                Tile = Grid[10, 20]
             };
             Grid[10, 20].unit = Ike;
-            Ike.manager.Play(Ike.Sprites["Portrait"]);
-            attack = new Attack(Ike, Ike);
+            Ike.Manager.Play(Ike.Sprites["Portrait"]);
+            Console.WriteLine(Ike.ToString());
+            attack = new Attack(Ike, Ike, false);
+            Console.WriteLine(Ike.ToString());  
             Console.WriteLine(attack.ToString());
+            Map.Initialize(this, map,Grid);
             // TODO: use this.Content to load your game content here
         }
 
@@ -140,17 +144,17 @@ namespace testing
                         {
                             State = GameStates.MOVE;
                             ActiveUnit = chosen.unit;
-                            ActiveUnit.manager.Play(ActiveUnit.Sprites["Running"]);
+                            ActiveUnit.Manager.Play(ActiveUnit.Sprites["Running"]);
                         }
                         break;
                     case GameStates.MOVE:
-                        if (chosen.unit == null && ActiveUnit.ReachableSpots(Grid).Contains(chosen))
+                        if (chosen.unit == null && ActiveUnit.ReachableTiles(Grid).Contains(chosen))
                         {
                             State = GameStates.SELECT;
-                            ActiveUnit.Spot.unit = null;
-                            ActiveUnit.Spot = chosen;
+                            ActiveUnit.Tile.unit = null;
+                            ActiveUnit.Tile = chosen;
                             chosen.unit = ActiveUnit;
-                            ActiveUnit.manager.Play(ActiveUnit.Sprites["Link"]);
+                            ActiveUnit.Manager.Play(ActiveUnit.Sprites["Portrait"]);
                         }
                         break;
                     default:
@@ -170,6 +174,7 @@ namespace testing
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+             Map.Draw(spriteBatch);
             timer += 0.1;
             for (int i = 0; i < Grid.GetLength(0); i++)
             {
@@ -183,10 +188,11 @@ namespace testing
                     else
                     {
 
-                        spriteBatch.Draw(tileset, new Rectangle((int)Grid[i, j].x * map.TileWidth,
-                            (int)Grid[i, j].y * map.TileHeight, tileWidth, tileHeight), Grid[i, j].rec,
-                            Color.White);
-                        List<Spot> ls = Ike.ReachableSpots(Grid);
+                        //spriteBatch.Draw(tileset, new Rectangle((int)Grid[i, j].x * map.TileWidth,
+                        //  (int)Grid[i, j].y * map.TileHeight, tileWidth, tileHeight), Grid[i, j].rec,
+                        //Color.White);
+                       
+                        List<Tile> ls = Ike.ReachableTiles(Grid);
                         if (flag && ls.Contains(Grid[i, j]))
                         {
                             if (State == GameStates.SELECT)
@@ -207,7 +213,7 @@ namespace testing
             }
             spriteBatch.Draw(cursor, new Vector2((int)chosen.x*map.TileWidth,
                 (int)chosen.y*map.TileHeight), Color.White * 0.75f);
-            Ike.manager.Draw(gameTime, spriteBatch, new Vector2(Ike.x * map.TileWidth,
+            Ike.Manager.Draw(gameTime, spriteBatch, new Vector2(Ike.x * map.TileWidth,
                 Ike.y * map.TileHeight));
             spriteBatch.End();
                 base.Draw(gameTime);

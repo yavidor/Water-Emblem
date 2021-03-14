@@ -12,15 +12,17 @@ namespace testing
         public Unit Target { get; set; }
         public Unit SourceAfter;
         public Unit TargetAfter;
+        public bool Undo;
         public Action()
         {}
 
-        public Action(Unit Source,Unit Target)
+        public Action(Unit Source,Unit Target, bool Undo)
         {
             this.Source = Source;
             this.Target = Target;
+            this.Undo = Undo;
         }
-        public void Execute(bool redo)
+        public void Execute()
         {
 
         }

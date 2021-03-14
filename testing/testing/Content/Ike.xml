@@ -85,15 +85,6 @@
 				<Item>32</Item>
 			</Value>
 		</Item>
-		<Item>
-		<Key>Link</Key>
-		<Value>
-			<Item>Link FE</Item>
-			<Item>False</Item>
-			<Item>150</Item>
-			<Item>32</Item>
-		</Value>
-		</Item>
 	</Sprites>
 		
 		

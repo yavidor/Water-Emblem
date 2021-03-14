@@ -8,11 +8,17 @@ namespace testing
 {
     public class Attack : Action
     {
-        public Unit Source;
-        public Unit Target;
-        public Attack(Unit Source, Unit Target) : base(Source, Target)
+        public Attack(Unit Source, Unit Target, bool Undo) : base(Source, Target, Undo)
         {
-            Target.TakeDamage(Source.Stats["STR"] + Source.Weapon.Stats["MT"] - Target.Stats["DEF"]);
+        }
+        public void Execute()
+        {
+            int damage = Source.Stats["STR"] + Source.Weapon.Stats["MT"] - Target.Stats["DEF"];
+            if (Undo)
+            {
+                damage *= -1;
+            }
+            Target.TakeDamage(damage);
         }
     }
 }
