@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using XMLData;
 using TiledSharp;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace testing
 {
     public class Unit
@@ -33,9 +35,11 @@ namespace testing
         /// </summary>
         public string Name;
         /// <summary>
-        /// Class of the unit
+        /// Which player controls of the unit.
+        /// True = Player 1 (The host)
+        /// False = Player 2 (The computer in case of a game against the computer)
         /// </summary>
-        public string Class;
+        public bool Player;
         /// <summary>
         /// Dictionary containing the stats of the unit
         /// HP: Health Points - units dies when reaches 0
@@ -56,13 +60,9 @@ namespace testing
         /// </summary>
         public Weapon Weapon;
         /// <summary>
-        /// The items the unit is carrying. Maybe will be deleted
-        /// </summary>
-        public Dictionary<string, ItemData> Items;
-        /// <summary>
         /// The animations and sprites of the unit
         /// </summary>
-        public Dictionary<string, Animation> Sprites;
+        public Animation Sprite;
         /// <summary>
         /// The animation manager for this unit
         /// </summary>
@@ -75,15 +75,11 @@ namespace testing
         public Unit(UnitData ud,ContentManager Content)
         {
             this.Name = ud.Name;
-            this.Class = ud.Class;
+            this.Player = ud.Player;
             this.Weapon = new Weapon(ud.Weapon);
             this.Stats = new Dictionary<string, int>(ud.Stats);
-            this.Items = new Dictionary<string, ItemData>(ud.Items);
-            this.Sprites = new Dictionary<string, Animation>();
-            foreach (KeyValuePair<string,string[]> anim in ud.Sprites)
-            {
-                this.Sprites.Add(anim.Key, new Animation(anim.Value[0], anim.Value[1], anim.Value[2], anim.Value[3],Content));
-            }
+            this.Sprite = new Animation($"Sprites/{this.Name}{Convert.ToInt32(this.Player)}", ud.Sprite[0], ud.Sprite[1], ud.Sprite[2],Content);
+            
             
         }
         /// <summary>
@@ -92,19 +88,26 @@ namespace testing
         /// <returns>A string representing the unit</returns>
         public string ToString()
         {
-            return $"Name: {this.Name} \n Class: {this.Class} \n Stats " +
+            return this.Name;
+          /*  return $"Name: {this.Name} \n Class: {this.Class} \n Stats " +
                 "{ " + string.Join(",", this.Stats.Select(kv => kv.Key + " = " + kv.Value).ToArray()) + "}"
                 + "\n Items: { " + string.Join(",", this.Items.Select(kv => kv.Key + " = " + kv.Value).ToArray()) + "}"
                 + "\n Sprites: { " + string.Join(",", this.Sprites.Select(kv => kv.Key + " = " + kv.Value).ToArray()) + "}";
-        }
+    */   
+    }
         /// <summary>
         /// Finds every tiles the unit can reach
         /// </summary>
         /// <param name="grid">The grid of tiles the game is set in</param>
+        /// <param name="WalkOrAttack">Tells the function
+        /// if it should use movement distance of the unit
+        /// or the range of the weapon, true is movement and false is weapon range</param>
         /// <returns>A list of the valid tiles</returns>
-        public List<Tile> ReachableTiles(Tile[,] grid)
+        public List<Tile> ReachableTiles(Map Map, bool WalkOrAttack)
         {
+            int? range = WalkOrAttack ? this.Stats["MOV"] : this.Weapon.Stats["RNG"];
             Tile temp;
+            Tile[,] grid = Map.Grid;
             Queue<Tile> queue = new Queue<Tile>();
             List<Tile> valid = new List<Tile>();
             int[,] dist = new int[grid.GetLength(0) , grid.GetLength(1)];
@@ -120,18 +123,18 @@ namespace testing
             while (queue.Count != 0)
             {
                 temp = queue.Dequeue();
-                foreach (Tile neighbor in temp.neighbors)
+                foreach (Tile neighbor in temp.Neighbors)
                 {
-                    if (dist[neighbor.x , neighbor.y] > this.Stats["MOV"])
+                    if (dist[neighbor.x , neighbor.y] > range)
                     {
                         dist[neighbor.x , neighbor.y] = 1 + dist[temp.x , temp.y];
-                        if (dist[neighbor.x , neighbor.y] <= this.Stats["MOV"] && grid[neighbor.x,neighbor.y].walkable)
+                        if (dist[neighbor.x , neighbor.y] <= range && grid[neighbor.x,neighbor.y].Walkable)
                         {
                             queue.Enqueue(neighbor);
                         }
                     }
                 }
-                if (dist[temp.x , temp.y] > 0 && dist[temp.x , temp.y] <= this.Stats["MOV"])
+                if (dist[temp.x , temp.y] > 0 && dist[temp.x , temp.y] <= range)
                 {
                     valid.Add(temp);
                 }
@@ -145,6 +148,35 @@ namespace testing
         public void TakeDamage(int damage)
         {
             this.Stats["HP"] -= damage;
+        }
+        /// <summary>
+        /// Generates every possible action this unit can take
+        /// </summary>
+        /// <param name="Map">The current board</param>
+        /// <returns>A list of all possible actions</returns>
+        public List<Action> GetActions(Map Map)
+        {
+            List<Action> actions = new List<Action>();
+            List<Tile> Moves = this.ReachableTiles(Map,true);
+            foreach (Tile tile in Moves)
+            {
+                if (tile.Unit == null) {
+                    Move move = new Move(this, tile, false);
+                    actions.Add(move);
+                    move.Execute();
+                    foreach (Tile tileAttack in this.ReachableTiles(Map, false))
+                    {
+                        if (tileAttack.Unit != null)
+                        {
+                            Attack attack = new Attack(this, tileAttack.Unit, false);
+                            actions.Add(attack);
+                        }
+                    }
+                    move.Undo = true;
+                    move.Execute();
+                }
+            }
+                return actions;
         }
     }
 }

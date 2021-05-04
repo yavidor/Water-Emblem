@@ -2,13 +2,17 @@
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
   <Asset Type="XMLData.UnitData">
   
-	<Name>Ike</Name>
-	<Class>Lord</Class>
+	<Name>Epharim</Name>
+	<Player>false</Player>
 	<Weapon>
 		<Stats>
 			<Item>
 				<Key>MT</Key>
 				<Value>5</Value>
+			</Item>
+			<Item>
+				<Key>RNG</Key>
+				<Value>2</Value>
 			</Item>
 		</Stats>
 	</Weapon>
@@ -58,52 +62,11 @@
 			<Value>4</Value>
 		</Item>
 	</Stats>
-	<Items>
-		<Item>
-			<Key>Potion</Key>
-			<Value>
-				<Name>Normal Potion</Name>
-			</Value>
-		</Item>
-	</Items>
-	<Sprites>
-		<Item>
-			<Key>Portrait</Key>
-			<Value>
-				<Item>Sprites/Portraits/IkeMoves</Item>
-				<Item>True</Item>
+	<Sprite>
+				<Item>False</Item>
 				<Item>100</Item>
-				<Item>32</Item>
-			</Value>
-		</Item>
-		<Item>
-			<Key>Running</Key>
-			<Value>
-				<Item>Sprites/running</Item>
-				<Item>True</Item>
-				<Item>100</Item>
-				<Item>32</Item>
-			</Value>
-		</Item>
-	</Sprites>
-		
-		
-		
-		<!--
-		
-		
-  
-<str>rts</str>
-<a>
-     <num>
-        <Item>h</Item>
-        <Item>o</Item>
-        <Item>w</Item>
-        <Item>d</Item>
-        <Item>y</Item>
-      </num>
-	  <str></str>	
-<boo>hello</boo>
-</a> -->
+				<Item>40</Item>
+			
+	</Sprite>
 </Asset>
 </XnaContent>

@@ -13,9 +13,7 @@ namespace testing
         public Unit SourceAfter;
         public Unit TargetAfter;
         public bool Undo;
-        public Action()
-        {}
-
+        public abstract string ToString();
         public Action(Unit Source,Unit Target, bool Undo)
         {
             this.Source = Source;
@@ -25,10 +23,6 @@ namespace testing
         public void Execute()
         {
 
-        }
-        public String ToString()
-        {
-            return $"Soure: {this.Source.ToString()} Target: {this.Target.ToString()}";
         }
     }
 }

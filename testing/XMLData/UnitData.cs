@@ -11,11 +11,10 @@ namespace XMLData
     
         {
         public string Name;
-        public string Class;
+        public bool Player;
         public WeaponData Weapon;   
         public Dictionary<string,int> Stats;
-        public Dictionary<string,ItemData> Items;
-        public Dictionary<string, string[]> Sprites;
+        public string[] Sprite;
    
         }
     }

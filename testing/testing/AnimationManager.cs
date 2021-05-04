@@ -16,6 +16,7 @@ namespace testing
         public Animation Animation
         {
             get { return animation; }
+            set { }
         }
         Animation animation;
         /// <summary>
@@ -73,7 +74,7 @@ namespace testing
                     frameIndex = Math.Min(frameIndex + 1, Animation.count - 1);
                 }
             }
-            Rectangle source = new Rectangle(FrameIndex * Animation.Texture.Height, 0, Animation.Texture.Height, Animation.Texture.Height);
+            Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth, 0, Animation.FrameWidth, Animation.Texture.Height);
             spriteBatch.Draw(Animation.Texture, position,source, Color.White);
 
         }

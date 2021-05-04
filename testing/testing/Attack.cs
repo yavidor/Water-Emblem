@@ -11,6 +11,9 @@ namespace testing
         public Attack(Unit Source, Unit Target, bool Undo) : base(Source, Target, Undo)
         {
         }
+        public override string ToString(){
+            return $"Source: {Source.ToString()} Target: {Target.ToString()}";
+        }
         public void Execute()
         {
             int damage = Source.Stats["STR"] + Source.Weapon.Stats["MT"] - Target.Stats["DEF"];

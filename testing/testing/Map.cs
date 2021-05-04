@@ -9,19 +9,40 @@ using TiledSharp;
 
 namespace testing
 {
-    class Map
+    public class Map
     {
+        #region Data
+        /// <summary>
+        /// The board in which the game takes place
+        /// </summary>
         public Tile[,] Grid;
-        public Rectangle[] tilesRect;
+        /// <summary>
+        /// Every unit in the game
+        /// </summary>
+        public List<Unit> Units;
+        /// <summary>
+        /// The map as a TMX file
+        /// </summary>
         public TmxMap TmxMap;
+        /// <summary>
+        /// The texture of the Tiles
+        /// </summary>
         public Texture2D TileSet;
+        /// <summary>
+        /// The width and the height of the map in tiles
+        /// </summary>
         public int Width, Height;
+        /// <summary>
+        /// The game itself
+        /// </summary>
         public Game1 Game1;
+#endregion
         public Map() { }
-        public void Initialize(Game1 game1, TmxMap tmxMap, Tile[,] Grid)
+        public void Initialize(Game1 game1, TmxMap tmxMap, Tile[,] Grid, List<Unit> units)
         {
             this.Game1 = game1;
             this.TmxMap = tmxMap;
+            this.Units = new List<Unit>(units);
             Width = TmxMap.Width;
             Height = TmxMap.Height;
             TileSet = Game1.Content.Load<Texture2D>(TmxMap.Tilesets[0].Name);
@@ -49,7 +70,8 @@ namespace testing
                 for(int j = 0; j < Grid.GetLength(1); j++)
                 {
                     SpriteBatch.Draw(TileSet,
-                        new Rectangle(TmxMap.TileWidth * i, TmxMap.TileHeight * j, TmxMap.Tilesets[0].TileWidth, TmxMap.Tilesets[0].TileHeight),Grid[i,j].rec,Color.White);
+                        new Rectangle(TmxMap.TileWidth * i, TmxMap.TileHeight * j, TmxMap.Tilesets[0].TileWidth,
+                        TmxMap.Tilesets[0].TileHeight),Grid[i,j].Rec,Color.White);
                 }
             }
         }

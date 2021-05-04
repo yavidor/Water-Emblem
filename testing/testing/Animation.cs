@@ -26,6 +26,7 @@ namespace testing
         public bool Repeating
         {
             get { return repeating; }
+            set { }
         }
         bool repeating;
         /// <summary>
