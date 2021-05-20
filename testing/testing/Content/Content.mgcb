@@ -14,7 +14,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin blue.png
+#begin Chosen.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -24,19 +24,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:blue.png
-
-#begin chosen.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:chosen.png
+/build:Chosen.png
 
 #begin Data.xml
 /importer:XmlImporter
@@ -50,7 +38,7 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;font.spritefont
 
-#begin highlite.jpg
+#begin Highlight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -60,7 +48,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:highlite.jpg
+/build:Highlight.png
 
 #begin Overworld Bern Tower.png
 /importer:TextureImporter
@@ -73,18 +61,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Overworld Bern Tower.png
-
-#begin red.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:red.png
 
 #begin Sprites/Map/Archer0.png
 /importer:TextureImporter
@@ -326,7 +302,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Portraits/Archer1.png
 
-#begin Sprites/Portraits/Eirika.png
+#begin Sprites/Portraits/Eirika1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -336,9 +312,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Eirika.png
+/build:Sprites/Portraits/Eirika1.png
 
-#begin Sprites/Portraits/Epharim.png
+#begin Sprites/Portraits/Epharim0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -348,9 +324,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Epharim.png
+/build:Sprites/Portraits/Epharim0.png
 
-#begin Sprites/Portraits/Fighter_Portrait0.png
+#begin Sprites/Portraits/Fighter0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -360,9 +336,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Fighter_Portrait0.png
+/build:Sprites/Portraits/Fighter0.png
 
-#begin Sprites/Portraits/Fighter_Portrait1.png
+#begin Sprites/Portraits/Fighter1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -372,9 +348,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Fighter_Portrait1.png
+/build:Sprites/Portraits/Fighter1.png
 
-#begin Sprites/Portraits/Mage_Portrait0.png
+#begin Sprites/Portraits/Mage0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -384,9 +360,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Mage_Portrait0.png
+/build:Sprites/Portraits/Mage0.png
 
-#begin Sprites/Portraits/Mage_Portrait1.png
+#begin Sprites/Portraits/Mage1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -396,7 +372,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Mage_Portrait1.png
+/build:Sprites/Portraits/Mage1.png
 
 #begin Sprites/Portraits/Monk0.png
 /importer:TextureImporter
@@ -422,7 +398,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Portraits/Monk1.png
 
-#begin Sprites/Portraits/Priest_Portrait0.png
+#begin Sprites/Portraits/Priest0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -432,9 +408,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Priest_Portrait0.png
+/build:Sprites/Portraits/Priest0.png
 
-#begin Sprites/Portraits/Priest_Portrait1.png
+#begin Sprites/Portraits/Priest1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -444,9 +420,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Priest_Portrait1.png
+/build:Sprites/Portraits/Priest1.png
 
-#begin Sprites/Portraits/Soldier_Portrait0.png
+#begin Sprites/Portraits/Soldier0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -456,9 +432,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Soldier_Portrait0.png
+/build:Sprites/Portraits/Soldier0.png
 
-#begin Sprites/Portraits/Soldier_Portrait1.png
+#begin Sprites/Portraits/Soldier1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -468,9 +444,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Soldier_Portrait1.png
+/build:Sprites/Portraits/Soldier1.png
 
-#begin Sprites/Portraits/Swordman.png
+#begin Sprites/Portraits/Swordsman0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -480,9 +456,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Swordman.png
+/build:Sprites/Portraits/Swordsman0.png
 
-#begin Sprites/Portraits/Swordman1.png
+#begin Sprites/Portraits/Swordsman1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -492,5 +468,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Swordman1.png
+/build:Sprites/Portraits/Swordsman1.png
 
