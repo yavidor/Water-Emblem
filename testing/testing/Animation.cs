@@ -21,15 +21,6 @@ namespace testing
         }
         Texture2D texture;
         /// <summary>
-        /// Does this animation loop
-        /// </summary>
-        public bool Repeating
-        {
-            get { return repeating; }
-            set { }
-        }
-        bool repeating;
-        /// <summary>
         /// How long does each frame stay for before moving to the next one
         /// </summary>
         public float TimePerFrame
@@ -40,7 +31,7 @@ namespace testing
         /// <summary>
         /// How many frames in the animation
         /// </summary>
-        public int count
+        public int Count
         {
             get { return texture.Width / frameWidth; }
         }
@@ -54,21 +45,11 @@ namespace testing
         int frameWidth;
         #endregion
         #region CTOR
-        public Animation(Texture2D texture, bool repeating, float timePerFrame, int frameWidth)
+        public Animation(Texture2D texture, float timePerFrame, int frameWidth)
         {
             this.texture = texture;
-            this.repeating = repeating;
             this.timePerFrame = timePerFrame;
             this.frameWidth = frameWidth;
-        }
-        public Animation(string texture, string repeating, string timePerFrame, string frameWidth,ContentManager content)
-        {
-            this.texture = content.Load<Texture2D>(texture);
-            this.repeating = bool.Parse(repeating);
-            this.timePerFrame = float.Parse(timePerFrame);
-            this.frameWidth = int.Parse(frameWidth);
-
-
         }
         #endregion
     }

@@ -17,10 +17,8 @@ namespace testing
     public class Game1 : Game
     {
         public enum GameStates {SELECT,MOVE,ACTION,TARGET};
-        UnitData ud;
-        UnitData udE;
-        Texture2D IkeTexture;
-        Unit Ike, ActiveUnit, Eirika;
+        TeamData Data;
+        Unit ActiveUnit;
         Attack attack;
         Move move;
         GameStates State = GameStates.SELECT;
@@ -29,13 +27,11 @@ namespace testing
         public static TmxMap map { get; set; }
         internal static Tile[,] Grid { get => grid; set => grid = value; }
         Map Map;
-        Painter painter;
-        bool draw = false;
+        private static Tile[,] grid;
         Texture2D tileset, blue, cursor,red;
-        bool flag = false, WalkOrAttack = true;
+        bool WalkOrAttack = true;
         public List<Unit> units = new List<Unit>();
         double timer = 0;
-        private static Tile[,] grid;
         Tile chosen;
         KeyboardState lastkey;
         public static int tileWidth;
@@ -58,9 +54,7 @@ namespace testing
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            ud = Content.Load<UnitData>("Epharim");
-
-            udE = Content.Load<UnitData>("Eirika");
+            Data = Content.Load<TeamData>("Data");
             Map = new Map();
             font = Content.Load<SpriteFont>("font");
             cursor = Content.Load<Texture2D>("chosen");
@@ -89,21 +83,16 @@ namespace testing
                 }
             }
             chosen = Grid[10, 19];
-            Ike = new Unit(ud, Content)
+            foreach(UnitData unitData in Data.Team)
             {
-                Tile = Grid[10, 20]
-            };
-            Eirika = new Unit(udE, Content)
-            {
-                Tile = Grid[5, 20]
-            };
-            units.Add(Ike);
-            units.Add(Eirika);
-            Grid[10, 20].Unit = Ike;
-            Ike.Manager.Play(Ike.Sprite);
-            Eirika.Manager.Play(Eirika.Sprite);
-            Grid[5, 20].Unit = Eirika;
-            Console.WriteLine(Grid[10, 20].Unit);
+                units.Add(new Unit(unitData, Content)
+                {
+                    Tile = grid[unitData.x, unitData.y]
+                });
+                Unit current = units.Last();
+                grid[unitData.x, unitData.y].Unit = current;
+                current.Manager.Play(current.Sprite);
+            }
             Map.Initialize(this, map,Grid,units);
             
         }
@@ -124,10 +113,6 @@ namespace testing
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && lastkey.IsKeyUp(Keys.Space))
-            {
-                flag = !flag;
-            }
             #region Directions
             if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) &&
                 ((int)chosen.x) < map.Width - 1)
@@ -158,10 +143,9 @@ namespace testing
                         if (chosen.Unit != null)
                         {
                             WalkOrAttack = true;
-                            draw = false;
                             State = GameStates.MOVE;
                             ActiveUnit = chosen.Unit;
-                            ActiveUnit.Manager.Animation = ActiveUnit.Sprite;
+                            ActiveUnit.Manager.PauseOrPlay();
                             Console.WriteLine(String.Concat(ActiveUnit.GetActions(Map).Select(o => o.ToString() + "\n")));
                         }
                         break;
@@ -170,9 +154,6 @@ namespace testing
                         {
                             State = GameStates.ACTION;
                             move = new Move(ActiveUnit, chosen, false);
-                            //ActiveUnit.Tile.Unit = null;
-                            //ActiveUnit.Tile = chosen;
-                            // chosen.Unit = ActiveUnit;
                             move.Execute();
 
                             WalkOrAttack = false;
@@ -186,14 +167,13 @@ namespace testing
                             attack = new Attack(ActiveUnit, chosen.Unit, false);
                             attack.Execute();
                             Console.WriteLine(chosen.Unit.Stats["HP"]);
-                            Console.WriteLine(Ike.Tile.Unit);
+                            ActiveUnit.Manager.PauseOrPlay();
                         }
                         else { 
                         State = GameStates.SELECT;
+                        ActiveUnit.Manager.PauseOrPlay();
                         ActiveUnit = null;
                         }
-                        break;
-                    case GameStates.TARGET:
                         break;
                     default:
                         break;
@@ -210,8 +190,6 @@ namespace testing
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (Ike.Tile.Unit == null) 
-            Console.WriteLine(Ike.Tile.Unit==null);
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             Map.Draw(spriteBatch);
@@ -230,15 +208,15 @@ namespace testing
                         if (ActiveUnit != null)
                         {
                             List<Tile> ls = ActiveUnit.ReachableTiles(Map,WalkOrAttack);
-                            if (flag && ls.Contains(Grid[i, j]))
+                            if (ls.Contains(Grid[i, j]))
                             {
-                                if (State == GameStates.SELECT)
+                                if (State == GameStates.MOVE)
                                     spriteBatch.Draw(blue, new Rectangle((int)Grid[i, j].x * map.TileWidth,
                                         (int)Grid[i, j].y * map.TileHeight,
                                         tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth,
                                         0, tileWidth, tileHeight),
                                         Color.White * 0.75f);
-                                else
+                                if (State == GameStates.ACTION)
                                     spriteBatch.Draw(red, new Rectangle((int)Grid[i, j].x * map.TileWidth,
                                         (int)Grid[i, j].y * map.TileHeight,
                                         tileWidth, tileHeight), new Rectangle(((int)timer % 16) * tileWidth,
@@ -249,14 +227,13 @@ namespace testing
                     }
                 }
             }
-            if (draw == true) {
-                spriteBatch.Draw(Content.Load<Texture2D>("highlite"), new Vector2(Ike.x * Map.TmxMap.TileWidth+32, Ike.y * Map.TmxMap.TileHeight));
-            }
             spriteBatch.Draw(cursor, new Vector2((int)chosen.x*map.TileWidth,
                 (int)chosen.y*map.TileHeight), Color.White * 0.75f);
-            Ike.Manager.Draw(gameTime, spriteBatch, new Vector2(Ike.x * map.TileWidth,
-                Ike.y * map.TileHeight));
-            Eirika.Manager.Draw(gameTime, spriteBatch, new Vector2(Eirika.x * map.TileWidth, Eirika.y * map.TileHeight));
+            foreach(Unit unit in units)
+            {
+                unit.Manager.Draw(gameTime, spriteBatch, new Vector2(unit.x * map.TileWidth, unit.y * map.TileHeight));
+            }
+ 
             spriteBatch.End();
                 base.Draw(gameTime);
             }

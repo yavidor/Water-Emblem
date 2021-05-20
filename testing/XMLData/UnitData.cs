@@ -12,9 +12,9 @@ namespace XMLData
         {
         public string Name;
         public bool Player;
-        public WeaponData Weapon;   
+        public int x;
+        public int y;
+        public Dictionary<string,int> Weapon;   
         public Dictionary<string,int> Stats;
-        public string[] Sprite;
-   
         }
     }

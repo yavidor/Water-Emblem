@@ -16,7 +16,6 @@ namespace testing
         public Animation Animation
         {
             get { return animation; }
-            set { }
         }
         Animation animation;
         /// <summary>
@@ -36,8 +35,13 @@ namespace testing
         /// </summary>
         public Vector2 Origin
         {
-            get { return new Vector2(Animation.FrameWidth / 2.0f, animation.FrameWidth);}
+            get { return new Vector2(Animation.FrameWidth,Animation.Texture.Height);}
         }
+        public bool Playing
+        {
+            get { return playing; }
+        }
+        bool playing;
 /// <summary>
 /// Start playing the animation
 /// </summary>
@@ -52,30 +56,30 @@ namespace testing
             this.frameIndex = 0;
             this.time = 0.0f;
         }
+        public void PauseOrPlay()
+        {
+            this.playing = !this.Playing;
+        }
         /// <summary>
         /// Draw the current frame
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// <param name="spriteBatch">The thing that draws things</param>
         /// <param name="position">Where to draw the frame</param>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position) {
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 pos) {
             if (Animation == null)
                 throw new NotSupportedException("There is no animation playing.");
-            time += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            while (time > Animation.TimePerFrame)
+            if (Playing)
             {
-                time -= Animation.TimePerFrame;
-                if (Animation.Repeating)
+                time += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                while (time > Animation.TimePerFrame)
                 {
-                    frameIndex = (frameIndex + 1) % Animation.count;
-                }
-                else
-                {
-                    frameIndex = Math.Min(frameIndex + 1, Animation.count - 1);
+                    time -= Animation.TimePerFrame;
+                        frameIndex = (frameIndex + 1) % Animation.Count;
                 }
             }
             Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth, 0, Animation.FrameWidth, Animation.Texture.Height);
-            spriteBatch.Draw(Animation.Texture, position,source, Color.White);
+            spriteBatch.Draw(Animation.Texture,new Vector2(pos.X+32,pos.Y+32),source,Color.White,0.0f,Origin,1.0f,SpriteEffects.None,1.0f);
 
         }
     }

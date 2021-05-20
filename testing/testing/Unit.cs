@@ -58,7 +58,7 @@ namespace testing
         /// <summary>
         /// The weapon the unit is carrying
         /// </summary>
-        public Weapon Weapon;
+        public Dictionary<string, int> Weapon;
         /// <summary>
         /// The animations and sprites of the unit
         /// </summary>
@@ -76,9 +76,10 @@ namespace testing
         {
             this.Name = ud.Name;
             this.Player = ud.Player;
-            this.Weapon = new Weapon(ud.Weapon);
+            this.Weapon = new Dictionary<string, int>(ud.Weapon);
             this.Stats = new Dictionary<string, int>(ud.Stats);
-            this.Sprite = new Animation($"Sprites/{this.Name}{Convert.ToInt32(this.Player)}", ud.Sprite[0], ud.Sprite[1], ud.Sprite[2],Content);
+            Texture2D texture = Content.Load<Texture2D>($"Sprites/Map/{this.Name}{Convert.ToInt32(this.Player)}");
+            this.Sprite = new Animation(texture, 100,texture.Width/4);
             
             
         }
@@ -105,7 +106,7 @@ namespace testing
         /// <returns>A list of the valid tiles</returns>
         public List<Tile> ReachableTiles(Map Map, bool WalkOrAttack)
         {
-            int? range = WalkOrAttack ? this.Stats["MOV"] : this.Weapon.Stats["RNG"];
+            int? range = WalkOrAttack ? this.Stats["MOV"] : this.Weapon["RNG"];
             Tile temp;
             Tile[,] grid = Map.Grid;
             Queue<Tile> queue = new Queue<Tile>();

@@ -16,7 +16,7 @@ namespace testing
         }
         public void Execute()
         {
-            int damage = Source.Stats["STR"] + Source.Weapon.Stats["MT"] - Target.Stats["DEF"];
+            int damage = Source.Stats["STR"] + Source.Weapon["MT"] - Target.Stats["DEF"];
             if (Undo)
             {
                 damage *= -1;
