@@ -21,47 +21,23 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>2</Value>
+						<Value>40</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>1</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>6</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>7</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>6</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>9</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>0</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>9</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
-						<Value>4</Value>
+						<Value>5</Value>
 					</Item>
 				</Stats>
 			</Item>
@@ -77,49 +53,25 @@
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>1</Value>
+						<Value>3</Value>
 					</Item>
 				</Weapon>
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>42</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>24</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>10</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -145,43 +97,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>56</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>15</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>12</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -207,43 +135,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>50</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>27</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>21</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>15</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -269,43 +173,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>54</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>20</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>13</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>10</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -331,43 +211,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>59</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>15</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>15</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -393,43 +249,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>43</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>10</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -449,49 +281,25 @@
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>1</Value>
+						<Value>2</Value>
 					</Item>
 				</Weapon>
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>40</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>9</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -511,49 +319,25 @@
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>1</Value>
+						<Value>2</Value>
 					</Item>
 				</Weapon>
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>40</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>9</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -579,43 +363,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>43</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>10</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -641,43 +401,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>59</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>30</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>9</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -703,43 +439,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>54</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>20</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>13</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>10</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -765,43 +477,20 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>46
+						</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>21</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>15</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -827,43 +516,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>56</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>15</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>12</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -883,49 +548,25 @@
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>1</Value>
+						<Value>3</Value>
 					</Item>
 				</Weapon>
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>42</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>24</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>10</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -951,43 +592,19 @@
 				<Stats>
 					<Item>
 						<Key>HP</Key>
-						<Value>16</Value>
+						<Value>40</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>4</Value>
-					</Item>
-					<Item>
-						<Key>MAG</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>SKL</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>SPD</Key>
-						<Value>11</Value>
-					</Item>
-					<Item>
-						<Key>LCK</Key>
-						<Value>7</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
-						<Value>5</Value>
+						<Value>9</Value>
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>3</Value>
-					</Item>
-					<Item>
-						<Key>CON</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>WT</Key>
-						<Value>5</Value>
+						<Value>25</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>

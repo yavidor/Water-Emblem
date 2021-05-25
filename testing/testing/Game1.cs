@@ -138,8 +138,8 @@ namespace testing
             {
                 if (State == GameStates.MOVE)
                 {
-                    ActiveUnit = null;
                     ActiveUnit.Manager.PauseOrPlay();
+                    ActiveUnit = null;
                     State = GameStates.SELECT;
                 }
             }
@@ -168,7 +168,7 @@ namespace testing
                         }
                         break;
                     case GameStates.ACTION:
-                        if (Chosen.Unit != null && ActiveUnit.ReachableTiles(Map, false)
+                        if (Chosen.Unit != null && Chosen.Unit.Player != ActiveUnit.Player && ActiveUnit.ReachableTiles(Map, false)
                             .Contains(Chosen))
                         {
                             State = GameStates.SELECT;
