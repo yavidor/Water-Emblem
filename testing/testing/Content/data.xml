@@ -20,6 +20,10 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>40</Value>
 					</Item>
@@ -33,7 +37,7 @@
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>25</Value>
+						<Value>20</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -57,6 +61,10 @@
 					</Item>
 				</Weapon>
 				<Stats>
+					<Item>
+						<Key>MaxHp</Key>
+						<Value>42</Value>
+					</Item>
 					<Item>
 						<Key>HP</Key>
 						<Value>42</Value>
@@ -95,6 +103,10 @@
 					</Item>
 				</Weapon>
 				<Stats>
+					<Item>
+						<Key>MaxHp</Key>
+						<Value>56</Value>
+					</Item>
 					<Item>
 						<Key>HP</Key>
 						<Value>56</Value>
@@ -134,12 +146,16 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>50</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>50</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>27</Value>
+						<Value>20</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
@@ -172,8 +188,12 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>53</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
-						<Value>54</Value>
+						<Value>53</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
@@ -209,6 +229,10 @@
 					</Item>
 				</Weapon>
 				<Stats>
+					<Item>
+						<Key>MaxHp</Key>
+						<Value>59</Value>
+					</Item>
 					<Item>
 						<Key>HP</Key>
 						<Value>59</Value>
@@ -248,12 +272,16 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>43</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>43</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>25</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
@@ -286,12 +314,16 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>40</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>25</Value>
+						<Value>23</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
@@ -324,12 +356,16 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>40</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>25</Value>
+						<Value>23</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
@@ -362,12 +398,16 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>43</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>43</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>25</Value>
+						<Value>17</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
@@ -400,12 +440,16 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>59</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>59</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>30</Value>
+						<Value>15</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
@@ -438,8 +482,12 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>53</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
-						<Value>54</Value>
+						<Value>53</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
@@ -476,13 +524,16 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>48</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
-						<Value>46
-						</Value>
+						<Value>48</Value>
 					</Item>
 					<Item>
 						<Key>STR</Key>
-						<Value>21</Value>
+						<Value>24</Value>
 					</Item>
 					<Item>
 						<Key>DEF</Key>
@@ -514,6 +565,10 @@
 					</Item>
 				</Weapon>
 				<Stats>
+					<Item>
+						<Key>MaxHp</Key>
+						<Value>56</Value>
+					</Item>
 					<Item>
 						<Key>HP</Key>
 						<Value>56</Value>
@@ -553,6 +608,10 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>42</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>42</Value>
 					</Item>
@@ -591,6 +650,10 @@
 				</Weapon>
 				<Stats>
 					<Item>
+						<Key>MaxHp</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
 						<Key>HP</Key>
 						<Value>40</Value>
 					</Item>
@@ -604,7 +667,7 @@
 					</Item>
 					<Item>
 						<Key>RES</Key>
-						<Value>25</Value>
+						<Value>20</Value>
 					</Item>
 					<Item>
 						<Key>MOV</Key>
@@ -615,3 +678,4 @@
 		</Team>
 	</Asset>
 </XnaContent>
+	

@@ -7,6 +7,7 @@ using XMLData;
 using TiledSharp;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace testing
 {
@@ -129,7 +130,8 @@ namespace testing
                     if (dist[neighbor.x , neighbor.y] > range)
                     {
                         dist[neighbor.x , neighbor.y] = 1 + dist[temp.x , temp.y];
-                        if (dist[neighbor.x , neighbor.y] <= range && grid[neighbor.x,neighbor.y].Walkable)
+                        if (dist[neighbor.x , neighbor.y] <= range && 
+                            neighbor.Walkable)
                         {
                             queue.Enqueue(neighbor);
                         }
@@ -149,6 +151,12 @@ namespace testing
         public void TakeDamage(int damage)
         {
             this.Stats["HP"] -= damage;
+            if (this.Stats["HP"] <= 0)
+            {
+                Game1.Units.Remove(this);
+                this.Tile.Unit = null;
+
+            }
         }
         /// <summary>
         /// Generates every possible action this unit can take
@@ -169,8 +177,18 @@ namespace testing
                     {
                         if (tileAttack.Unit != null)
                         {
-                            Attack attack = new Attack(this, tileAttack.Unit, false);
-                            actions.Add(attack);
+                            if (tileAttack.Unit.Player == this.Player && (this.Name == "Priest" || this.Name == "Monk"))
+                                //Both the Monk and the Priest can heal
+                            {
+                                Heal heal = new Heal(this, tileAttack.Unit, false);
+                                actions.Add(heal);
+                            }
+                            else if (this.Name != "Priest" && tileAttack.Unit.Player != this.Player)
+                                //Only the Priest cannot attack
+                            {
+                                Attack attack = new Attack(this, tileAttack.Unit, false);
+                                actions.Add(attack);
+                            }
                         }
                     }
                     move.Undo = true;
@@ -178,6 +196,11 @@ namespace testing
                 }
             }
                 return actions;
+        }
+        public bool Equals(Unit other)
+        {
+            return (this.x == other.x && this.y == other.y &&
+                this.Name == other.Name && this.Player == other.Player);
         }
     }
 }

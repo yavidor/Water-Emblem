@@ -14,7 +14,7 @@ namespace testing
         public override string ToString(){
             return $"Source: {Source.ToString()} Target: {Target.ToString()}";
         }
-        public void Execute()
+        public int Execute()
         {
             int damage = Source.Stats["STR"] + Source.Weapon["MT"] - Target.Stats["DEF"];
             if (Undo)
@@ -22,6 +22,11 @@ namespace testing
                 damage *= -1;
             }
             Target.TakeDamage(damage);
+            return damage;
+        }
+        public bool Equals(Attack other)
+        {
+            return base.Equals(other as Action);
         }
     }
 }

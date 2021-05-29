@@ -78,8 +78,10 @@ namespace testing
                         frameIndex = (frameIndex + 1) % Animation.Count;
                 }
             }
-            Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth, 0, Animation.FrameWidth, Animation.Texture.Height);
-            spriteBatch.Draw(Animation.Texture,new Vector2(pos.X+32,pos.Y+32),source,Color.White,0.0f,Origin,1.0f,SpriteEffects.None,1.0f);
+            Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth,
+                0, Animation.FrameWidth, Animation.Texture.Height);
+            spriteBatch.Draw(Animation.Texture,new Vector2(pos.X+Game1.tileWidth,pos.Y+Game1.tileWidth)
+                ,source,Color.White,0.0f,Origin,1.0f,SpriteEffects.None,1.0f);
 
         }
     }

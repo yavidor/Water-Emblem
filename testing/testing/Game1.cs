@@ -17,28 +17,31 @@ namespace testing
     public class Game1 : Game
     {
         public enum GameStates {SELECT,MOVE,ACTION,TARGET};
+        GameStates State = GameStates.SELECT;
         TeamData Data;
         Unit ActiveUnit;
+        Unit LeaderTeam0, LeaderTeam1;
         Attack attack;
+        Heal heal;
         Move move;
-        GameStates State = GameStates.SELECT;
+        SpriteFont spriteFont;
+        public static DrawText drawText = new DrawText();
+        PortraitDraw portraitDraw = new PortraitDraw();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static TmxMap map { get; set; }
         internal static Tile[,] Grid { get => grid; set => grid = value; }
-        Map Map;
+        Map Map = new Map();
         private static Tile[,] grid;
         Texture2D tileset, Highlight, Cursor;
-        bool WalkOrAttack = true;
-        public List<Unit> units = new List<Unit>();
+        bool WalkOrAttack = true, Turn = true; 
+        public static List<Unit> Units = new List<Unit>();
         double timer = 0;
+        int damage;
         Tile Chosen;
         KeyboardState lastkey;
         public static int tileWidth;
-        public static int tileHeight;
         public static int tilesetTilesWide;
-        public static int tilesetTilesHigh;
-        SpriteFont font;
 
         public Game1()
         {
@@ -55,20 +58,17 @@ namespace testing
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Data = Content.Load<TeamData>("Data");
-            Map = new Map();
-            font = Content.Load<SpriteFont>("Font");
             Cursor = Content.Load<Texture2D>("Chosen");
             Highlight = Content.Load<Texture2D>("Highlight");
+            spriteFont = Content.Load<SpriteFont>("font");
             map = new TmxMap("Content/balanced.tmx");
             tileset = Content.Load<Texture2D>(map.Tilesets[0].Name.ToString());
             Grid = new Tile[map.Width, map.Height];
             tileWidth = map.Tilesets[0].TileWidth;
-            tileHeight = map.Tilesets[0].TileHeight;
             graphics.PreferredBackBufferHeight = map.Height * map.TileHeight;
             graphics.PreferredBackBufferWidth = map.Width * map.TileWidth;
             graphics.ApplyChanges();
             tilesetTilesWide = tileset.Width / tileWidth;
-            tilesetTilesHigh = tileset.Height / tileHeight;
             for (int i = 0; i < map.Layers[0].Tiles.Count; i++)
             {
                 Tile Tile = new Tile(map.Layers[0].Tiles[i].Gid - 1, i);
@@ -81,18 +81,22 @@ namespace testing
                     Grid[i, j].AddNeighbors();
                 }
             }
-            Chosen = Grid[10, 19];
             foreach(UnitData unitData in Data.Team)
             {
-                units.Add(new Unit(unitData, Content)
+                Units.Add(new Unit(unitData, Content)
                 {
                     Tile = grid[unitData.x, unitData.y]
                 });
-                Unit current = units.Last();
+                Unit current = Units.Last();
                 grid[unitData.x, unitData.y].Unit = current;
                 current.Manager.Play(current.Sprite);
             }
-            Map.Initialize(this, map,Grid,units);
+            LeaderTeam0 = Units.Find(unit => unit.Name == "Epharim");
+            LeaderTeam1 = Units.Find(unit => unit.Name == "Eirika");
+            Chosen = LeaderTeam1.Tile;
+            Map.Initialize(map,Grid,Units,Content);
+            drawText.Initialize(spriteBatch, spriteFont);
+            portraitDraw.Initialize(spriteBatch, Content);
             
         }
 
@@ -148,12 +152,14 @@ namespace testing
                 switch (State)
                 {
                     case GameStates.SELECT:
-                        if (Chosen.Unit != null)
+                        if (Chosen.Unit != null && Chosen.Unit.Player == Turn)
                         {
+                            damage = 0;
                             WalkOrAttack = true;
                             State = GameStates.MOVE;
                             ActiveUnit = Chosen.Unit;
                             ActiveUnit.Manager.PauseOrPlay();
+                            Console.WriteLine(string.Join(", ", ActiveUnit.GetActions(Map).Select(a => a.ToString())));
                         }
                         break;
                     case GameStates.MOVE:
@@ -168,21 +174,40 @@ namespace testing
                         }
                         break;
                     case GameStates.ACTION:
-                        if (Chosen.Unit != null && Chosen.Unit.Player != ActiveUnit.Player && ActiveUnit.ReachableTiles(Map, false)
+                        if (Chosen.Unit != null && ActiveUnit.ReachableTiles(Map, false)
                             .Contains(Chosen))
                         {
                             State = GameStates.SELECT;
                             Console.WriteLine(Chosen.Unit.Stats["HP"]);
                             attack = new Attack(ActiveUnit, Chosen.Unit, false);
-                            attack.Execute();
-                            Console.WriteLine(Chosen.Unit.Stats["HP"]);
+
+                            if (ActiveUnit.GetActions(Map).Any(
+                                action => action.GetType() == attack.GetType() &&
+                                action.Equals(attack)))
+                            {
+                               damage = attack.Execute();
+                            }
+                            heal = new Heal(ActiveUnit, Chosen.Unit, false);
+                            if (ActiveUnit.GetActions(Map).Any(
+                                action => action.GetType() == heal.GetType() &&
+                                action.Equals(heal)))
+                            {
+                               damage = heal.Execute();
+                            }
                             ActiveUnit.Manager.PauseOrPlay();
+                            
                         }
-                        else { 
-                        State = GameStates.SELECT;
-                        ActiveUnit.Manager.PauseOrPlay();
-                        ActiveUnit = null;
+                        else
+                        {
+                            State = GameStates.SELECT;
+                            ActiveUnit.Manager.PauseOrPlay();
+                            ActiveUnit = null;
                         }
+                        Turn = !Turn;
+                        if (Turn)
+                            Chosen = LeaderTeam1.Tile;
+                        else
+                            Chosen = LeaderTeam0.Tile;
                         break;
                     default:
                         break;
@@ -199,16 +224,11 @@ namespace testing
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue); 
             spriteBatch.Begin();
             Map.Draw(spriteBatch);
             timer += 0.1;
-            if (ActiveUnit != null)
-            {
-                spriteBatch.Draw(Content.Load<Texture2D>
-                    ($"Sprites/Portraits/{ActiveUnit.Name}{Convert.ToInt32(ActiveUnit.Player)}")
-                    , new Vector2(0, 0), Color.White);
-            }
+           
             for (int i = 0; i < Grid.GetLength(0); i++)
             {
                 for (int j = 0; j < Grid.GetLength(1); j++)
@@ -220,22 +240,28 @@ namespace testing
                     }
                     else
                     {
+                      
                         if (ActiveUnit != null)
                         {
+                            if (Chosen.Unit != ActiveUnit && Chosen.Unit != null)
+                            {
+                                portraitDraw.Draw(Chosen.Unit, false);
+                            }
+                            portraitDraw.Draw(ActiveUnit, true);
                             Rectangle source = new Rectangle((int)timer % 16 * tileWidth,
-                                0, tileWidth, tileHeight);
+                                0, tileWidth, tileWidth);
                             List<Tile> ls = ActiveUnit.ReachableTiles(Map, WalkOrAttack);
                             if (ls.Contains(Grid[i, j]) && (State == GameStates.MOVE ||
                                 State == GameStates.ACTION))
                             {
                                 if (State == GameStates.ACTION)
                                 {
-                                    source.Y = tileHeight;
+                                    source.Y = tileWidth;
                                 }
                                     spriteBatch.Draw(Highlight,
                                         new Rectangle((int)Grid[i, j].x * map.TileWidth,
                                         (int)Grid[i, j].y * map.TileHeight,
-                                        tileWidth, tileHeight),
+                                        tileWidth, tileWidth),
                                        source,
                                         Color.White * 0.75f);
                                 }
@@ -245,12 +271,11 @@ namespace testing
                 }
             spriteBatch.Draw(Cursor, new Vector2((int)Chosen.x*map.TileWidth,
                 (int)Chosen.y*map.TileHeight), Color.White * 0.75f);
-            foreach(Unit unit in units)
+            foreach (Unit unit in Units)
             {
                 unit.Manager.Draw(gameTime, spriteBatch,
                     new Vector2(unit.x * map.TileWidth, unit.y * map.TileHeight));
             }
- 
             spriteBatch.End();
                 base.Draw(gameTime);
             }

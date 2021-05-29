@@ -10,8 +10,6 @@ namespace testing
     {
         public Unit Source { get; set; }
         public Unit Target { get; set; }
-        public Unit SourceAfter;
-        public Unit TargetAfter;
         public bool Undo;
         public abstract string ToString();
         public Action(Unit Source,Unit Target, bool Undo)
@@ -20,9 +18,14 @@ namespace testing
             this.Target = Target;
             this.Undo = Undo;
         }
-        public void Execute()
+        public int Execute()
         {
-
+            return 0;
+        }
+        public bool Equals(Action other)
+        {
+            return (this.Source.Equals(other.Source) && this.Target.Equals(other.Target) &&
+                this.Undo == other.Undo);
         }
     }
 }

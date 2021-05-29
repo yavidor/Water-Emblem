@@ -42,8 +42,8 @@ namespace testing
         /// <param name="gid">index of the tile in the tilset</param>
         /// <param name="tileCount">flat index of the tile in the grid</param>
         /// <param name="Unit">The unit in the tile, sets to null if not provided</param>
-        public Tile(int gid, int tileCount, Unit Unit=null)
-        {
+        public Tile(int gid, int tileCount, Unit Unit = null)
+        { 
             frame = gid;
             this.Unit = Unit;
             if (frame == 1005 || frame == 1006 || frame == 942)
@@ -54,7 +54,8 @@ namespace testing
              this.x = (tileCount % Game1.map.Width);
              this.y = (int)Math.Floor(tileCount / (double)Game1.map.Width);
 
-            this.Rec = new Rectangle(Game1.tileWidth * col, Game1.tileHeight * row, Game1.tileWidth, Game1.tileHeight);
+            this.Rec = new Rectangle(Game1.tileWidth * col, Game1.tileWidth * row, 
+                Game1.tileWidth, Game1.tileWidth);
         }
         public String ToString()
         {
