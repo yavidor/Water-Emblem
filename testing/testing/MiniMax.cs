@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    class MinMax
+    class MiniMax
     {
         private int IMax;
         private int IMin;
         private double[,] ValuePlus;
         private double[,] ValueMinus;
-        public MinMax()
+        public MiniMax()
         {
             this.IMax = int.MaxValue;
             this.IMin = int.MinValue;
@@ -51,9 +51,74 @@ namespace testing
                 }
             }
         }
-        public Action alphaBeta(Tile[] Grid, int depth, int alpha, int beta, bool Player)
+        public Action MakeTurn(Map Map, int Depth)
         {
-            return new Heal(new Unit(), new Unit(), true);
+            double Best = IMin;
+            Move BestFound = new Move(null, null, true);//The best move yet. Initialized as null
+            //to prevent errors
+            double Score;
+            List<Move> Moves = Map.GetAllActions();
+            foreach(Move Move in Moves)
+            {
+                Move.Execute();
+                Score = EvaluateTurn(Map, Depth, IMin, IMax, false);
+                Move.Undo = false;
+                Move.Execute();
+                Move.Undo = true;
+                if (Score >= Best)
+                {
+                    Best = Score;
+                    BestFound = Move;
+                }
+            }
+            return BestFound;
+        }
+        public double EvaluateTurn(Map Map, int Depth, double Alpha, double Beta, bool Player)
+        {
+            double Best;
+            Tile[,] Grid = Map.Grid;
+            List<Move> Moves = Map.GetAllActions();//A list of every possible action by every unit
+                                                   //in the current state of the game
+            if (Depth == 0)
+            {
+                return EvaluateBoard(Grid);
+            }
+            if (Player)
+            {
+                Best = IMin;
+              
+                foreach (Move Move in Moves)
+                {
+                    Move.Execute();
+                    Best = Math.Max(EvaluateTurn(Map, Depth - 1, Alpha, Beta, false), Best);
+                    Move.Undo = false;
+                    Move.Execute();
+                    Move.Undo = true;
+                    Alpha = Math.Max(Best, Alpha);
+                    if (Alpha >= Beta)
+                        break;
+                }
+            }
+            else
+            {
+                Best = IMax;
+                foreach(Move Move in Moves)
+                {
+                    Move.Execute();
+                    Best = Math.Min(EvaluateTurn(Map, Depth - 1, Alpha, Beta, true), Best);
+                    Move.Undo = false;
+                    Move.Execute();
+                    Move.Undo = true;
+                    Beta = Math.Min(Best, Beta);
+                    if (Alpha >= Beta)
+                        break;
+                }
+            }
+            return Best;
+        }
+        public double EvaluateBoard(Tile[,] Grid)
+        {
+            return 0;
         }
     }
 }

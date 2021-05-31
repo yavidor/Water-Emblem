@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    class Move : Action
+    public class Move : Action
     {
         public Tile Destination;
         public Tile StartingSpot;
+        public Attack Attack;
+        public Heal Heal;
         public Move(Unit Source, Tile Destination, bool Undo) : base(Source, null, Undo)
         {
             this.Destination = Destination;

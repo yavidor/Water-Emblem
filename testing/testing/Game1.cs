@@ -24,7 +24,7 @@ namespace testing
         Attack attack;
         Heal heal;
         Move move;
-        MinMax AI;
+        MiniMax AI;
         SpriteFont spriteFont;
         public static DrawText drawText = new DrawText();
         PortraitDraw portraitDraw = new PortraitDraw();
@@ -98,8 +98,7 @@ namespace testing
             Map.Initialize(map,Grid,Units,Content);
             drawText.Initialize(spriteBatch, spriteFont);
             portraitDraw.Initialize(spriteBatch, Content);
-            AI = new MinMax();
-            AI.Initialize();
+            AI = new MiniMax();
             
         }
 
@@ -162,11 +161,11 @@ namespace testing
                             State = GameStates.MOVE;
                             ActiveUnit = Chosen.Unit;
                             ActiveUnit.Manager.PauseOrPlay();
-                            Console.WriteLine(string.Join(", ", ActiveUnit.GetActions(Map).Select(a => a.ToString())));
+                            Console.WriteLine(string.Join(", ", ActiveUnit.GetActions(Grid).Select(a => a.ToString())));
                         }
                         break;
                     case GameStates.MOVE:
-                        if (Chosen.Unit == null && ActiveUnit.ReachableTiles(Map, true)
+                        if (Chosen.Unit == null && ActiveUnit.ReachableTiles(Grid, true)
                             .Contains(Chosen))
                         {
                             State = GameStates.ACTION;
@@ -177,24 +176,25 @@ namespace testing
                         }
                         break;
                     case GameStates.ACTION:
-                        if (Chosen.Unit != null && ActiveUnit.ReachableTiles(Map, false)
+                        if (Chosen.Unit != null && ActiveUnit.ReachableTiles(Grid, false)
                             .Contains(Chosen))
                         {
                             State = GameStates.SELECT;
                             Console.WriteLine(Chosen.Unit.Stats["HP"]);
                             attack = new Attack(ActiveUnit, Chosen.Unit, false);
 
-                            if (ActiveUnit.GetActions(Map).Any(
-                                action => action.GetType() == attack.GetType() &&
-                                action.Equals(attack)))
-                            {
-                               damage = attack.Execute();
-                            }
+                            if (ActiveUnit.GetActions(Grid).Any(
+                                action => action.Attack != null && action.Attack.GetType() == attack.GetType() &&
+                                action.Attack.Equals(attack)))
+                            { 
+                                damage = attack.Execute();
+                        }
                             heal = new Heal(ActiveUnit, Chosen.Unit, false);
-                            if (ActiveUnit.GetActions(Map).Any(
-                                action => action.GetType() == heal.GetType() &&
-                                action.Equals(heal)))
+                            if (ActiveUnit.GetActions(Grid).Any(
+                                action => action.Heal != null && action.Heal.GetType() == heal.GetType() &&
+                                action.Heal.Equals(heal)))
                             {
+                               Console.WriteLine(heal.GetType());
                                damage = heal.Execute();
                             }
                             ActiveUnit.Manager.PauseOrPlay();
@@ -253,7 +253,7 @@ namespace testing
                             portraitDraw.Draw(ActiveUnit, true);
                             Rectangle source = new Rectangle((int)timer % 16 * tileWidth,
                                 0, tileWidth, tileWidth);
-                            List<Tile> ls = ActiveUnit.ReachableTiles(Map, WalkOrAttack);
+                            List<Tile> ls = ActiveUnit.ReachableTiles(Grid, WalkOrAttack);
                             if (ls.Contains(Grid[i, j]) && (State == GameStates.MOVE ||
                                 State == GameStates.ACTION))
                             {

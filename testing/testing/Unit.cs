@@ -100,44 +100,43 @@ namespace testing
         /// if it should use movement distance of the unit
         /// or the range of the weapon, true is movement and false is weapon range</param>
         /// <returns>A list of the valid tiles</returns>
-        public List<Tile> ReachableTiles(Map Map, bool WalkOrAttack)
+        public List<Tile> ReachableTiles(Tile[,] Grid, bool WalkOrAttack)
         {
-            int? range = WalkOrAttack ? this.Stats["MOV"] : this.Weapon["RNG"];
+            int? Range = WalkOrAttack ? this.Stats["MOV"] : this.Weapon["RNG"];
             Tile temp;
-            Tile[,] grid = Map.Grid;
-            Queue<Tile> queue = new Queue<Tile>();
-            List<Tile> valid = new List<Tile>();
-            int[,] dist = new int[grid.GetLength(0) , grid.GetLength(1)];
-            for (int i = 0; i < dist.GetLength(0); i++)
+            Queue<Tile> Queue = new Queue<Tile>();
+            List<Tile> Valid = new List<Tile>();
+            int[,] Dist = new int[Grid.GetLength(0) , Grid.GetLength(1)];
+            for (int i = 0; i < Dist.GetLength(0); i++)
             {
-                for (int j = 0; j < dist.GetLength(1); j++)
+                for (int j = 0; j < Dist.GetLength(1); j++)
                 {
-                    dist[i , j] = int.MaxValue;
+                    Dist[i , j] = int.MaxValue;
                 }
             }
-            dist[this.x , this.y] = 0;
-            queue.Enqueue(grid[this.x , this.y]);
-            while (queue.Count != 0)
+            Dist[this.x , this.y] = 0;
+            Queue.Enqueue(Grid[this.x , this.y]);
+            while (Queue.Count != 0)
             {
-                temp = queue.Dequeue();
+                temp = Queue.Dequeue();
                 foreach (Tile neighbor in temp.Neighbors)
                 {
-                    if (dist[neighbor.x , neighbor.y] > range)
+                    if (Dist[neighbor.x , neighbor.y] > Range)
                     {
-                        dist[neighbor.x , neighbor.y] = 1 + dist[temp.x , temp.y];
-                        if (dist[neighbor.x , neighbor.y] <= range && 
+                        Dist[neighbor.x , neighbor.y] = 1 + Dist[temp.x , temp.y];
+                        if (Dist[neighbor.x , neighbor.y] <= Range && 
                             neighbor.Walkable)
                         {
-                            queue.Enqueue(neighbor);
+                            Queue.Enqueue(neighbor);
                         }
                     }
                 }
-                if (dist[temp.x , temp.y] > 0 && dist[temp.x , temp.y] <= range)
+                if (Dist[temp.x , temp.y] > 0 && Dist[temp.x , temp.y] <= Range)
                 {
-                    valid.Add(temp);
+                    Valid.Add(temp);
                 }
             }
-            return valid;
+            return Valid;
         }
         /// <summary>
         /// Reduces the HP of the unit (can heal by inputing a negative numeber)
@@ -158,17 +157,17 @@ namespace testing
         /// </summary>
         /// <param name="Map">The current board</param>
         /// <returns>A list of all possible actions</returns>
-        public List<Action> GetActions(Map Map)
+        public List<Move> GetActions(Tile[,] Grid)
         {
-            List<Action> actions = new List<Action>();
-            List<Tile> Moves = this.ReachableTiles(Map,true);
+            List<Move> actions = new List<Move>();
+            List<Tile> Moves = this.ReachableTiles(Grid,true);
             foreach (Tile tile in Moves)
             {
                 if (tile.Unit == null) {
                     Move move = new Move(this, tile, false);
                     actions.Add(move);
                     move.Execute();
-                    foreach (Tile tileAttack in this.ReachableTiles(Map, false))
+                    foreach (Tile tileAttack in this.ReachableTiles(Grid, false))
                     {
                         if (tileAttack.Unit != null)
                         {
@@ -176,13 +175,13 @@ namespace testing
                                 //Both the Monk and the Priest can heal
                             {
                                 Heal heal = new Heal(this, tileAttack.Unit, false);
-                                actions.Add(heal);
+                                move.Heal = heal;
                             }
                             else if (this.Name != "Priest" && tileAttack.Unit.Player != this.Player)
                                 //Only the Priest cannot attack
                             {
                                 Attack attack = new Attack(this, tileAttack.Unit, false);
-                                actions.Add(attack);
+                                move.Attack = attack;
                             }
                         }
                     }

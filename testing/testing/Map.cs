@@ -59,5 +59,20 @@ namespace testing
                 }
             }
         }
+        public List<Move> GetAllActions()
+        {
+            List<Move> Moves = new List<Move>();
+            for (int i = 0; i < this.Grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.Grid.GetLength(1); j++)
+                {
+                    if (Grid[i, j].Unit != null)
+                    {
+                        Moves.AddRange(this.Grid[i, j].Unit.GetActions(this.Grid));//Adding each action
+                    }
+                }
+            }
+            return Moves;
+        }
     }
 }
