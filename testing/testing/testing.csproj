@@ -72,6 +72,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Heal.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="MinMax.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="PortraitDraw.cs" />
     <Compile Include="Program.cs" />

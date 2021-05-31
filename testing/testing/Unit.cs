@@ -45,14 +45,8 @@ namespace testing
         /// Dictionary containing the stats of the unit
         /// HP: Health Points - units dies when reaches 0
         /// STR: Strength - Affects the amount of damage the unit inflicts with a non-magic attack
-        /// MAG: Magic - Affects the amount of damage the unit inflicts with a magic attack
-        /// SKL: TBM (To Be Removed)
-        /// SPD: TBM
-        /// LCK: TBM
         /// DEF: Defense - Affects the amount of damage the unit takes from a non-magic attack
         /// RES: Resistacne - Affects the amount of damage the unit takes from a magic attack
-        /// CON: TBM
-        /// WT: Weight - How heavy the unit is. A unit cannot pick up units who are heavier than them
         /// MOV: Movement - Determines the number of adjacent tiles the unit can move in one turn
         /// </summary>
         public Dictionary<string, int> Stats;
@@ -68,6 +62,7 @@ namespace testing
         /// The animation manager for this unit
         /// </summary>
         public AnimationManager Manager;
+        public Unit() { }
         /// <summary>
         /// Constructor
         /// </summary>

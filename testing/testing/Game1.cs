@@ -24,6 +24,7 @@ namespace testing
         Attack attack;
         Heal heal;
         Move move;
+        MinMax AI;
         SpriteFont spriteFont;
         public static DrawText drawText = new DrawText();
         PortraitDraw portraitDraw = new PortraitDraw();
@@ -97,6 +98,8 @@ namespace testing
             Map.Initialize(map,Grid,Units,Content);
             drawText.Initialize(spriteBatch, spriteFont);
             portraitDraw.Initialize(spriteBatch, Content);
+            AI = new MinMax();
+            AI.Initialize();
             
         }
 
