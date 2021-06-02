@@ -59,22 +59,24 @@ namespace testing
             //to prevent errors
             double Score;
             List<Move> Moves = Map.GetAllActions();
-            foreach(Move Move in Moves)
+            foreach (Move Move in Moves)
             {
                 if (!Move.Source.Player)
                 {
                     Move.Execute();
-                    Score = EvaluateTurn(Map, Depth, IMin, IMax, false);
+                    Score = EvaluateTurn(Map, Depth, IMin, IMax, true);
                     Move.Undo = true;
                     Move.Execute();
                     Move.Undo = false;
-                    if (Score >= Best)
+                    if (Score > Best)
                     {
                         Best = Score;
                         BestFound = Move;
                     }
+
                 }
             }
+            BestFound.HealAttackExecute();
             BestFound.Execute();
             return BestFound;
         }
@@ -91,10 +93,10 @@ namespace testing
             if (Player)
             {
                 Best = IMin;
-              
+
                 foreach (Move Move in Moves)
                 {
-             
+
                     Move.Execute();
                     Move.HealAttackExecute();
                     Best = Math.Max(EvaluateTurn(Map, Depth - 1, Alpha, Beta, false), Best);
@@ -102,7 +104,7 @@ namespace testing
                     Move.Execute();
                     Move.HealAttackExecute();
                     Move.Undo = false;
-                   
+
                     Alpha = Math.Max(Best, Alpha);
                     if (Alpha >= Beta)
                         break;
@@ -112,16 +114,7 @@ namespace testing
             {
                 Best = IMax;
                 foreach (Move Move in Moves)
-                {
-                    int hpBeforeA = 0;
-                    int hpBeforeH = 0;
-                    if (Move.Attack != null)
-                        hpBeforeA = Move.Attack.Target.Stats["HP"];
-                    if (Move.Heal != null)
-                    {
-                        hpBeforeH = Move.Heal.Target.Stats["HP"];
-                    }
-
+                { 
                     Move.Execute();
                     Best = Math.Min(EvaluateTurn(Map, Depth - 1, Alpha, Beta, true), Best);
                     Move.Undo = true;
@@ -146,11 +139,11 @@ namespace testing
                     {
                         if (Grid[i, j].Unit.Player)
                         {
-                            Value += Grid[i, j].Unit.Stats["HP"]*ValuePlus[j, i];
+                            Value += -1*(Grid[i, j].Unit.Stats["HP"]+ValuePlus[j, i]);
                         }
                         else
                         {
-                            Value += -1*Grid[i, j].Unit.Stats["HP"]*ValueMinus[j, i];
+                            Value += (Grid[i, j].Unit.Stats["HP"]+ValueMinus[j, i]);
                         }
                     }
                 }

@@ -154,7 +154,7 @@ namespace testing
                 switch (State)
                 {
                     case GameStates.SELECT:
-                        if (Chosen.Unit != null)// && Chosen.Unit.Player == Turn)
+                        if (Chosen.Unit != null && Chosen.Unit.Player == Turn)
                         {
                             damage = 0;
                             WalkOrAttack = true;
@@ -206,12 +206,10 @@ namespace testing
                             ActiveUnit.Manager.PauseOrPlay();
                             ActiveUnit = null;
                         }
-                        Turn = !Turn;
-                        if (Turn)
+
+                        Console.WriteLine(AI.MakeTurn(Map, 1).ToString());
+
                             Chosen = LeaderTeam1.Tile;
-                        else
-                            Chosen = LeaderTeam0.Tile;
-                            Console.WriteLine(AI.MakeTurn(Map, 1).ToString());
                         break;
                     default:
                         break;
