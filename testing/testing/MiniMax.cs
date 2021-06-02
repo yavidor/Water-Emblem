@@ -64,8 +64,10 @@ namespace testing
                 if (!Move.Source.Player)
                 {
                     Move.Execute();
+                    Move.HealAttackExecute();
                     Score = EvaluateTurn(Map, Depth, IMin, IMax, true);
                     Move.Undo = true;
+                    Move.HealAttackExecute();
                     Move.Execute();
                     Move.Undo = false;
                     if (Score > Best)
@@ -139,11 +141,11 @@ namespace testing
                     {
                         if (Grid[i, j].Unit.Player)
                         {
-                            Value += -1*(Grid[i, j].Unit.Stats["HP"]+ValuePlus[j, i]);
+                            Value += -1*((Grid[i, j].Unit.Stats["HP"]*5)+ValuePlus[j, i]);
                         }
                         else
                         {
-                            Value += (Grid[i, j].Unit.Stats["HP"]+ValueMinus[j, i]);
+                            Value += ((Grid[i, j].Unit.Stats["HP"]*5)+ValueMinus[j, i]);
                         }
                     }
                 }
