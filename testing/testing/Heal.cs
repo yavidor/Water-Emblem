@@ -9,9 +9,17 @@ namespace testing
     public class Heal : Action
     {
         private int HealFactor = 3;
+        private int Healing;
         public Heal(Unit Source, Unit Target, bool Undo) : base(Source, Target, Undo)
         {
-
+            if (Target != null)
+            {
+                Healing =
+               Target.Stats["HP"] + Source.Stats["STR"] / HealFactor + Source.Weapon["MT"]
+               > Target.Stats["MaxHp"] ?
+               Target.Stats["MaxHp"] - Target.Stats["HP"] :
+               Source.Stats["STR"] / HealFactor + Source.Weapon["MT"];
+            }
         }
         public override string ToString()
         {
@@ -19,17 +27,8 @@ namespace testing
         }
         public int Execute()
         {
-            int healing =
-            Target.Stats["HP"] + Source.Stats["STR"] / HealFactor + Source.Weapon["MT"]
-            > Target.Stats["MaxHp"] ?
-            Target.Stats["MaxHp"] - Target.Stats["HP"] :
-            Source.Stats["STR"] / 3 + Source.Weapon["MT"];
-            if (Undo)
-            {
-                healing *= -1;
-            }
-            Target.TakeDamage(0-healing);
-            return healing;
+            Target.TakeDamage(Undo ? Healing : 0 - Healing);
+            return Healing;
         }
         public bool Equals(Attack other)
         {

@@ -154,14 +154,13 @@ namespace testing
                 switch (State)
                 {
                     case GameStates.SELECT:
-                        if (Chosen.Unit != null && Chosen.Unit.Player == Turn)
+                        if (Chosen.Unit != null)// && Chosen.Unit.Player == Turn)
                         {
                             damage = 0;
                             WalkOrAttack = true;
                             State = GameStates.MOVE;
                             ActiveUnit = Chosen.Unit;
                             ActiveUnit.Manager.PauseOrPlay();
-                            Console.WriteLine(string.Join(", ", ActiveUnit.GetActions(Grid).Select(a => a.ToString())));
                         }
                         break;
                     case GameStates.MOVE:
@@ -186,9 +185,10 @@ namespace testing
                             if (ActiveUnit.GetActions(Grid).Any(
                                 action => action.Attack != null && action.Attack.GetType() == attack.GetType() &&
                                 action.Attack.Equals(attack)))
-                            { 
+                            {
                                 damage = attack.Execute();
-                        }
+                                Console.WriteLine("Hello");
+                            }
                             heal = new Heal(ActiveUnit, Chosen.Unit, false);
                             if (ActiveUnit.GetActions(Grid).Any(
                                 action => action.Heal != null && action.Heal.GetType() == heal.GetType() &&
@@ -211,6 +211,7 @@ namespace testing
                             Chosen = LeaderTeam1.Tile;
                         else
                             Chosen = LeaderTeam0.Tile;
+                            Console.WriteLine(AI.MakeTurn(Map, 1).ToString());
                         break;
                     default:
                         break;

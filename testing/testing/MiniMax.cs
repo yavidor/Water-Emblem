@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,53 +48,61 @@ namespace testing
             {
                 for (int j = 0; j < ValueMinus.GetLength(1); j++)
                 {
-                    ValueMinus[ValueMinus.GetLength(0) - i - 1, j] = 0 - ValuePlus[i, j];
+                    ValueMinus[ValueMinus.GetLength(0) - i - 1, j] =ValuePlus[i, j];
                 }
             }
         }
-        public Action MakeTurn(Map Map, int Depth)
+        public Move MakeTurn(Map Map, int Depth)
         {
             double Best = IMin;
-            Move BestFound = new Move(null, null, true);//The best move yet. Initialized as null
+            Move BestFound = null;
             //to prevent errors
             double Score;
             List<Move> Moves = Map.GetAllActions();
             foreach(Move Move in Moves)
             {
-                Move.Execute();
-                Score = EvaluateTurn(Map, Depth, IMin, IMax, false);
-                Move.Undo = false;
-                Move.Execute();
-                Move.Undo = true;
-                if (Score >= Best)
+                if (!Move.Source.Player)
                 {
-                    Best = Score;
-                    BestFound = Move;
+                    Move.Execute();
+                    Score = EvaluateTurn(Map, Depth, IMin, IMax, false);
+                    Move.Undo = true;
+                    Move.Execute();
+                    Move.Undo = false;
+                    if (Score >= Best)
+                    {
+                        Best = Score;
+                        BestFound = Move;
+                    }
                 }
             }
+            BestFound.Execute();
             return BestFound;
         }
         public double EvaluateTurn(Map Map, int Depth, double Alpha, double Beta, bool Player)
         {
             double Best;
             Tile[,] Grid = Map.Grid;
-            List<Move> Moves = Map.GetAllActions();//A list of every possible action by every unit
-                                                   //in the current state of the game
             if (Depth == 0)
             {
                 return EvaluateBoard(Grid);
             }
+            List<Move> Moves = Map.GetAllActions();//A list of every possible action by every unit
+                                                   //in the current state of the game
             if (Player)
             {
                 Best = IMin;
               
                 foreach (Move Move in Moves)
                 {
+             
                     Move.Execute();
+                    Move.HealAttackExecute();
                     Best = Math.Max(EvaluateTurn(Map, Depth - 1, Alpha, Beta, false), Best);
-                    Move.Undo = false;
-                    Move.Execute();
                     Move.Undo = true;
+                    Move.Execute();
+                    Move.HealAttackExecute();
+                    Move.Undo = false;
+                   
                     Alpha = Math.Max(Best, Alpha);
                     if (Alpha >= Beta)
                         break;
@@ -102,13 +111,23 @@ namespace testing
             else
             {
                 Best = IMax;
-                foreach(Move Move in Moves)
+                foreach (Move Move in Moves)
                 {
+                    int hpBeforeA = 0;
+                    int hpBeforeH = 0;
+                    if (Move.Attack != null)
+                        hpBeforeA = Move.Attack.Target.Stats["HP"];
+                    if (Move.Heal != null)
+                    {
+                        hpBeforeH = Move.Heal.Target.Stats["HP"];
+                    }
+
                     Move.Execute();
                     Best = Math.Min(EvaluateTurn(Map, Depth - 1, Alpha, Beta, true), Best);
-                    Move.Undo = false;
-                    Move.Execute();
                     Move.Undo = true;
+                    Move.Execute();
+                    Move.Undo = false;
+                   
                     Beta = Math.Min(Best, Beta);
                     if (Alpha >= Beta)
                         break;
@@ -118,7 +137,25 @@ namespace testing
         }
         public double EvaluateBoard(Tile[,] Grid)
         {
-            return 0;
+            double Value = 0;
+            for (int i = 0; i < Grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < Grid.GetLength(1); j++)
+                {
+                    if (Grid[i, j].Unit != null)
+                    {
+                        if (Grid[i, j].Unit.Player)
+                        {
+                            Value += Grid[i, j].Unit.Stats["HP"]*ValuePlus[j, i];
+                        }
+                        else
+                        {
+                            Value += -1*Grid[i, j].Unit.Stats["HP"]*ValueMinus[j, i];
+                        }
+                    }
+                }
+            }
+            return Value;
         }
     }
 }

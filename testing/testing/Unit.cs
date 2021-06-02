@@ -144,6 +144,12 @@ namespace testing
         /// <param name="damage">Amount of damage taken</param>
         public void TakeDamage(int damage)
         {
+            if (this.Stats["HP"] <= 0)
+            {
+                Game1.Units.Add(this);
+                this.Tile.Unit = this;
+
+            }
             this.Stats["HP"] -= damage;
             if (this.Stats["HP"] <= 0)
             {
@@ -182,11 +188,13 @@ namespace testing
                             {
                                 Attack attack = new Attack(this, tileAttack.Unit, false);
                                 move.Attack = attack;
+
                             }
                         }
                     }
                     move.Undo = true;
                     move.Execute();
+                    move.Undo = false;
                 }
             }
                 return actions;
