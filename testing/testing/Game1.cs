@@ -207,7 +207,7 @@ namespace testing
                             ActiveUnit = null;
                         }
 
-                        Console.WriteLine(AI.MakeTurn(Map, 1).ToString());
+                        Console.WriteLine(AI.MakeTurn(Map, 2).ToString());
 
                             Chosen = LeaderTeam1.Tile;
                         break;

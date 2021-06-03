@@ -141,11 +141,11 @@ namespace testing
                     {
                         if (Grid[i, j].Unit.Player)
                         {
-                            Value += -1*((Grid[i, j].Unit.Stats["HP"]*5)+ValuePlus[j, i]);
+                            Value += -1*((Grid[i, j].Unit.Stats["HP"]*7)+ValuePlus[j, i]);
                         }
                         else
                         {
-                            Value += ((Grid[i, j].Unit.Stats["HP"]*5)+ValueMinus[j, i]);
+                            Value += ((Grid[i, j].Unit.Stats["HP"]*7)+ValueMinus[j, i]);
                         }
                     }
                 }
