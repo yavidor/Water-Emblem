@@ -180,6 +180,14 @@ namespace testing
                         {
                             State = GameStates.SELECT;
                             Console.WriteLine(Chosen.Unit.Stats["HP"]);
+                            heal = new Heal(ActiveUnit, Chosen.Unit, false);
+                            if (ActiveUnit.GetActions(Grid).Any(
+                                action =>   action.Heal != null && action.Heal.Target.Player && action.Heal.GetType() == heal.GetType() &&
+                                action.Heal.Equals(heal)))
+                            {
+                               Console.WriteLine(heal.GetType());
+                               damage = heal.Execute();
+                            }
                             attack = new Attack(ActiveUnit, Chosen.Unit, false);
 
                             if (ActiveUnit.GetActions(Grid).Any(
@@ -188,14 +196,6 @@ namespace testing
                             {
                                 damage = attack.Execute();
                                 Console.WriteLine("Hello");
-                            }
-                            heal = new Heal(ActiveUnit, Chosen.Unit, false);
-                            if (ActiveUnit.GetActions(Grid).Any(
-                                action => action.Heal != null && action.Heal.GetType() == heal.GetType() &&
-                                action.Heal.Equals(heal)))
-                            {
-                               Console.WriteLine(heal.GetType());
-                               damage = heal.Execute();
                             }
                             ActiveUnit.Manager.PauseOrPlay();
                             
@@ -207,7 +207,7 @@ namespace testing
                             ActiveUnit = null;
                         }
 
-                        Console.WriteLine(AI.MakeTurn(Map, 2).ToString());
+                        Console.WriteLine(AI.MakeTurn(Map, 1).ToString());
 
                             Chosen = LeaderTeam1.Tile;
                         break;

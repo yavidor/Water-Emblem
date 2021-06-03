@@ -10,11 +10,13 @@ namespace testing
     class MiniMax
     {
         private int IMax;
+        private int counter;
         private int IMin;
         private double[,] ValuePlus;
         private double[,] ValueMinus;
         public MiniMax()
         {
+            counter = 0;
             this.IMax = int.MaxValue;
             this.IMin = int.MinValue;
             this.ValuePlus = new double[24, 16] {
@@ -61,6 +63,7 @@ namespace testing
             List<Move> Moves = Map.GetAllActions();
             foreach (Move Move in Moves)
             {
+                counter++;
                 if (!Move.Source.Player)
                 {
                     Move.Execute();
@@ -80,10 +83,13 @@ namespace testing
             }
             BestFound.HealAttackExecute();
             BestFound.Execute();
+            Console.WriteLine(counter);
+            Console.WriteLine(Best);
             return BestFound;
         }
         public double EvaluateTurn(Map Map, int Depth, double Alpha, double Beta, bool Player)
         {
+            counter++;
             double Best;
             Tile[,] Grid = Map.Grid;
             if (Depth == 0)
