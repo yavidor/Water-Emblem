@@ -71,9 +71,12 @@
     <Compile Include="DrawText.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Heal.cs" />
+    <Compile Include="Host.cs" />
+    <Compile Include="Join.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MiniMax.cs" />
     <Compile Include="Move.cs" />
+    <Compile Include="OnlineGame.cs" />
     <Compile Include="PortraitDraw.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -20,16 +20,18 @@ namespace testing
         /// <summary>
         /// X value in the grid of tiles
         /// </summary>
-        public int x
+        public int X
         {
-            get { return Tile.x; }
+            get { return Tile.X; }
+            set { }
         }
         /// <summary>
         /// Y value in the grid of tiles
         /// </summary>
-        public int y
+        public int Y
         {
-            get { return Tile.y; }
+            get { return Tile.Y; }
+            set { }
         }
         /// <summary>
         /// Name of the unit
@@ -114,24 +116,24 @@ namespace testing
                     Dist[i , j] = int.MaxValue;
                 }
             }
-            Dist[this.x , this.y] = 0;
-            Queue.Enqueue(Grid[this.x , this.y]);
+            Dist[this.X , this.Y] = 0;
+            Queue.Enqueue(Grid[this.X , this.Y]);
             while (Queue.Count != 0)
             {
                 temp = Queue.Dequeue();
                 foreach (Tile neighbor in temp.Neighbors)
                 {
-                    if (Dist[neighbor.x , neighbor.y] > Range)
+                    if (Dist[neighbor.X , neighbor.Y] > Range)
                     {
-                        Dist[neighbor.x , neighbor.y] = 1 + Dist[temp.x , temp.y];
-                        if (Dist[neighbor.x , neighbor.y] <= Range && 
+                        Dist[neighbor.X , neighbor.Y] = 1 + Dist[temp.X , temp.Y];
+                        if (Dist[neighbor.X , neighbor.Y] <= Range && 
                             neighbor.Walkable)
                         {
                             Queue.Enqueue(neighbor);
                         }
                     }
                 }
-                if (Dist[temp.x , temp.y] > 0 && Dist[temp.x , temp.y] <= Range)
+                if (Dist[temp.X , temp.Y] > 0 && Dist[temp.X , temp.Y] <= Range)
                 {
                     Valid.Add(temp);
                 }
@@ -201,7 +203,7 @@ namespace testing
         }
         public bool Equals(Unit other)
         {
-            return (this.x == other.x && this.y == other.y &&
+            return (this.X == other.X && this.Y == other.Y &&
                 this.Name == other.Name && this.Player == other.Player);
         }
     }
