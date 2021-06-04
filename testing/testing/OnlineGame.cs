@@ -22,7 +22,7 @@ namespace testing
 
             protected int port;
 
-            public Unit hostChar, joinChar;
+            public List<Unit> Units;
 
             public event OnConnectionHandler OnConnection;
 
@@ -31,13 +31,13 @@ namespace testing
 
 
             protected abstract void SocketThread();
+            protected abstract void Update();
             #endregion
 
             protected void InitChars1()
             {
-            hostChar = new Unit();
+            Units = Game1.Units;
 
-            joinChar = new Unit();
             }
             protected void RaiseOnConnectionEvent()
             {
@@ -55,16 +55,31 @@ namespace testing
             thread.Start();
             }
 
-            protected void ReadAndUpdateCharacter(Unit c)
+            protected void ReadAndUpdateCharacter(List<Unit> units)
             {
-                c.X = reader.ReadInt32();
-                c.Y = reader.ReadInt32();
+                foreach(Unit unit in units)
+            {
+                Move move = new Move(unit, Game1.Grid[reader.ReadInt32(), reader.ReadInt32()], false);
+                move.Execute();
+                unit.Stats["HP"] = reader.ReadInt32();
+
+
             }
 
-            protected void WriteCharacterData(Unit c)
+                Game1.Turn = reader.ReadBoolean();
+            }
+
+            public void WriteCharacterData(List<Unit> units)
             {
-                writer.Write(c.X);
-                writer.Write(c.Y);
+      
+            foreach(Unit unit in units) {
+                writer.Write(unit.X);
+                writer.Write(unit.Y);
+                writer.Write(unit.Stats["HP"]);
+
+
+            }
+            writer.Write(Game1.Turn);
             }
 
 

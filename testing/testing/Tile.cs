@@ -13,7 +13,7 @@ namespace testing
         /// <summary>
         /// the X and Y values in the grid of tiles
         /// </summary>
-        public int X, Y;
+        public int x, y;
         /// <summary>
         /// row, col = The row and column of the tile in the tileset.
         /// frame = index of the tile in the tilset
@@ -51,36 +51,36 @@ namespace testing
             col = gid % Game1.tilesetTilesWide;
             this.row = (int)Math.Floor((double)gid / (double)Game1.tilesetTilesWide);
 
-             this.X = (tileCount % Game1.map.Width);
-             this.Y = (int)Math.Floor(tileCount / (double)Game1.map.Width);
+             this.x = (tileCount % Game1.map.Width);
+             this.y = (int)Math.Floor(tileCount / (double)Game1.map.Width);
 
             this.Rec = new Rectangle(Game1.tileWidth * col, Game1.tileWidth * row, 
                 Game1.tileWidth, Game1.tileWidth);
         }
         public String ToString()
         {
-            return "col: " + col + " row: " + row + " x:" + X + " y:" + Y;
+            return "col: " + col + " row: " + row + " x:" + x + " y:" + y;
         }
         /// <summary>
         /// Fills the list of neighbors
         /// </summary>
         public void AddNeighbors()
         {
-            if (this.X < Game1.map.Width - 1)
+            if (this.x < Game1.map.Width - 1)
             {
-                this.Neighbors.Add(Game1.Grid[this.X + 1 , this.Y]);
+                this.Neighbors.Add(Game1.Grid[this.x + 1 , this.y]);
             }
-            if (this.X > 0)
+            if (this.x > 0)
             {
-                this.Neighbors.Add(Game1.Grid[this.X - 1 , this.Y]);
+                this.Neighbors.Add(Game1.Grid[this.x - 1 , this.y]);
             }
-            if (this.Y < Game1.map.Height - 1)
+            if (this.y < Game1.map.Height - 1)
             {
-                this.Neighbors.Add(Game1.Grid[this.X , this.Y + 1]);
+                this.Neighbors.Add(Game1.Grid[this.x , this.y + 1]);
             }
-            if (this.Y > 0)
+            if (this.y > 0)
             {
-                this.Neighbors.Add(Game1.Grid[this.X , this.Y - 1]);
+                this.Neighbors.Add(Game1.Grid[this.x , this.y - 1]);
             }
         }
         public void RemoveNeighbors()

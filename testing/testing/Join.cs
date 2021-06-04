@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    class JoinOnlineGame : OnlineGame
+    class Join : OnlineGame
     {
         string hostip;
 
-        public JoinOnlineGame(string hostip, int port)
+        public Join(string hostip, int port)
         {
             this.port = port;
             this.hostip = hostip;
@@ -24,9 +24,7 @@ namespace testing
 
         protected override void InitChars()
         {
-            hostChar = new Unit();
-
-            joinChar = new Unit();
+            Units = Game1.Units;
         }
 
         protected override void SocketThread()
@@ -41,10 +39,21 @@ namespace testing
 
             while (true)
             {
-                ReadAndUpdateCharacter(hostChar);
-                WriteCharacterData(joinChar);
-
-                Thread.Sleep(10);
+                this.Update();
+            }
+            Thread.Sleep(10);
+        }
+        protected override void Update()
+        {
+            if (Game1.Turn == true)
+            {
+                Game1.Turn = false;
+                ReadAndUpdateCharacter(Units);
+                Game1.Turn = true;
+            }
+            else
+            {
+                WriteCharacterData(Units);
             }
         }
     }

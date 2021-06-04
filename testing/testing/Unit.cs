@@ -22,7 +22,7 @@ namespace testing
         /// </summary>
         public int X
         {
-            get { return Tile.X; }
+            get { return Tile.x; }
             set { }
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace testing
         /// </summary>
         public int Y
         {
-            get { return Tile.Y; }
+            get { return Tile.y; }
             set { }
         }
         /// <summary>
@@ -123,17 +123,17 @@ namespace testing
                 temp = Queue.Dequeue();
                 foreach (Tile neighbor in temp.Neighbors)
                 {
-                    if (Dist[neighbor.X , neighbor.Y] > Range)
+                    if (Dist[neighbor.x , neighbor.y] > Range)
                     {
-                        Dist[neighbor.X , neighbor.Y] = 1 + Dist[temp.X , temp.Y];
-                        if (Dist[neighbor.X , neighbor.Y] <= Range && 
+                        Dist[neighbor.x , neighbor.y] = 1 + Dist[temp.x , temp.y];
+                        if (Dist[neighbor.x , neighbor.y] <= Range && 
                             neighbor.Walkable)
                         {
                             Queue.Enqueue(neighbor);
                         }
                     }
                 }
-                if (Dist[temp.X , temp.Y] > 0 && Dist[temp.X , temp.Y] <= Range)
+                if (Dist[temp.x , temp.y] > 0 && Dist[temp.x , temp.y] <= Range)
                 {
                     Valid.Add(temp);
                 }

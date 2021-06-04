@@ -17,19 +17,21 @@ namespace testing
     /// </summary>
     public class Game1 : Game
     {
+
         enum OnlineState
         {
             AskingRole, //host or join
             Connecting,
             Playing
         }
+
         OnlineGame onlineGame;
         OnlineState state = OnlineState.AskingRole;
-        bool host; //True = The host. False = The second player
         public enum GameStates {SELECT,MOVE,ACTION,TARGET};
         GameStates State = GameStates.SELECT;
         bool Pvp = true;//True = Player vs Player. False = Player vs Computer
         TeamData Data;
+        bool host;
         Unit ActiveUnit;
         Unit LeaderTeam0, LeaderTeam1;
         Attack attack;
@@ -43,10 +45,11 @@ namespace testing
         SpriteBatch spriteBatch;
         public static TmxMap map { get; set; }
         internal static Tile[,] Grid { get => grid; set => grid = value; }
+        public static bool Turn = true;
         Map Map = new Map();
         private static Tile[,] grid;
         Texture2D tileset, Highlight, Cursor;
-        bool WalkOrAttack = true, Turn = true; 
+        bool WalkOrAttack = true;
         public static List<Unit> Units = new List<Unit>();
         double timer = 0;
         int damage;
@@ -84,7 +87,7 @@ namespace testing
             for (int i = 0; i < map.Layers[0].Tiles.Count; i++)
             {
                 Tile Tile = new Tile(map.Layers[0].Tiles[i].Gid - 1, i);
-                Grid[Tile.X, Tile.Y] = Tile;
+                Grid[Tile.x, Tile.y] = Tile;
             }
             for (int i = 0; i < Grid.GetLength(0); i++)
             {
@@ -143,7 +146,7 @@ namespace testing
                     }
                     else if (Keyboard.GetState().IsKeyDown(Keys.J))
                     {
-                        onlineGame = new JoinOnlineGame(File.ReadAllText("ip.txt"), int.Parse(File.ReadAllText("port.txt")));
+                        onlineGame = new Join(File.ReadAllText("ip.txt"), int.Parse(File.ReadAllText("port.txt")));
                         onlineGame.OnConnection += onlineGame_OnConnection;
                         // onlineGame.StartCommunication();
                         host = false;
@@ -158,24 +161,24 @@ namespace testing
                 case OnlineState.Playing:
                     #region Directions
                     if (Keyboard.GetState().IsKeyDown(Keys.Right) && lastkey.IsKeyUp(Keys.Right) &&
-                        ((int)Chosen.X) < map.Width - 1)
+                        ((int)Chosen.x) < map.Width - 1)
                     {
-                        Chosen = Grid[((int)Chosen.X) + 1, ((int)Chosen.Y)];
+                        Chosen = Grid[((int)Chosen.x) + 1, ((int)Chosen.y)];
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.Left) && lastkey.IsKeyUp(Keys.Left) &&
-                        ((int)Chosen.X) > 0)
+                        ((int)Chosen.x) > 0)
                     {
-                        Chosen = Grid[((int)Chosen.X) - 1, ((int)Chosen.Y)];
+                        Chosen = Grid[((int)Chosen.x) - 1, ((int)Chosen.y)];
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.Up) && lastkey.IsKeyUp(Keys.Up) &&
-                        ((int)Chosen.Y) > 0)
+                        ((int)Chosen.y) > 0)
                     {
-                        Chosen = Grid[((int)Chosen.X), ((int)Chosen.Y) - 1];
+                        Chosen = Grid[((int)Chosen.x), ((int)Chosen.y) - 1];
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.Down) && lastkey.IsKeyUp(Keys.Down) &&
-                        ((int)Chosen.Y) < map.Height - 1)
+                        ((int)Chosen.y) < map.Height - 1)
                     {
-                        Chosen = Grid[((int)Chosen.X), ((int)Chosen.Y) + 1];
+                        Chosen = Grid[((int)Chosen.x), ((int)Chosen.y) + 1];
                     }
                     #endregion
                     if (Keyboard.GetState().IsKeyDown(Keys.X) && lastkey.IsKeyUp(Keys.X))
@@ -187,7 +190,7 @@ namespace testing
                             State = GameStates.SELECT;
                         }
                     }
-                    if (Keyboard.GetState().IsKeyDown(Keys.Z) && lastkey.IsKeyUp(Keys.Z))
+                    if (Keyboard.GetState().IsKeyDown(Keys.Z) && lastkey.IsKeyUp(Keys.Z) && host==Turn)
                     {
                         switch (State)
                         {
@@ -246,6 +249,8 @@ namespace testing
                                 }
                                 if (Pvp)
                                 {
+                                    Turn = !Turn;
+                                    onlineGame.WriteCharacterData(Units);
                                     if (Turn)
                                     {
                                         Chosen = LeaderTeam0.Tile;
@@ -254,7 +259,7 @@ namespace testing
                                     {
                                         Chosen = LeaderTeam1.Tile;
                                     }
-                                    Turn = !Turn;
+
                                 }
                                 else
                                 {
@@ -270,7 +275,10 @@ namespace testing
                     }
                     break;
             }
-         
+
+            this.Window.Title = Turn +"" + host;
+
+          
             lastkey = Keyboard.GetState();
             base.Update(gameTime);
         }
@@ -319,8 +327,8 @@ namespace testing
                                     source.Y = tileWidth;
                                 }
                                     spriteBatch.Draw(Highlight,
-                                        new Rectangle((int)Grid[i, j].X * map.TileWidth,
-                                        (int)Grid[i, j].Y * map.TileHeight,
+                                        new Rectangle((int)Grid[i, j].x * map.TileWidth,
+                                        (int)Grid[i, j].y * map.TileHeight,
                                         tileWidth, tileWidth),
                                        source,
                                         Color.White * 0.75f);
@@ -329,8 +337,8 @@ namespace testing
                         }
                     }
                 }
-            spriteBatch.Draw(Cursor, new Vector2((int)Chosen.X*map.TileWidth,
-                (int)Chosen.Y*map.TileHeight), Color.White * 0.75f);
+            spriteBatch.Draw(Cursor, new Vector2((int)Chosen.x*map.TileWidth,
+                (int)Chosen.y*map.TileHeight), Color.White * 0.75f);
             foreach (Unit unit in Units)
             {
                 unit.Manager.Draw(gameTime, spriteBatch,
