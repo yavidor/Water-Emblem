@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XMLData;
 using TiledSharp;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+using XMLData;
 
 namespace testing
 {
@@ -22,7 +22,7 @@ namespace testing
         /// </summary>
         public int X
         {
-            get { return Tile.x; }
+            get => Tile.X;
             set { }
         }
         /// <summary>
@@ -30,7 +30,7 @@ namespace testing
         /// </summary>
         public int Y
         {
-            get { return Tile.y; }
+            get => Tile.Y;
             set { }
         }
         /// <summary>
@@ -70,16 +70,16 @@ namespace testing
         /// </summary>
         /// <param name="ud">The data for the unit</param>
         /// <param name="content">The content manager of the game, needed to create new animations</param>
-        public Unit(UnitData ud,ContentManager Content)
+        public Unit(UnitData ud, ContentManager Content)
         {
             this.Name = ud.Name;
             this.Player = ud.Player;
             this.Weapon = new Dictionary<string, int>(ud.Weapon);
             this.Stats = new Dictionary<string, int>(ud.Stats);
             Texture2D texture = Content.Load<Texture2D>($"Sprites/Map/{this.Name}{Convert.ToInt32(this.Player)}");
-            this.Sprite = new Animation(texture, 100,texture.Width/4);
-            
-            
+            this.Sprite = new Animation(texture, 100, texture.Width / 4);
+
+
         }
         /// <summary>
         /// Standart ToString function
@@ -88,12 +88,7 @@ namespace testing
         public string ToString()
         {
             return this.Name;
-          /*  return $"Name: {this.Name} \n Class: {this.Class} \n Stats " +
-                "{ " + string.Join(",", this.Stats.Select(kv => kv.Key + " = " + kv.Value).ToArray()) + "}"
-                + "\n Items: { " + string.Join(",", this.Items.Select(kv => kv.Key + " = " + kv.Value).ToArray()) + "}"
-                + "\n Sprites: { " + string.Join(",", this.Sprites.Select(kv => kv.Key + " = " + kv.Value).ToArray()) + "}";
-    */   
-    }
+        }
         /// <summary>
         /// Finds every tiles the unit can reach
         /// </summary>
@@ -108,32 +103,32 @@ namespace testing
             Tile temp;
             Queue<Tile> Queue = new Queue<Tile>();
             List<Tile> Valid = new List<Tile>();
-            int[,] Dist = new int[Grid.GetLength(0) , Grid.GetLength(1)];
+            int[,] Dist = new int[Grid.GetLength(0), Grid.GetLength(1)];
             for (int i = 0; i < Dist.GetLength(0); i++)
             {
                 for (int j = 0; j < Dist.GetLength(1); j++)
                 {
-                    Dist[i , j] = int.MaxValue;
+                    Dist[i, j] = int.MaxValue;
                 }
             }
-            Dist[this.X , this.Y] = 0;
-            Queue.Enqueue(Grid[this.X , this.Y]);
+            Dist[this.X, this.Y] = 0;
+            Queue.Enqueue(Grid[this.X, this.Y]);
             while (Queue.Count != 0)
             {
                 temp = Queue.Dequeue();
                 foreach (Tile neighbor in temp.Neighbors)
                 {
-                    if (Dist[neighbor.x , neighbor.y] > Range)
+                    if (Dist[neighbor.X, neighbor.Y] > Range)
                     {
-                        Dist[neighbor.x , neighbor.y] = 1 + Dist[temp.x , temp.y];
-                        if (Dist[neighbor.x , neighbor.y] <= Range && 
+                        Dist[neighbor.X, neighbor.Y] = 1 + Dist[temp.X, temp.Y];
+                        if (Dist[neighbor.X, neighbor.Y] <= Range &&
                             neighbor.Walkable)
                         {
                             Queue.Enqueue(neighbor);
                         }
                     }
                 }
-                if (Dist[temp.x , temp.y] > 0 && Dist[temp.x , temp.y] <= Range)
+                if (Dist[temp.X, temp.Y] > 0 && Dist[temp.X, temp.Y] <= Range)
                 {
                     Valid.Add(temp);
                 }
@@ -168,10 +163,11 @@ namespace testing
         public List<Move> GetActions(Tile[,] Grid)
         {
             List<Move> actions = new List<Move>();
-            List<Tile> Moves = this.ReachableTiles(Grid,true);
+            List<Tile> Moves = this.ReachableTiles(Grid, true);
             foreach (Tile tile in Moves)
             {
-                if (tile.Unit == null) {
+                if (tile.Unit == null)
+                {
                     Move move = new Move(this, tile, false);
                     actions.Add(move);
                     move.Execute();
@@ -179,14 +175,15 @@ namespace testing
                     {
                         if (tileAttack.Unit != null)
                         {
-                            if (tileAttack.Unit.Player == this.Player && (this.Name == "Priest" || this.Name == "Monk"))
-                                //Both the Monk and the Priest can heal
+                            if (tileAttack.Unit.Player == this.Player &&
+                                (this.Name == "Priest" || this.Name == "Monk"))
+                            //Both the Monk and the Priest can heal
                             {
                                 Heal heal = new Heal(this, tileAttack.Unit, false);
                                 move.Heal = heal;
                             }
                             else if (this.Name != "Priest" && tileAttack.Unit.Player != this.Player)
-                                //Only the Priest cannot attack
+                            //Only the Priest cannot attack
                             {
                                 Attack attack = new Attack(this, tileAttack.Unit, false);
                                 move.Attack = attack;
@@ -199,7 +196,7 @@ namespace testing
                     move.Undo = false;
                 }
             }
-                return actions;
+            return actions;
         }
         public bool Equals(Unit other)
         {

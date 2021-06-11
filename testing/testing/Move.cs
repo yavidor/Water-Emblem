@@ -67,7 +67,8 @@ namespace testing
         }
         public override string ToString()
         {
-            return $"Undo?: {Undo} Source: {Source.ToString()} Player: {Source.Player} Target: {Destination.ToString()}" + (Attack == null ? "Null" : Attack.ToString());
+            return $"Undo?: {Undo} Source: {Source.ToString()} Player: {Source.Player}" +
+                $" Target: {Destination.ToString()}" + (Attack == null ? "Null" : Attack.ToString());
         }
     }
 }

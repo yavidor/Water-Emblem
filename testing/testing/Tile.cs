@@ -13,12 +13,12 @@ namespace testing
         /// <summary>
         /// the X and Y values in the grid of tiles
         /// </summary>
-        public int x, y;
+        public int X, Y;
         /// <summary>
         /// row, col = The row and column of the tile in the tileset.
         /// frame = index of the tile in the tilset
         /// </summary>
-        public int row, col,frame;
+        public int Row, Col, Frame;
         /// <summary>
         /// The rectangle inside the tileset of this tile
         /// </summary>
@@ -39,53 +39,49 @@ namespace testing
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="gid">index of the tile in the tilset</param>
-        /// <param name="tileCount">flat index of the tile in the grid</param>
+        /// <param name="Gid">index of the tile in the tilset</param>
+        /// <param name="TileCount">flat index of the tile in the grid</param>
         /// <param name="Unit">The unit in the tile, sets to null if not provided</param>
-        public Tile(int gid, int tileCount, Unit Unit = null)
-        { 
-            frame = gid;
+        public Tile(int Gid, int TileCount, Unit Unit = null)
+        {
+            Frame = Gid;
             this.Unit = Unit;
-            if (frame == 1005 || frame == 1006 || frame == 942)
+            if (Frame == 1005 || Frame == 1006 || Frame == 942)
                 Walkable = true;
-            col = gid % Game1.tilesetTilesWide;
-            this.row = (int)Math.Floor((double)gid / (double)Game1.tilesetTilesWide);
+            Col = Gid % Game1.TilesetTilesWide;
+            this.Row = (int)Math.Floor((double)Gid / (double)Game1.TilesetTilesWide);
 
-             this.x = (tileCount % Game1.map.Width);
-             this.y = (int)Math.Floor(tileCount / (double)Game1.map.Width);
+            this.X = (TileCount % Game1.TmxMap.Width);
+            this.Y = (int)Math.Floor(TileCount / (double)Game1.TmxMap.Width);
 
-            this.Rec = new Rectangle(Game1.tileWidth * col, Game1.tileWidth * row, 
-                Game1.tileWidth, Game1.tileWidth);
+            this.Rec = new Rectangle(Game1.TileWidth * Col, Game1.TileWidth * Row,
+                Game1.TileWidth, Game1.TileWidth);
         }
         public String ToString()
         {
-            return "col: " + col + " row: " + row + " x:" + x + " y:" + y;
+            return "col: " + Col + " row: " + Row + " x:" + X + " y:" + Y;
         }
         /// <summary>
         /// Fills the list of neighbors
         /// </summary>
         public void AddNeighbors()
         {
-            if (this.x < Game1.map.Width - 1)
+            if (this.X < Game1.TmxMap.Width - 1)
             {
-                this.Neighbors.Add(Game1.Grid[this.x + 1 , this.y]);
+                this.Neighbors.Add(Game1.Grid[this.X + 1, this.Y]);
             }
-            if (this.x > 0)
+            if (this.X > 0)
             {
-                this.Neighbors.Add(Game1.Grid[this.x - 1 , this.y]);
+                this.Neighbors.Add(Game1.Grid[this.X - 1, this.Y]);
             }
-            if (this.y < Game1.map.Height - 1)
+            if (this.Y < Game1.TmxMap.Height - 1)
             {
-                this.Neighbors.Add(Game1.Grid[this.x , this.y + 1]);
+                this.Neighbors.Add(Game1.Grid[this.X, this.Y + 1]);
             }
-            if (this.y > 0)
+            if (this.Y > 0)
             {
-                this.Neighbors.Add(Game1.Grid[this.x , this.y - 1]);
+                this.Neighbors.Add(Game1.Grid[this.X, this.Y - 1]);
             }
-        }
-        public void RemoveNeighbors()
-        {
-            this.Neighbors.Clear();
         }
     }
 }

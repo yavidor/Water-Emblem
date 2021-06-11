@@ -15,7 +15,7 @@ namespace testing
 
         public Join(string hostip, int port)
         {
-            this.port = port;
+            this.Port = port;
             this.hostip = hostip;
             InitChars();
             StartCommunication();
@@ -29,27 +29,25 @@ namespace testing
 
         protected override void SocketThread()
         {
-            client = new TcpClient();
-            client.Connect(hostip, port);
+            Client = new TcpClient();
+            Client.Connect(hostip, Port);
+            Reader = new BinaryReader(Client.GetStream());
+            Writer = new BinaryWriter(Client.GetStream());
 
-            reader = new BinaryReader(client.GetStream());
-            writer = new BinaryWriter(client.GetStream());
 
             RaiseOnConnectionEvent();
 
             while (true)
             {
                 this.Update();
+                Thread.Sleep(10);
             }
-            Thread.Sleep(10);
         }
         protected override void Update()
         {
             if (Game1.Turn == true)
             {
-                Game1.Turn = false;
                 ReadAndUpdateCharacter(Units);
-                Game1.Turn = true;
             }
             else
             {

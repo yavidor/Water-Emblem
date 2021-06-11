@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    class MiniMax
+    class ComputerPlayer
     {
         private int IMax;
         private int counter;
         private int IMin;
         private double[,] ValuePlus;
         private double[,] ValueMinus;
-        public MiniMax()
+        public ComputerPlayer()
         {
             counter = 0;
             this.IMax = int.MaxValue;

@@ -16,7 +16,7 @@ namespace testing
 
         public Host(int port)
         {
-            this.port = port;
+            this.Port = port;
 
 
             InitChars();
@@ -30,11 +30,11 @@ namespace testing
 
         protected override void SocketThread()
         {
-            TcpListener listener = new TcpListener(IPAddress.Any, port);
+            TcpListener listener = new TcpListener(IPAddress.Any, Port);
             listener.Start();
-            client = listener.AcceptTcpClient();
-            reader = new BinaryReader(client.GetStream());
-            writer = new BinaryWriter(client.GetStream());
+            Client = listener.AcceptTcpClient();
+            Reader = new BinaryReader(Client.GetStream());
+            Writer = new BinaryWriter(Client.GetStream());
 
             RaiseOnConnectionEvent();
 
@@ -59,5 +59,6 @@ namespace testing
                 ReadAndUpdateCharacter(Units);
             }
         }
+
     }
 }

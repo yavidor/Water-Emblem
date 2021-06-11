@@ -12,7 +12,7 @@ namespace testing
         public Unit Target { get; set; }
         public bool Undo;
         public abstract string ToString();
-        public Action(Unit Source,Unit Target, bool Undo)
+        public Action(Unit Source, Unit Target, bool Undo)
         {
             this.Source = Source;
             this.Target = Target;

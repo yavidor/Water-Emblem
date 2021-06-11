@@ -23,7 +23,7 @@ namespace testing
         {
             this.spriteBatch = spriteBatch;
             this.Content = Content;
-            this.OtherSide = (Game1.map.Height-3) * (Game1.tileWidth);
+            this.OtherSide = (Game1.TmxMap.Height-3) * (Game1.TileWidth);
         }
         public void Draw(Unit unit, bool isActive)
         {
@@ -31,20 +31,20 @@ namespace testing
             {
                 spriteBatch.Draw(this.Content.Load<Texture2D>("Background"),
                         new Vector2(0, 0), Color.White * Opacity);
-                Game1.drawText.Write($"{unit.Stats["HP"]}/{unit.Stats["MaxHp"]}", x, y);
+                Game1.DrawText.Write($"{unit.Stats["HP"]}/{unit.Stats["MaxHp"]}", x, y);
                 this.spriteBatch.Draw(this.Content.Load<Texture2D>
                        ($"Sprites/Portraits/{unit.Name}{Convert.ToInt32(unit.Player)}")
-                       , new Vector2(0, Game1.tileWidth), Color.White);
+                       , new Vector2(0, Game1.TileWidth), Color.White);
             }
             else
             {
                 spriteBatch.Draw(this.Content.Load<Texture2D>("Background"),
                                        new Vector2(0, OtherSide), Color.White * Opacity);
-                Game1.drawText.Write($"{unit.Stats["HP"]}/{unit.Stats["MaxHp"]}",
+                Game1.DrawText.Write($"{unit.Stats["HP"]}/{unit.Stats["MaxHp"]}",
                     x, OtherSide+y);
                 this.spriteBatch.Draw(this.Content.Load<Texture2D>
                        ($"Sprites/Portraits/{unit.Name}{Convert.ToInt32(unit.Player)}")
-                       , new Vector2(0,OtherSide+Game1.tileWidth), Color.White);
+                       , new Vector2(0,OtherSide+Game1.TileWidth), Color.White);
             }
         }
     }

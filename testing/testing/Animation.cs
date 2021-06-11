@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Content;
 
 namespace testing
 {
@@ -15,34 +15,25 @@ namespace testing
         /// <summary>
         /// The source of the animation
         /// </summary>
-        public Texture2D Texture
-        {
-            get { return texture; }
-        }
-        Texture2D texture;
+        public Texture2D Texture => texture;
+
+        private Texture2D texture;
         /// <summary>
         /// How long does each frame stay for before moving to the next one
         /// </summary>
-        public float TimePerFrame
-        {
-            get { return timePerFrame; }
-        }
-        float timePerFrame;
+        public float TimePerFrame => timePerFrame;
+
+        private float timePerFrame;
         /// <summary>
         /// How many frames in the animation
         /// </summary>
-        public int Count
-        {
-            get { return texture.Width / frameWidth; }
-        }
+        public int Count => texture.Width / frameWidth;
         /// <summary>
         /// The width of each frame in the animation
         /// </summary>
-        public int FrameWidth
-        {
-            get { return frameWidth; }
-        }
-        int frameWidth;
+        public int FrameWidth => frameWidth;
+
+        private int frameWidth;
         #endregion
         #region CTOR
         public Animation(Texture2D texture, float timePerFrame, int frameWidth)

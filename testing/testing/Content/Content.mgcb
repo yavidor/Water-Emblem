@@ -122,7 +122,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Map/Eirika1.png
 
-#begin Sprites/Map/Epharim0.png
+#begin Sprites/Map/Ephraim0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -132,9 +132,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Map/Epharim0.png
+/build:Sprites/Map/Ephraim0.png
 
-#begin Sprites/Map/Epharim1.png
+#begin Sprites/Map/Ephraim1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -144,7 +144,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Map/Epharim1.png
+/build:Sprites/Map/Ephraim1.png
 
 #begin Sprites/Map/Fighter0.png
 /importer:TextureImporter
@@ -326,7 +326,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Portraits/Eirika1.png
 
-#begin Sprites/Portraits/Epharim0.png
+#begin Sprites/Portraits/Ephraim0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -336,7 +336,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Portraits/Epharim0.png
+/build:Sprites/Portraits/Ephraim0.png
 
 #begin Sprites/Portraits/Fighter0.png
 /importer:TextureImporter

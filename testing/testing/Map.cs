@@ -37,25 +37,25 @@ namespace testing
         /// The game itself
         /// </summary>
         public Game1 Game1;
-#endregion
+        #endregion
         public Map() { }
         public void Initialize(TmxMap tmxMap, Tile[,] Grid, List<Unit> Units, ContentManager Content)
         {
             this.TmxMap = tmxMap;
             TileSet = Content.Load<Texture2D>(TmxMap.Tilesets[0].Name);
-            this.Grid = Grid; 
+            this.Grid = Grid;
 
         }
         public void Draw(SpriteBatch SpriteBatch)
         {
-            for(int i = 0; i < Grid.GetLength(0); i++)
+            for (int i = 0; i < Grid.GetLength(0); i++)
             {
-                for(int j = 0; j < Grid.GetLength(1); j++)
+                for (int j = 0; j < Grid.GetLength(1); j++)
                 {
                     SpriteBatch.Draw(TileSet,
                         new Rectangle(TmxMap.TileWidth * i,
                         TmxMap.TileHeight * j, TmxMap.Tilesets[0].TileWidth,
-                        TmxMap.Tilesets[0].TileHeight),Grid[i,j].Rec,Color.White);
+                        TmxMap.Tilesets[0].TileHeight), Grid[i, j].Rec, Color.White);
                 }
             }
         }

@@ -42,10 +42,10 @@ namespace testing
             get { return playing; }
         }
         bool playing;
-/// <summary>
-/// Start playing the animation
-/// </summary>
-/// <param name="animation">The animation to play</param>
+        /// <summary>
+        /// Start playing the animation
+        /// </summary>
+        /// <param name="animation">The animation to play</param>
         public void Play(Animation animation) {
 
             if (Animation == animation)
@@ -80,7 +80,7 @@ namespace testing
             }
             Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth,
                 0, Animation.FrameWidth, Animation.Texture.Height);
-            spriteBatch.Draw(Animation.Texture,new Vector2(pos.X+Game1.tileWidth,pos.Y+Game1.tileWidth)
+            spriteBatch.Draw(Animation.Texture,new Vector2(pos.X+Game1.TileWidth,pos.Y+Game1.TileWidth)
                 ,source,Color.White,0.0f,Origin,1.0f,SpriteEffects.None,1.0f);
 
         }
