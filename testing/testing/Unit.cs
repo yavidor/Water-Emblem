@@ -65,10 +65,10 @@ namespace testing
         /// </summary>
         /// <param name="ud">The data for the unit</param>
         /// <param name="content">The content manager of the game, needed to create new animations</param>
-        public Unit(UnitData ud, ContentManager Content)
+        public Unit(UnitData ud, ContentManager Content, bool player)
         {
             this.Name = ud.Name;
-            this.Player = ud.Player;
+            this.Player = player;
             this.Stats = new Dictionary<string, int>(ud.Stats);
             Texture2D texture = Content.Load<Texture2D>($"Sprites/Map/{this.Name}{Convert.ToInt32(this.Player)}");
             this.Sprite = new Animation(texture, 100, texture.Width / 4);

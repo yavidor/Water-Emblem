@@ -11,7 +11,7 @@ namespace XMLData
     
         {
         public string Name;
-        public bool Player;
+        //public bool Player;
         public int X;
         public int Y; 
         public Dictionary<string,int> Stats;

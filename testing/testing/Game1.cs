@@ -85,16 +85,36 @@ namespace testing
             }
             foreach (UnitData unitData in Data.Team)
             {
-                Units.Add(new Unit(unitData, Content)
+                Units.Add(new Unit(unitData, Content, false)
                 {
+
                     Tile = Grid[unitData.X, unitData.Y]
                 });
                 Unit current = Units.Last();
                 Grid[unitData.X, unitData.Y].Unit = current;
                 current.Manager.Play(current.Sprite);
+                Units.Add(new Unit(unitData, Content,true)
+                {
+                    Tile = Grid[15-unitData.X, 20]
+                });
+                current = Units.Last();
+                Grid[15-unitData.X, 20].Unit = current;
+                current.Manager.Play(current.Sprite);
             }
-            LeaderTeam0 = Units.Find(unit => unit.Name == "Ephraim");
-            LeaderTeam1 = Units.Find(unit => unit.Name == "Eirika");
+            LeaderTeam0 = new Unit(Data.Ephraim, Content,false)
+            {
+                Tile = Grid[Data.Ephraim.X, Data.Ephraim.Y]
+            };
+            Grid[LeaderTeam0.X, LeaderTeam0.Y].Unit = LeaderTeam0;
+            LeaderTeam0.Manager.Play(LeaderTeam0.Sprite);
+            LeaderTeam1 = new Unit(Data.Eirika, Content,true)
+            {
+                Tile = Grid[Data.Eirika.X, Data.Eirika.Y]
+            };
+            Grid[LeaderTeam1.X, LeaderTeam1.Y].Unit = LeaderTeam1;
+            LeaderTeam1.Manager.Play(LeaderTeam1.Sprite);
+            Units.Add(LeaderTeam0);
+            Units.Add(LeaderTeam1);
             Chosen = LeaderTeam1.Tile;
             Map = new Map(TmxMap, Grid, Units, TileSet);
             DrawText.Initialize(SpriteBatch, SpriteFont);

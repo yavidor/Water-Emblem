@@ -11,5 +11,7 @@ namespace XMLData
     public class TeamData
     {
         public List<UnitData> Team;
+        public UnitData Eirika;
+        public UnitData Ephraim;
     }
 }
