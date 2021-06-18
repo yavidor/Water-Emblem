@@ -17,23 +17,12 @@ namespace testing
     /// </summary>
     public class Game1 : Game
     {
-
         GraphicsDeviceManager graphics;
         SpriteBatch SpriteBatch;
         SpriteFont SpriteFont;
         KeyboardState LastKey;
-        bool Pvp = true;//True = Player vs Player. False = Player vs Computer
-        enum OnlineStates
-        {
-            AskingRole, //host or join
-            Connecting,
-            Playing
-        }
-
-        OnlineStates StateOnline = OnlineStates.AskingRole;
-        OnlineGame onlineGame;
         enum GameStates {SELECT,MOVE,ACTION};
-        bool host;
+        bool Pvp = false;
         GameStates StateGame = GameStates.SELECT;
         TeamData Data;
         Unit ActiveUnit, LeaderTeam0, LeaderTeam1;
@@ -42,18 +31,18 @@ namespace testing
         Move Move;
         ComputerPlayer ComputerPlayer;
         public static DrawText DrawText = new DrawText();
-        PortraitDraw PortraitDraw = new PortraitDraw();
+        DrawPortrait PortraitDraw = new DrawPortrait();
         public static TmxMap TmxMap  { get; set; }
         public static Tile[,] Grid;
         public static bool Turn = true;
-        Map Map = new Map();
-        Texture2D tileset, Highlight, Cursor;
+        Map Map;
+        Texture2D TileSet, Highlight, Cursor;
         bool WalkOrAttack = true;
-        public static List<Unit> Units = new List<Unit>();
         double Timer = 0;
-        public static Tile Chosen;
         public static int TileWidth;
         public static int TilesetTilesWide;
+        public static List<Unit> Units = new List<Unit>();
+        public static Tile Chosen;
 
         public Game1()
         {
@@ -74,13 +63,13 @@ namespace testing
             Highlight = Content.Load<Texture2D>("Highlight");
             SpriteFont = Content.Load<SpriteFont>("font");
             TmxMap = new TmxMap("Content/balanced.tmx");
-            tileset = Content.Load<Texture2D>(TmxMap.Tilesets[0].Name.ToString());
+            TileSet = Content.Load<Texture2D>(TmxMap.Tilesets[0].Name.ToString());
             Grid = new Tile[TmxMap.Width, TmxMap.Height];
             TileWidth = TmxMap.Tilesets[0].TileWidth;
             graphics.PreferredBackBufferHeight = TmxMap.Height * TmxMap.TileHeight;
             graphics.PreferredBackBufferWidth = TmxMap.Width * TmxMap.TileWidth;
             graphics.ApplyChanges();
-            TilesetTilesWide = tileset.Width / TileWidth;
+            TilesetTilesWide = TileSet.Width / TileWidth;
             for (int i = 0; i < TmxMap.Layers[0].Tiles.Count; i++)
             {
                 Tile Tile = new Tile(TmxMap.Layers[0].Tiles[i].Gid - 1, i);
@@ -97,16 +86,16 @@ namespace testing
             {
                 Units.Add(new Unit(unitData, Content)
                 {
-                    Tile = Grid[unitData.x, unitData.y]
+                    Tile = Grid[unitData.X, unitData.Y]
                 });
                 Unit current = Units.Last();
-                Grid[unitData.x, unitData.y].Unit = current;
+                Grid[unitData.X, unitData.Y].Unit = current;
                 current.Manager.Play(current.Sprite);
             }
             LeaderTeam0 = Units.Find(unit => unit.Name == "Ephraim");
             LeaderTeam1 = Units.Find(unit => unit.Name == "Eirika");
             Chosen = LeaderTeam1.Tile;
-            Map.Initialize(TmxMap,Grid,Units,Content);
+            Map = new Map(TmxMap,Grid,Units,TileSet);
             DrawText.Initialize(SpriteBatch, SpriteFont);
             PortraitDraw.Initialize(SpriteBatch, Content);
             ComputerPlayer = new ComputerPlayer();
@@ -129,32 +118,6 @@ namespace testing
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            switch (StateOnline)
-            {
-                case OnlineStates.AskingRole:
-                    if (Keyboard.GetState().IsKeyDown(Keys.H))
-                    {
-                        onlineGame = new Host(int.Parse(File.ReadAllText("port.txt")));
-                        onlineGame.OnConnection += onlineGame_OnConnection;
-                        host = true;
-
-                        StateOnline = OnlineStates.Connecting;
-                    }
-                    else if (Keyboard.GetState().IsKeyDown(Keys.J))
-                    {
-                        onlineGame = new Join(File.ReadAllText("ip.txt"),
-                            int.Parse(File.ReadAllText("port.txt")));
-                        onlineGame.OnConnection += onlineGame_OnConnection;
-                        host = false;
-                        StateOnline = OnlineStates.Connecting;
-                    }
-                    break;
-
-                case OnlineStates.Connecting:
-
-                    break;
-
-                case OnlineStates.Playing:
                     #region Directions
                     if (Keyboard.GetState().IsKeyDown(Keys.Right) && LastKey.IsKeyUp(Keys.Right) &&
                         ((int)Chosen.X) < TmxMap.Width - 1)
@@ -186,100 +149,104 @@ namespace testing
                             StateGame = GameStates.SELECT;
                         }
                     }
-                    if (Keyboard.GetState().IsKeyDown(Keys.Z) && LastKey.IsKeyUp(Keys.Z) && host==Turn)
-                    {
-                        switch (StateGame)
+            if (Keyboard.GetState().IsKeyDown(Keys.Z) && LastKey.IsKeyUp(Keys.Z))
+            {
+                switch (StateGame)
+                {
+                    case GameStates.SELECT:
+                        if (Chosen.Unit != null && Chosen.Unit.Player == Turn)
                         {
-                            case GameStates.SELECT:
-                                if (Chosen.Unit != null && Chosen.Unit.Player == Turn)
-                                {
-                                    WalkOrAttack = true;
-                                    StateGame = GameStates.MOVE;
-                                    ActiveUnit = Chosen.Unit;
-                                    ActiveUnit.Manager.PauseOrPlay();
-                                }
-                                break;
-                            case GameStates.MOVE:
-                                if (Chosen.Unit == null && ActiveUnit.ReachableTiles(Grid, true)
-                                    .Contains(Chosen))
-                                {
-                                    StateGame = GameStates.ACTION;
-                                    Move = new Move(ActiveUnit, Chosen, false);
-                                    Move.Execute();
+                            WalkOrAttack = true;
+                            StateGame = GameStates.MOVE;
+                            ActiveUnit = Chosen.Unit;
+                            ActiveUnit.Manager.PauseOrPlay();
+                        }
+                        break;
+                    case GameStates.MOVE:
+                        if (Chosen.Unit == null && ActiveUnit.ReachableTiles(Grid, true)
+                            .Contains(Chosen))
+                        {
+                            StateGame = GameStates.ACTION;
+                            Move = new Move(ActiveUnit, Chosen, false);
+                            Move.Execute();
 
-                                    WalkOrAttack = false;
-                                }
-                                break;
-                            case GameStates.ACTION:
-                                if (Chosen.Unit != null && ActiveUnit.ReachableTiles(Grid, false)
-                                    .Contains(Chosen))
-                                {
-                                    StateGame = GameStates.SELECT;
-                                    Heal = new Heal(ActiveUnit, Chosen.Unit, false);
-                                    if (ActiveUnit.GetActions(Grid).Any(
-                                        action => action.Heal != null &&
-                                        action.Heal.Target.Player &&
-                                        action.Heal.GetType() == Heal.GetType() &&
-                                        action.Heal.Equals(Heal)))
-                                    {
-                                        Console.WriteLine(Heal.GetType());
-                                       Heal.Execute();
-                                    }
-                                    Attack = new Attack(ActiveUnit, Chosen.Unit, false);
+                            WalkOrAttack = false;
+                        }
+                        break;
+                    case GameStates.ACTION:
+                        if (Chosen.Unit != null && ActiveUnit.ReachableTiles(Grid, false)
+                            .Contains(Chosen))
+                        {
+                            StateGame = GameStates.SELECT;
+                            Heal = new Heal(ActiveUnit, Chosen.Unit, false);
+                            if (ActiveUnit.GetActions(Grid).Any(
+                                action => action.Heal != null &&
+                                action.Heal.Target.Player &&
+                                action.Heal.GetType() == Heal.GetType() &&
+                                action.Heal.Equals(Heal)))
+                            {
+                                Heal.Execute();
+                            }
+                            Attack = new Attack(ActiveUnit, Chosen.Unit, false);
 
-                                    if (ActiveUnit.GetActions(Grid).Any(
-                                        action => action.Attack != null &&
-                                        action.Attack.GetType() == Attack.GetType() &&
-                                        action.Attack.Equals(Attack)))
-                                    {
-                                        Attack.Execute();
-                                    }
-                                    ActiveUnit.Manager.PauseOrPlay();
-
-                                }
-                                else
-                                {
-                                    StateGame = GameStates.SELECT;
-                                    ActiveUnit.Manager.PauseOrPlay();
-                                    ActiveUnit = null;
-                                }
-                                if (Pvp)
-                                {
-                                    Turn = !Turn;
-                                    if (Turn)
-                                    {
-                                        Chosen = LeaderTeam1.Tile;
-                                    }
-                                    else
-                                    {
-                                        Chosen = LeaderTeam0.Tile;
-                                    }
-                                    onlineGame.Stop();
-                                    onlineGame.WriteCharacterData(Units);
-                                }
-                                else
-                                {
-                                    Console.WriteLine(ComputerPlayer.MakeTurn(Map, 1).ToString());
-
-                                    Chosen = LeaderTeam1.Tile;
-                                }
-                                break;
-                            default:
-                                break;
+                            if (ActiveUnit.GetActions(Grid).Any(
+                                action => action.Attack != null &&
+                                action.Attack.GetType() == Attack.GetType() &&
+                                action.Attack.Equals(Attack)))
+                            {
+                                Attack.Execute();
+                            }
+                            ActiveUnit.Manager.PauseOrPlay();
 
                         }
-                    }
-                    break;
-            }
+                        else
+                        {
+                            StateGame = GameStates.SELECT;
+                            ActiveUnit.Manager.PauseOrPlay();
+                            ActiveUnit = null;
+                        }
+                        if (Pvp)
+                        {
+                            Turn = !Turn;
 
-            this.Window.Title = $"Turn: {Turn} Hpst: {host}";
+                        }
+                        else
+                        {
+                        ComputerPlayer.MakeTurn(Map, 1);
+                        }
+                        Chosen = TileNextTurn(Turn);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            this.Window.Title = $"Turn: {Turn}";
             LastKey = Keyboard.GetState();
             base.Update(gameTime);
         }
-        void onlineGame_OnConnection()
+        /// <summary>
+        /// Where the Chosen tile should go
+        /// </summary>
+        /// <param name="Player">The current player's turn</param>
+        /// <returns>A tile for the Chosen</returns>
+       private Tile TileNextTurn(bool Player)
         {
-            StateOnline = OnlineStates.Playing;
+            if (Player)
+            {
+                if (LeaderTeam1.Stats["HP"] > 0)
+                    return LeaderTeam1.Tile;
+                else
+                   return Units.Find(unit => unit.Player == true).Tile;
+            }
+            else
+            {
+                if (LeaderTeam0.Stats["HP"] > 0)
+                    return LeaderTeam0.Tile;
+            }
+            return Units.Find(unit => unit.Player == false).Tile;//Always have one return outside conditions
         }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -288,44 +255,37 @@ namespace testing
         {
             GraphicsDevice.Clear(Color.CornflowerBlue); 
             SpriteBatch.Begin();
+            SpriteBatch.Draw(Content.Load<Texture2D>("Background"), new Vector2(0, 0), Color.White);
             Map.Draw(SpriteBatch);
             Timer += 0.1;
-           
-            for (int i = 0; i < Grid.GetLength(0); i++)
+            if (ActiveUnit != null)
             {
-                for (int j = 0; j < Grid.GetLength(1); j++)
+                if (Chosen.Unit != ActiveUnit && Chosen.Unit != null)
                 {
-                   
-                    
-                      
-                        if (ActiveUnit != null)
-                        {
-                            if (Chosen.Unit != ActiveUnit && Chosen.Unit != null)
-                            {
-                                PortraitDraw.Draw(Chosen.Unit, false);
-                            }
-                            PortraitDraw.Draw(ActiveUnit, true);
-                            Rectangle source = new Rectangle((int)Timer
-                                % 16 * TileWidth,
-                                0, TileWidth, TileWidth);
-                            List<Tile> ls = ActiveUnit.ReachableTiles(Grid, WalkOrAttack);
-                            if (ls.Contains(Grid[i, j]) && (StateGame == GameStates.MOVE ||
-                                StateGame == GameStates.ACTION))
-                            {
-                                if (StateGame == GameStates.ACTION)
-                                {
-                                    source.Y = TileWidth;
-                                }
-                                    SpriteBatch.Draw(Highlight,
-                                        new Rectangle((int)Grid[i, j].X * TmxMap.TileWidth,
-                                        (int)Grid[i, j].Y * TmxMap.TileHeight,
-                                        TileWidth, TileWidth),
-                                       source,
-                                        Color.White * 0.75f);
-                                }
-                            }
-                        }
+                    PortraitDraw.Draw(Chosen.Unit, false);
+                }
+                PortraitDraw.Draw(ActiveUnit, true);
+                Rectangle source = new Rectangle((int)Timer
+                                            % 16 * TileWidth,
+                                            0, TileWidth, TileWidth);
+                List<Tile> ls = ActiveUnit.ReachableTiles(Grid, WalkOrAttack);
+                foreach (Tile tile in ls) { 
+                if (StateGame == GameStates.MOVE ||
+                    StateGame == GameStates.ACTION)
+                {
+                    if (StateGame == GameStates.ACTION)
+                    {
+                        source.Y = TileWidth;
                     }
+                    SpriteBatch.Draw(Highlight,
+                        new Rectangle((int)tile.X * TmxMap.TileWidth,
+                        (int)tile.Y * TmxMap.TileHeight,
+                        TileWidth, TileWidth),
+                       source,
+                        Color.White * 0.75f);
+                }
+            }
+            }
                 
             SpriteBatch.Draw(Cursor, new Vector2((int)Chosen.X*TmxMap.TileWidth,
                 Chosen.Y * TmxMap.TileHeight), Color.White * 0.75f);

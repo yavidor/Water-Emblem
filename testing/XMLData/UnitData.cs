@@ -12,9 +12,8 @@ namespace XMLData
         {
         public string Name;
         public bool Player;
-        public int x;
-        public int y;
-        public Dictionary<string,int> Weapon;   
+        public int X;
+        public int Y; 
         public Dictionary<string,int> Stats;
         }
     }

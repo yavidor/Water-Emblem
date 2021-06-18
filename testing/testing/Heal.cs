@@ -8,17 +8,17 @@ namespace testing
 {
     public class Heal : Action
     {
-        private int HealFactor = 3;
+        private const int HealFactor = 3;
         private int Healing;
         public Heal(Unit Source, Unit Target, bool Undo) : base(Source, Target, Undo)
         {
             if (Target != null)
             {
                 Healing =
-               Target.Stats["HP"] + Source.Stats["STR"] / HealFactor + Source.Weapon["MT"]
+               Target.Stats["HP"] + Source.Stats["STR"] / HealFactor + Source.Stats["MT"]
                > Target.Stats["MaxHp"] ?
                Target.Stats["MaxHp"] - Target.Stats["HP"] :
-               Source.Stats["STR"] / HealFactor + Source.Weapon["MT"];
+               Source.Stats["STR"] / HealFactor + Source.Stats["MT"];
             }
         }
         public override string ToString()

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace testing
 {
+    [Serializable]
     public class Animation
     {
         #region Data

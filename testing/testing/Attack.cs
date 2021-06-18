@@ -12,7 +12,7 @@ namespace testing
         private int Damage;
         public Attack(Unit Source, Unit Target, bool Undo) : base(Source, Target, Undo)
         {
-            this.Damage = Source.Stats["STR"] + Source.Weapon["MT"] - Target.Stats["DEF"];
+            this.Damage = Source.Stats["STR"] + Source.Stats["MT"] - Target.Stats["DEF"];
         }
         public override string ToString(){
             return $"Source: {Source.ToString()} Target: {Target.ToString()}";

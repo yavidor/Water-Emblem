@@ -48,23 +48,18 @@ namespace testing
         /// HP: Health Points - units dies when reaches 0
         /// STR: Strength - Affects the amount of damage the unit inflicts with a non-magic attack
         /// DEF: Defense - Affects the amount of damage the unit takes from a non-magic attack
-        /// RES: Resistacne - Affects the amount of damage the unit takes from a magic attack
+        /// RES: Resistance - Affects the amount of damage the unit takes from a magic attack
         /// MOV: Movement - Determines the number of adjacent tiles the unit can move in one turn
         /// </summary>
         public Dictionary<string, int> Stats;
         /// <summary>
         /// The weapon the unit is carrying
         /// </summary>
-        public Dictionary<string, int> Weapon;
-        /// <summary>
-        /// The animations and sprites of the unit
-        /// </summary>
         public Animation Sprite;
         /// <summary>
         /// The animation manager for this unit
         /// </summary>
         public AnimationManager Manager;
-        public Unit() { }
         /// <summary>
         /// Constructor
         /// </summary>
@@ -74,7 +69,6 @@ namespace testing
         {
             this.Name = ud.Name;
             this.Player = ud.Player;
-            this.Weapon = new Dictionary<string, int>(ud.Weapon);
             this.Stats = new Dictionary<string, int>(ud.Stats);
             Texture2D texture = Content.Load<Texture2D>($"Sprites/Map/{this.Name}{Convert.ToInt32(this.Player)}");
             this.Sprite = new Animation(texture, 100, texture.Width / 4);
@@ -90,7 +84,7 @@ namespace testing
             return this.Name;
         }
         /// <summary>
-        /// Finds every tiles the unit can reach
+        /// Finds every tile the unit can reach
         /// </summary>
         /// <param name="grid">The grid of tiles the game is set in</param>
         /// <param name="WalkOrAttack">Tells the function
@@ -99,7 +93,7 @@ namespace testing
         /// <returns>A list of the valid tiles</returns>
         public List<Tile> ReachableTiles(Tile[,] Grid, bool WalkOrAttack)
         {
-            int? Range = WalkOrAttack ? this.Stats["MOV"] : this.Weapon["RNG"];
+            int? Range = WalkOrAttack ? this.Stats["MOV"] : this.Stats["RNG"];
             Tile temp;
             Queue<Tile> Queue = new Queue<Tile>();
             List<Tile> Valid = new List<Tile>();
@@ -138,8 +132,8 @@ namespace testing
         /// <summary>
         /// Reduces the HP of the unit (can heal by inputing a negative numeber)
         /// </summary>
-        /// <param name="damage">Amount of damage taken</param>
-        public void TakeDamage(int damage)
+        /// <param name="Damage">Amount of damage taken</param>
+        public void TakeDamage(int Damage)
         {
             if (this.Stats["HP"] <= 0)
             {
@@ -147,7 +141,7 @@ namespace testing
                 this.Tile.Unit = this;
 
             }
-            this.Stats["HP"] -= damage;
+            this.Stats["HP"] -= Damage;
             if (this.Stats["HP"] <= 0)
             {
                 Game1.Units.Remove(this);

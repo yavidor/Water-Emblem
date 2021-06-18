@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace testing
 {
+    [Serializable]
     public class Tile
     {
         #region data
@@ -39,17 +40,17 @@ namespace testing
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="Gid">index of the tile in the tilset</param>
+        /// <param name="Index">index of the tile in the tilset</param>
         /// <param name="TileCount">flat index of the tile in the grid</param>
         /// <param name="Unit">The unit in the tile, sets to null if not provided</param>
-        public Tile(int Gid, int TileCount, Unit Unit = null)
+        public Tile(int Index, int TileCount, Unit Unit = null)
         {
-            Frame = Gid;
+            Frame = Index;
             this.Unit = Unit;
             if (Frame == 1005 || Frame == 1006 || Frame == 942)
                 Walkable = true;
-            Col = Gid % Game1.TilesetTilesWide;
-            this.Row = (int)Math.Floor((double)Gid / (double)Game1.TilesetTilesWide);
+            Col = Index % Game1.TilesetTilesWide;
+            this.Row = (int)Math.Floor((double)Index / (double)Game1.TilesetTilesWide);
 
             this.X = (TileCount % Game1.TmxMap.Width);
             this.Y = (int)Math.Floor(TileCount / (double)Game1.TmxMap.Width);
@@ -57,7 +58,7 @@ namespace testing
             this.Rec = new Rectangle(Game1.TileWidth * Col, Game1.TileWidth * Row,
                 Game1.TileWidth, Game1.TileWidth);
         }
-        public String ToString()
+        public string ToString()
         {
             return "col: " + Col + " row: " + Row + " x:" + X + " y:" + Y;
         }

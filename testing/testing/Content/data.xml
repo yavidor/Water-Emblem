@@ -6,18 +6,8 @@
 			<Item>
 				<Name>Priest</Name>
 				<Player>false</Player>
-				<x>4</x>
-				<y>3</y>
-				<Weapon>
-					<Item>
-						<Key>MT</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>RNG</Key>
-						<Value>2</Value>
-					</Item>
-				</Weapon>
+				<X>4</X>
+				<Y>3</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -43,23 +33,21 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Archer</Name>
-				<Player>false</Player>
-				<x>5</x>
-				<y>3</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>3</Value>
+						<Value>2</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Archer</Name>
+				<Player>false</Player>
+				<X>5</X>
+				<Y>3</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -85,23 +73,21 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Soldier</Name>
-				<Player>false</Player>
-				<x>6</x>
-				<y>3</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>1</Value>
+						<Value>3</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Soldier</Name>
+				<Player>false</Player>
+				<X>6</X>
+				<Y>3</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -127,14 +113,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Ephraim</Name>
-				<Player>false</Player>
-				<x>7</x>
-				<y>3</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -143,7 +121,13 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Ephraim</Name>
+				<Player>false</Player>
+				<X>7</X>
+				<Y>3</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -169,14 +153,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Swordsman</Name>
-				<Player>false</Player>
-				<x>8</x>
-				<y>3</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -185,7 +161,13 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Swordsman</Name>
+				<Player>false</Player>
+				<X>8</X>
+				<Y>3</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -211,14 +193,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Fighter</Name>
-				<Player>false</Player>
-				<x>9</x>
-				<y>3</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -227,7 +201,13 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Fighter</Name>
+				<Player>false</Player>
+				<X>9</X>
+				<Y>3</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -253,14 +233,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Monk</Name>
-				<Player>false</Player>
-				<x>10</x>
-				<y>3</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -269,7 +241,13 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Monk</Name>
+				<Player>false</Player>
+				<X>10</X>
+				<Y>3</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -295,98 +273,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Mage</Name>
-				<Player>false</Player>
-				<x>11</x>
-				<y>3</y>
-				<Weapon>
-					<Item>
-						<Key>MT</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>RNG</Key>
-						<Value>2</Value>
-					</Item>
-				</Weapon>
-				<Stats>
-					<Item>
-						<Key>MaxHp</Key>
-						<Value>40</Value>
-					</Item>
-					<Item>
-						<Key>HP</Key>
-						<Value>40</Value>
-					</Item>
-					<Item>
-						<Key>STR</Key>
-						<Value>23</Value>
-					</Item>
-					<Item>
-						<Key>DEF</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>RES</Key>
-						<Value>25</Value>
-					</Item>
-					<Item>
-						<Key>MOV</Key>
-						<Value>5</Value>
-					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Mage</Name>
-				<Player>true</Player>
-				<x>4</x>
-				<y>20</y>
-				<Weapon>
-					<Item>
-						<Key>MT</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>RNG</Key>
-						<Value>2</Value>
-					</Item>
-				</Weapon>
-				<Stats>
-					<Item>
-						<Key>MaxHp</Key>
-						<Value>40</Value>
-					</Item>
-					<Item>
-						<Key>HP</Key>
-						<Value>40</Value>
-					</Item>
-					<Item>
-						<Key>STR</Key>
-						<Value>23</Value>
-					</Item>
-					<Item>
-						<Key>DEF</Key>
-						<Value>9</Value>
-					</Item>
-					<Item>
-						<Key>RES</Key>
-						<Value>25</Value>
-					</Item>
-					<Item>
-						<Key>MOV</Key>
-						<Value>5</Value>
-					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Monk</Name>
-				<Player>true</Player>
-				<x>5</x>
-				<y>20</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -395,7 +281,93 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Mage</Name>
+				<Player>false</Player>
+				<X>11</X>
+				<Y>3</Y>
+				<Stats>
+					<Item>
+						<Key>MaxHp</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
+						<Key>HP</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
+						<Key>STR</Key>
+						<Value>23</Value>
+					</Item>
+					<Item>
+						<Key>DEF</Key>
+						<Value>9</Value>
+					</Item>
+					<Item>
+						<Key>RES</Key>
+						<Value>25</Value>
+					</Item>
+					<Item>
+						<Key>MOV</Key>
+						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>MT</Key>
+						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>RNG</Key>
+						<Value>2</Value>
+					</Item>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Mage</Name>
+				<Player>true</Player>
+				<X>4</X>
+				<Y>20</Y>
+				<Stats>
+					<Item>
+						<Key>MaxHp</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
+						<Key>HP</Key>
+						<Value>40</Value>
+					</Item>
+					<Item>
+						<Key>STR</Key>
+						<Value>23</Value>
+					</Item>
+					<Item>
+						<Key>DEF</Key>
+						<Value>9</Value>
+					</Item>
+					<Item>
+						<Key>RES</Key>
+						<Value>25</Value>
+					</Item>
+					<Item>
+						<Key>MOV</Key>
+						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>MT</Key>
+						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>RNG</Key>
+						<Value>2</Value>
+					</Item>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Monk</Name>
+				<Player>true</Player>
+				<X>5</X>
+				<Y>20</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -420,24 +392,22 @@
 					<Item>
 						<Key>MOV</Key>
 						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>MT</Key>
+						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>RNG</Key>
+						<Value>1</Value>
 					</Item>
 				</Stats>
 			</Item>
 			<Item>
 				<Name>Fighter</Name>
 				<Player>true</Player>
-				<x>6</x>
-				<y>20</y>
-				<Weapon>
-					<Item>
-						<Key>MT</Key>
-						<Value>5</Value>
-					</Item>
-					<Item>
-						<Key>RNG</Key>
-						<Value>1</Value>
-					</Item>
-				</Weapon>
+				<X>6</X>
+				<Y>20</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -463,14 +433,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Swordsman</Name>
-				<Player>true</Player>
-				<x>7</x>
-				<y>20</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -479,7 +441,13 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Swordsman</Name>
+				<Player>true</Player>
+				<X>7</X>
+				<Y>20</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -505,14 +473,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Eirika</Name>
-				<Player>true</Player>
-				<x>8</x>
-				<y>20</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -521,7 +481,13 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Eirika</Name>
+				<Player>true</Player>
+				<X>8</X>
+				<Y>20</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -547,14 +513,6 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Soldier</Name>
-				<Player>true</Player>
-				<x>9</x>
-				<y>20</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
@@ -563,7 +521,13 @@
 						<Key>RNG</Key>
 						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Soldier</Name>
+				<Player>true</Player>
+				<X>9</X>
+				<Y>20</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -589,23 +553,21 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Archer</Name>
-				<Player>true</Player>
-				<x>10</x>
-				<y>20</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>3</Value>
+						<Value>1</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Archer</Name>
+				<Player>true</Player>
+				<X>10</X>
+				<Y>20</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -631,23 +593,21 @@
 						<Key>MOV</Key>
 						<Value>5</Value>
 					</Item>
-				</Stats>
-			</Item>
-			<Item>
-				<Name>Priest</Name>
-				<Player>true</Player>
-				<x>11</x>
-				<y>20</y>
-				<Weapon>
 					<Item>
 						<Key>MT</Key>
 						<Value>5</Value>
 					</Item>
 					<Item>
 						<Key>RNG</Key>
-						<Value>1</Value>
+						<Value>3</Value>
 					</Item>
-				</Weapon>
+				</Stats>
+			</Item>
+			<Item>
+				<Name>Priest</Name>
+				<Player>true</Player>
+				<X>11</X>
+				<Y>20</Y>
 				<Stats>
 					<Item>
 						<Key>MaxHp</Key>
@@ -672,6 +632,14 @@
 					<Item>
 						<Key>MOV</Key>
 						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>MT</Key>
+						<Value>5</Value>
+					</Item>
+					<Item>
+						<Key>RNG</Key>
+						<Value>2</Value>
 					</Item>
 				</Stats>
 			</Item>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -29,22 +30,12 @@ namespace testing
         /// The texture of the Tiles
         /// </summary>
         public Texture2D TileSet;
-        /// <summary>
-        /// The width and the height of the map in tiles
-        /// </summary>
-        public int Width, Height;
-        /// <summary>
-        /// The game itself
-        /// </summary>
-        public Game1 Game1;
         #endregion
-        public Map() { }
-        public void Initialize(TmxMap tmxMap, Tile[,] Grid, List<Unit> Units, ContentManager Content)
-        {
-            this.TmxMap = tmxMap;
-            TileSet = Content.Load<Texture2D>(TmxMap.Tilesets[0].Name);
+        public Map(TmxMap TmxMap, Tile[,] Grid, List<Unit> Units, Texture2D TileSet) {
+            this.Units = Units;
+            this.TmxMap = TmxMap;
+            this.TileSet = TileSet;
             this.Grid = Grid;
-
         }
         public void Draw(SpriteBatch SpriteBatch)
         {
@@ -62,15 +53,9 @@ namespace testing
         public List<Move> GetAllActions()
         {
             List<Move> Moves = new List<Move>();
-            for (int i = 0; i < this.Grid.GetLength(0); i++)
+            foreach (Unit unit in Units)
             {
-                for (int j = 0; j < this.Grid.GetLength(1); j++)
-                {
-                    if (Grid[i, j].Unit != null)
-                    {
-                        Moves.AddRange(this.Grid[i, j].Unit.GetActions(this.Grid));//Adding each action
-                    }
-                }
+                Moves.AddRange(unit.GetActions(this.Grid));//Adding each action
             }
             return Moves;
         }

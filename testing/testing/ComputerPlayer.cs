@@ -138,6 +138,7 @@ namespace testing
         }
         public double EvaluateBoard(Tile[,] Grid)
         {
+            const int HpValue = 7;
             double Value = 0;
             for (int i = 0; i < Grid.GetLength(0); i++)
             {
@@ -147,11 +148,11 @@ namespace testing
                     {
                         if (Grid[i, j].Unit.Player)
                         {
-                            Value += -1*((Grid[i, j].Unit.Stats["HP"]*7)+ValuePlus[j, i]);
+                            Value += -1*((Grid[i, j].Unit.Stats["HP"]*HpValue)+ValuePlus[j, i]);
                         }
                         else
                         {
-                            Value += ((Grid[i, j].Unit.Stats["HP"]*7)+ValueMinus[j, i]);
+                            Value += ((Grid[i, j].Unit.Stats["HP"]*HpValue)+ValueMinus[j, i]);
                         }
                     }
                 }

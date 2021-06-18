@@ -71,21 +71,20 @@
     <Compile Include="DrawText.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Heal.cs" />
-    <Compile Include="Host.cs" />
-    <Compile Include="Join.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="MiniMax.cs" />
+    <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Move.cs" />
-    <Compile Include="OnlineGame.cs" />
-    <Compile Include="PortraitDraw.cs" />
+    <Compile Include="DrawPortrait.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="Unit.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework">
+    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>

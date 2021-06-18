@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace testing
 {
-    public class PortraitDraw
+    public class DrawPortrait
     {
-        private int x = 40;
-        private int y = 34;
+        private const int X = 40;
+        private const int Y = 34;
+        private const int xText = 128;
+        private const float Opacity = 0.75f;
         private int OtherSide;
-        private int xText = 128;
-        private float Opacity = 0.75f;
         private SpriteBatch spriteBatch;
         private ContentManager Content;
-        public PortraitDraw() { }
+        public DrawPortrait() { }
         public void Initialize(SpriteBatch spriteBatch, ContentManager Content)
         {
             this.spriteBatch = spriteBatch;
@@ -31,7 +31,7 @@ namespace testing
             {
                 spriteBatch.Draw(this.Content.Load<Texture2D>("Background"),
                         new Vector2(0, 0), Color.White * Opacity);
-                Game1.DrawText.Write($"{unit.Stats["HP"]}/{unit.Stats["MaxHp"]}", x, y);
+                Game1.DrawText.Write($"{unit.Stats["HP"]}/{unit.Stats["MaxHp"]}", X, Y);
                 this.spriteBatch.Draw(this.Content.Load<Texture2D>
                        ($"Sprites/Portraits/{unit.Name}{Convert.ToInt32(unit.Player)}")
                        , new Vector2(0, Game1.TileWidth), Color.White);
@@ -41,7 +41,7 @@ namespace testing
                 spriteBatch.Draw(this.Content.Load<Texture2D>("Background"),
                                        new Vector2(0, OtherSide), Color.White * Opacity);
                 Game1.DrawText.Write($"{unit.Stats["HP"]}/{unit.Stats["MaxHp"]}",
-                    x, OtherSide+y);
+                    X, OtherSide+Y);
                 this.spriteBatch.Draw(this.Content.Load<Texture2D>
                        ($"Sprites/Portraits/{unit.Name}{Convert.ToInt32(unit.Player)}")
                        , new Vector2(0,OtherSide+Game1.TileWidth), Color.White);
