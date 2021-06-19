@@ -13,19 +13,11 @@ namespace testing
         /// <summary>
         /// The animation itself
         /// </summary>
-        public Animation Animation
-        {
-            get { return animation; }
-        }
-        Animation animation;
+        public Animation Animation;
         /// <summary>
         /// Which frame is playing right now
         /// </summary>
-        public int FrameIndex
-        {
-            get { return frameIndex; }
-        }
-        int frameIndex;
+        public int FrameIndex;
         /// <summary>
         /// Time since last frame change
         /// </summary>
@@ -37,11 +29,7 @@ namespace testing
         {
             get { return new Vector2(Animation.FrameWidth,Animation.Texture.Height);}
         }
-        public bool Playing
-        {
-            get { return playing; }
-        }
-        bool playing;
+        public bool Playing;
         /// <summary>
         /// Start playing the animation
         /// </summary>
@@ -52,13 +40,13 @@ namespace testing
             {
                 return;
             }
-            this.animation = animation;
-            this.frameIndex = 0;
+            this.Animation = animation;
+            this.FrameIndex = 0;
             this.time = 0.0f;
         }
         public void PauseOrPlay()
         {
-            this.playing = !this.Playing;
+            this.Playing = !this.Playing;
         }
         /// <summary>
         /// Draw the current frame
@@ -75,7 +63,7 @@ namespace testing
                 while (time > Animation.TimePerFrame)
                 {
                     time -= Animation.TimePerFrame;
-                        frameIndex = (frameIndex + 1) % Animation.Count;
+                        FrameIndex = (FrameIndex + 1) % Animation.Count;
                 }
             }
             Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth,

@@ -15,32 +15,26 @@ namespace testing
         /// <summary>
         /// The source of the animation
         /// </summary>
-        public Texture2D Texture => texture;
-
-        private Texture2D texture;
+        public Texture2D Texture;
         /// <summary>
         /// How long does each frame stay for before moving to the next one
         /// </summary>
-        public float TimePerFrame => timePerFrame;
-
-        private float timePerFrame;
+        public float TimePerFrame;
         /// <summary>
         /// How many frames in the animation
         /// </summary>
-        public int Count => texture.Width / frameWidth;
+        public int Count => 4;
         /// <summary>
         /// The width of each frame in the animation
         /// </summary>
-        public int FrameWidth => frameWidth;
-
-        private int frameWidth;
+        public int FrameWidth;
         #endregion
         #region CTOR
         public Animation(Texture2D texture, float timePerFrame, int frameWidth)
         {
-            this.texture = texture;
-            this.timePerFrame = timePerFrame;
-            this.frameWidth = frameWidth;
+            this.Texture = texture;
+            this.TimePerFrame = timePerFrame;
+            this.FrameWidth = frameWidth;
         }
         #endregion
     }
