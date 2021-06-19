@@ -79,14 +79,7 @@ namespace testing
 
         }
         #endregion
-        /// <summary>
-        /// Standart ToString function
-        /// </summary>
-        /// <returns>A string representing the unit</returns>
-        public string ToString()
-        {
-            return this.Name;
-        }
+        #region Functions
         /// <summary>
         /// Finds every tile the unit can reach
         /// </summary>
@@ -201,5 +194,6 @@ namespace testing
             return (this.X == other.X && this.Y == other.Y &&
                 this.Name == other.Name && this.Player == other.Player);
         }
+        #endregion
     }
 }
