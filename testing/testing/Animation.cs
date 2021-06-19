@@ -23,7 +23,7 @@ namespace testing
         /// <summary>
         /// How many frames in the animation
         /// </summary>
-        public int Count => 4;
+        public const int Count = 4;
         /// <summary>
         /// The width of each frame in the animation
         /// </summary>
