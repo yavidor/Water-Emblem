@@ -31,12 +31,26 @@ namespace testing
         /// </summary>
         public Texture2D TileSet;
         #endregion
+        #region CTOR
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        /// <param name="TmxMap">To initialize the variable with the same name</param>
+        /// <param name="Grid">To initialize the variable with the same name</param>
+        /// <param name="Units">To initialize the variable with the same name</param>
+        /// <param name="TileSet">To initialize the variable with the same name</param>
         public Map(TmxMap TmxMap, Tile[,] Grid, List<Unit> Units, Texture2D TileSet) {
             this.Units = Units;
             this.TmxMap = TmxMap;
             this.TileSet = TileSet;
             this.Grid = Grid;
         }
+        #endregion
+        #region Function
+        /// <summary>
+        /// Drawing the map
+        /// </summary>
+        /// <param name="SpriteBatch">Helper class for drawing text strings and sprites</param>
         public void Draw(SpriteBatch SpriteBatch)
         {
             for (int i = 0; i < Grid.GetLength(0); i++)
@@ -50,6 +64,10 @@ namespace testing
                 }
             }
         }
+        /// <summary>
+        /// Generates every action possible
+        /// </summary>
+        /// <returns>A list of every action possible</returns>
         public List<Move> GetAllActions()
         {
             List<Move> Moves = new List<Move>();
@@ -59,5 +77,6 @@ namespace testing
             }
             return Moves;
         }
+        #endregion
     }
 }

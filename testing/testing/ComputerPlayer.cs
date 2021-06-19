@@ -9,14 +9,18 @@ namespace testing
 {
     class ComputerPlayer
     {
-        private int IMax;
-        private int counter;
-        private int IMin;
-        private double[,] ValuePlus;
-        private double[,] ValueMinus;
+        #region Data
+        private int IMax; //The maximum value possible, Infinity
+        private int IMin; //The minimum valie possible, -Infinity
+        private double[,] ValuePlus; //2D array of the value each position on the board has for player 1
+        private double[,] ValueMinus; //2D array of the value each position on the board has for player 2
+        #endregion
+        #region CTOR
+        /// <summary>
+        /// CTOR
+        /// </summary>
         public ComputerPlayer()
         {
-            counter = 0;
             this.IMax = int.MaxValue;
             this.IMin = int.MinValue;
             this.ValuePlus = new double[24, 16] {
@@ -50,26 +54,34 @@ namespace testing
             {
                 for (int j = 0; j < ValueMinus.GetLength(1); j++)
                 {
-                    ValueMinus[ValueMinus.GetLength(0) - i - 1, j] =ValuePlus[i, j];
+                    ValueMinus[ValueMinus.GetLength(0) - i - 1, j] = ValuePlus[i, j];
                 }
             }
         }
+        #endregion
+        #region Functions
+        /// <summary>
+        /// The main function, makes the best turn
+        /// </summary>
+        /// <param name="Map">The map of the game in the actual state of the game</param>
+        /// <param name="Depth">How far down the game tree shall the function go</param>
+        /// <returns></returns>
         public Move MakeTurn(Map Map, int Depth)
         {
             double Best = IMin;
             Move BestFound = null;
             //to prevent errors
             double Score;
-            List<Move> Moves = Map.GetAllActions();
+            List<Move> Moves = Map.GetAllActions(); //A list of every possible action by every unit
+                                                    //in the current state of the game
             foreach (Move Move in Moves)
             {
-                counter++;
                 if (!Move.Source.Player)
                 {
                     Move.Execute();
                     Move.HealAttackExecute();
                     Score = EvaluateTurn(Map, Depth, IMin, IMax, true);
-                    Move.Undo = true;
+                    Move.Undo = true; //Since we are simulating every possible move, we need to undo the theoretical moves
                     Move.HealAttackExecute();
                     Move.Execute();
                     Move.Undo = false;
@@ -83,13 +95,19 @@ namespace testing
             }
             BestFound.HealAttackExecute();
             BestFound.Execute();
-            Console.WriteLine(counter);
-            Console.WriteLine(Best);
             return BestFound;
         }
+        /// <summary>
+        /// Evaluate the value of a possible move
+        /// </summary>
+        /// <param name="Map">The map in the current theoretical state</param>
+        /// <param name="Depth">How far down the game tree shall the function go</param>
+        /// <param name="Alpha">The minimum value currently, don't check moves with lower value if maximizing</param>
+        /// <param name="Beta">The maximum value currently, don't check moves with higher value if minimizing</param>
+        /// <param name="Player">Who's "playing" this turn. True - max, false - min</param>
+        /// <returns>The value of the turn</returns>
         public double EvaluateTurn(Map Map, int Depth, double Alpha, double Beta, bool Player)
         {
-            counter++;
             double Best;
             Tile[,] Grid = Map.Grid;
             if (Depth == 0)
@@ -108,7 +126,7 @@ namespace testing
                     Move.Execute();
                     Move.HealAttackExecute();
                     Best = Math.Max(EvaluateTurn(Map, Depth - 1, Alpha, Beta, false), Best);
-                    Move.Undo = true;
+                    Move.Undo = true; //Since we are simulating every possible move, we need to undo the theoretical moves
                     Move.Execute();
                     Move.HealAttackExecute();
                     Move.Undo = false;
@@ -125,7 +143,7 @@ namespace testing
                 { 
                     Move.Execute();
                     Best = Math.Min(EvaluateTurn(Map, Depth - 1, Alpha, Beta, true), Best);
-                    Move.Undo = true;
+                    Move.Undo = true; //Since we are simulating every possible move, we need to undo the theoretical moves
                     Move.Execute();
                     Move.Undo = false;
                    
@@ -136,6 +154,11 @@ namespace testing
             }
             return Best;
         }
+        /// <summary>
+        /// Evaluate the current theoretical board
+        /// </summary>
+        /// <param name="Grid">The current theoretical board</param>
+        /// <returns>The value of the board</returns>
         public double EvaluateBoard(Tile[,] Grid)
         {
             const int HpValue = 7;
@@ -159,5 +182,6 @@ namespace testing
             }
             return Value;
         }
+        #endregion
     }
 }

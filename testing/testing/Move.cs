@@ -8,15 +8,29 @@ namespace testing
 {
     public class Move : Action
     {
-        public Tile Destination;
-        public Tile StartingSpot;
-        public Attack Attack = null;
-        public Heal Heal = null;
+        #region Data
+        public Tile Destination; //The tile the unit starts on
+        public Tile StartingSpot; //The tile the unit goes to
+        public Attack Attack = null; //The attack the unit is performing
+        public Heal Heal = null; //The heal the unit is performing
+        #endregion
+        #region CTOR
+        /// <summary>
+        /// CTOR
+        /// </summary>
+        /// <param name="Source">To initialize the variable with the same name</param>
+        /// <param name="Destination">To initialize the variable with the same name</param>
+        /// <param name="Undo">To initialize the variable with the same name</param>
         public Move(Unit Source, Tile Destination, bool Undo) : base(Source, null, Undo)
         {
             this.Destination = Destination;
             this.StartingSpot = Source.Tile;
         }
+        #endregion
+        #region Functions
+        /// <summary>
+        /// Executes the heal and the attack if possible
+        /// </summary>
         public void HealAttackExecute()
         {
             if (!Undo)
@@ -48,6 +62,9 @@ namespace testing
                 }
             }
         }
+        /// <summary>
+        /// Executes the move
+        /// </summary>
         public void Execute()
         {
             if (!Undo)
@@ -65,10 +82,6 @@ namespace testing
                 StartingSpot.Unit = Source;
             }
         }
-        public override string ToString()
-        {
-            return $"Undo?: {Undo} Source: {Source.ToString()} Player: {Source.Player}" +
-                $" Target: {Destination.ToString()}" + (Attack == null ? "Null" : Attack.ToString());
-        }
+        #endregion
     }
 }

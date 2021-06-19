@@ -17,32 +17,32 @@ namespace testing
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch SpriteBatch;
-        SpriteFont SpriteFont;
-        KeyboardState LastKey;
-        enum GameStates { MODE, SELECT, MOVE, ACTION,Victory };
+        GraphicsDeviceManager graphics; //Used to initialize and control the presentation of the graphics device.
+        SpriteBatch SpriteBatch; //Helper class for drawing text strings and sprites
+        SpriteFont SpriteFont; //Represents a font texture
+        KeyboardState LastKey; //The last key pressed. Used to make the game annoying (:
         bool Pvp;
-        GameStates StateGame = GameStates.MODE;
-        TeamData Data;
-        Unit ActiveUnit, LeaderTeam0, LeaderTeam1;
-        Attack Attack;
-        Heal Heal;
-        Move Move;
-        ComputerPlayer ComputerPlayer;
-        public static DrawText DrawText = new DrawText();
-        DrawPortrait PortraitDraw = new DrawPortrait();
-        public static TmxMap TmxMap { get; set; }
-        public static Tile[,] Grid;
-        public static bool Turn = true;
-        Map Map;
-        Texture2D TileSet, Highlight, Cursor,Background;
-        bool WalkOrAttack = true;
-        double Timer = 0;
-        public static int TileWidth;
-        public static int TilesetTilesWide;
-        public static List<Unit> Units = new List<Unit>();
-        public static Tile Chosen;
+        enum GameStates { MODE, SELECT, MOVE, ACTION,VICTORY }; //The states of the game
+        GameStates StateGame = GameStates.MODE; //The current state of the game
+        TeamData Data; //The stats of the units
+        Unit ActiveUnit, LeaderTeam0, LeaderTeam1; //The current unit, Ephraim and Eirika
+        Attack Attack; //Attack to be executed
+        Heal Heal; //Heal to be executed
+        Move Move; //Move to be executed
+        ComputerPlayer ComputerPlayer; //The computer player
+        public static DrawText DrawText = new DrawText(); //To draw the HP in the portrait view
+        DrawPortrait DrawPortrait = new DrawPortrait(); //To draw the portrait view
+        public static TmxMap TmxMap { get; set; } //From TiledSharp
+        public static Tile[,] Grid; //The board
+        public static bool Turn = true; //Who's turn is it. True - Player 1, False - Player 2
+        Map Map; //The map for drawing purpose
+        Texture2D TileSet, Highlight, Cursor,Background;//The tileset, the possible moves highlighter, the cursor and the background
+        bool WalkOrAttack = true; //Walking or attacking, for the BFS. True - Walking, False - Attacking
+        double Timer = 0; //To draw the highlight
+        public static int TileWidth; //32
+        public static int TilesetTilesWide; //The amount of tiles in a row of the tileset
+        public static List<Unit> Units = new List<Unit>(); //The units
+        public static Tile Chosen; //Current tile chosen
 
         public Game1()
         {
@@ -118,15 +118,10 @@ namespace testing
             Chosen = LeaderTeam1.Tile;
             Map = new Map(TmxMap, Grid, Units, TileSet);
             DrawText.Initialize(SpriteBatch, SpriteFont);
-            PortraitDraw.Initialize(SpriteBatch, Content);
+            DrawPortrait.Initialize(SpriteBatch, Content);
             ComputerPlayer = new ComputerPlayer();
 
         }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
@@ -240,6 +235,7 @@ namespace testing
                         }
                         else
                         {
+                            this.Window.Title = "Computing...";
                             ComputerPlayer.MakeTurn(Map, 1);
                         }
                         StateGame = CheckAndDrawWinner();
@@ -251,8 +247,7 @@ namespace testing
 
                 }
             }
-            //this.Window.Title = $"Turn: {Turn}";
-            this.Window.Title = graphics.PreferredBackBufferWidth + "X" + graphics.PreferredBackBufferHeight;
+            this.Window.Title = $"Water Emblem Player {(Turn?1:2)}'s Turn";
             LastKey = Keyboard.GetState();
             base.Update(gameTime);
         }
@@ -269,7 +264,7 @@ namespace testing
                 else
                     Background = Content.Load<Texture2D>("Player2Win"); 
             }
-            return GameStates.Victory;
+            return GameStates.VICTORY;
         }
         /// <summary>
         /// Where the Chosen tile should go
@@ -301,7 +296,7 @@ namespace testing
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             SpriteBatch.Begin();
-            if (StateGame == GameStates.MODE||StateGame==GameStates.Victory)
+            if (StateGame == GameStates.MODE||StateGame==GameStates.VICTORY)
             {
                 SpriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
             }
@@ -314,9 +309,9 @@ namespace testing
                 {
                     if (Chosen.Unit != ActiveUnit && Chosen.Unit != null)
                     {
-                        PortraitDraw.Draw(Chosen.Unit, false);
+                        DrawPortrait.Draw(Chosen.Unit, false);
                     }
-                    PortraitDraw.Draw(ActiveUnit, true);
+                    DrawPortrait.Draw(ActiveUnit, true);
                     Rectangle source = new Rectangle((int)Timer
                                                 % 16 * TileWidth,
                                                 0, TileWidth, TileWidth);

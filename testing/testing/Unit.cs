@@ -13,6 +13,7 @@ namespace testing
 {
     public class Unit
     {
+        #region Data
         /// <summary>
         /// The Tile where this unit is
         /// </summary>
@@ -60,6 +61,8 @@ namespace testing
         /// The animation manager for this unit
         /// </summary>
         public AnimationManager Manager;
+        #endregion
+        #region CTOR
         /// <summary>
         /// Constructor
         /// </summary>
@@ -75,6 +78,7 @@ namespace testing
 
 
         }
+        #endregion
         /// <summary>
         /// Standart ToString function
         /// </summary>

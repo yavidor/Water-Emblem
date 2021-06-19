@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace testing
-{
-    [Serializable]
+{ 
     public struct AnimationManager
     {
         /// <summary>

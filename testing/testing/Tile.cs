@@ -37,8 +37,9 @@ namespace testing
         /// </summary>
         public Unit Unit;
         #endregion
+        #region CTOR
         /// <summary>
-        /// Constructor
+        /// CTOR
         /// </summary>
         /// <param name="Index">index of the tile in the tilset</param>
         /// <param name="TileCount">flat index of the tile in the grid</param>
@@ -58,10 +59,8 @@ namespace testing
             this.Rec = new Rectangle(Game1.TileWidth * Col, Game1.TileWidth * Row,
                 Game1.TileWidth, Game1.TileWidth);
         }
-        public string ToString()
-        {
-            return "col: " + Col + " row: " + Row + " x:" + X + " y:" + Y;
-        }
+        #endregion
+        #region Functions
         /// <summary>
         /// Fills the list of neighbors
         /// </summary>
@@ -84,5 +83,6 @@ namespace testing
                 this.Neighbors.Add(Game1.Grid[this.X, this.Y - 1]);
             }
         }
+        #endregion
     }
 }

@@ -11,20 +11,38 @@ namespace testing
 {
     public class DrawPortrait
     {
-        private const int X = 40;
-        private const int Y = 34;
-        private const int xText = 128;
-        private const float Opacity = 0.75f;
-        private int OtherSide;
-        private SpriteBatch spriteBatch;
-        private ContentManager Content;
+        #region Data
+        private const int X = 40; //Where to draw the portrait
+        private const int Y = 34; //Where to draw the portrait
+        private const int xText = 128; //Where to draw the text
+        private const float Opacity = 0.75f; //How clear the portrait view will be
+        private int OtherSide; //Where to draw the other portrait view
+        private SpriteBatch spriteBatch; //Helper class for drawing text strings and sprites
+        private ContentManager Content; //Content Manager
+        #endregion
+        #region CTOR
+        /// <summary>
+        /// CTOR. Empty
+        /// </summary>
         public DrawPortrait() { }
+        #endregion
+        #region Functions
+        /// <summary>
+        /// The actual constructor to be honest.
+        /// </summary>
+        /// <param name="spriteBatch">To initialize the variable with the same name</param>
+        /// <param name="Content">To initialize the variable with the same name</param>
         public void Initialize(SpriteBatch spriteBatch, ContentManager Content)
         {
             this.spriteBatch = spriteBatch;
             this.Content = Content;
             this.OtherSide = (Game1.TmxMap.Height-3) * (Game1.TileWidth);
         }
+        /// <summary>
+        /// Drawing the portrait view
+        /// </summary>
+        /// <param name="unit">The unit to draw the portrait of</param>
+        /// <param name="isActive">True - the main portrait, False - the secondary portrait</param>
         public void Draw(Unit unit, bool isActive)
         {
             if (isActive)
@@ -47,5 +65,6 @@ namespace testing
                        , new Vector2(0,OtherSide+Game1.TileWidth), Color.White);
             }
         }
+        #endregion
     }
 }
