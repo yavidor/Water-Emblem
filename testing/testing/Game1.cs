@@ -228,19 +228,22 @@ namespace testing
                             ActiveUnit.Manager.PauseOrPlay();
                             ActiveUnit = null;
                         }
-                        if (Pvp)
-                        {
-                            Turn = !Turn;
-
-                        }
-                        else
-                        {
-                            this.Window.Title = "Computing...";
-                            ComputerPlayer.MakeTurn(Map, 1);
-                        }
                         StateGame = CheckAndDrawWinner();
                         if (StateGame == GameStates.SELECT)
-                        Chosen = TileNextTurn(Turn);
+                        {
+                            if (Pvp)
+                            {
+                                Turn = !Turn;
+
+                            }
+                            else
+                            {
+                                this.Window.Title = "Computing...";
+                                ComputerPlayer.MakeTurn(Map, 1);
+                            }
+
+                            Chosen = TileNextTurn(Turn);
+                        }
                         break;
                     default:
                         break;
