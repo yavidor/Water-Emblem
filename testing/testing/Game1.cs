@@ -240,6 +240,11 @@ namespace testing
                             {
                                 this.Window.Title = "Computing...";
                                 ComputerPlayer.MakeTurn(Map, 1);
+                                StateGame = CheckAndDrawWinner();
+                                if (StateGame == GameStates.VICTORY)
+                                {
+                                    break;
+                                }
                             }
 
                             Chosen = TileNextTurn(Turn);
@@ -256,8 +261,8 @@ namespace testing
         }
         private GameStates CheckAndDrawWinner()
         {
-            bool Player1Alive = Units.Any(unit => unit.Player);
-            bool Player2Alive = Units.Any(unit => !unit.Player);
+            bool Player1Alive = Units.Any(unit => unit.Player == true);
+            bool Player2Alive = Units.Any(unit => unit.Player == false);
             if (Player1Alive && Player2Alive)
                 return GameStates.SELECT;
             else
