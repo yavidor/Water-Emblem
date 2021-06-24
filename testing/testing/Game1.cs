@@ -240,7 +240,11 @@ namespace testing
                             {
                                 this.Window.Title = "Computing...";
                                 ComputerPlayer.MakeTurn(Map, 1);
-                                
+                                StateGame = CheckAndDrawWinner();
+                                if (StateGame == GameStates.VICTORY)
+                                {
+                                    break;
+                                }
                             }
 
                             Chosen = TileNextTurn(Turn);
